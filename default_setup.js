@@ -10,6 +10,13 @@ function readFile(filePath, callback) {
 	xmlhttp.send();
 }
 
-$(document).ready(function() {
-	
+function appendToBody(htmlFile) {
+	readFile(htmlFile, function(html) { 
+		$('body').append(html) 
+	});
 }
+
+$(document).ready(function() {
+	appendToBody('templates/header.html');
+	appendToBody('templates/footerchat.html');
+});
