@@ -4,20 +4,52 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>SELF</title>
 
-        <link rel="stylesheet" type="text/css" href="home.css" />
+        <link rel="stylesheet" type="text/css" href="creategame.css" />
 
         <!-- Load any supplemental Javascript libraries here -->
-        <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
-        <script type="text/javascript" src="home.js"></script>
+        <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="creategame.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
             }
         </script>
-
     </head>
 
     <body>
+        <div id="create-modal">
+            <div id="create-header">
+                <div id="header-title">Create a New Game</div>
+                <button class="close"></button>
+            </div>
+            <div id="contents">
+                <div id="switch-wrapper" class="switch-wrapper">
+                    <input type="checkbox" value="1" checked>
+                </div>
+                <div id="left-container" style="height:100px;overflow:auto;">
+                    <table id="friends-table">
+                        <tr>
+                            <th>Friends:</th>
+                        </tr>
+                        <tr><td>Tralala</td><td><button>Invite me</button></td></tr>
+                        <tr><td>Tralala2</td><td><button>Invite me</button></td></tr>
+                    </table>
+                </div>
+                <div id="right-container" style="height:100px;overflow:auto;">
+                    <table id="maps-table">
+                        <tr>
+                            <th>Select a Map:</th>
+                        </tr>
+                        <tr><td><div>Tralala</div></td></tr>
+                        <tr><td><div>Tralala2</div></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div id="buttons-container">
+                <button id="cancelButton">Cancel</button>
+                <button id="startButton">Start</button>
+            </div>
+        </div>
 
     </body>
 
