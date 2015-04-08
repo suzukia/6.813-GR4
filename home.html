@@ -4,22 +4,23 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>SELF</title>
 
-        <link rel="stylesheet" type="text/css" href="home.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="home.css" /> -->
 
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
-        <script type="text/javascript" src="home.js"></script>
+        <script type="text/javascript" src="default_setup.js"></script>
+        <!-- // <script type="text/javascript" src="home.js"></script> -->
 
         <script type="text/javascript">
-            $(document).ready(function() {
-            }
+            // $(document).ready(function() {
+            // }
         </script>
 
     </head>
 
     <body>
-        <td id="title" class="home_page"> Welcome to SELF </td><tr>
-        <td id="content">
+        <div id="header"></div>
+        <div id="content">
             <div id="container_buttons">
                 <tr><td><input id="NewGame" type="button" name="new" value="New Game"/></td><td><input id="ChooseForMe" type="button" name="new" value="Choose For Me"/></td></tr>
             </div>
@@ -28,11 +29,7 @@
                 <tr><td id = "game"> Amazon Rainforest </td><td><input id="join" type="button" name="new" value="Join"/></td></tr>
                 <tr><td id = "game"> The Human Body </td><td><input id="join" type="button" name="new" value="Join"/></td></tr>
             </div>
-        </td>
-
-    </tr>
-
-   </table>
+        </div>
+        <div id="footer"></div>
     </body>
-
 </html>
