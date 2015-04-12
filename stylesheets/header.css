@@ -1,0 +1,27 @@
+.container {
+    height: 100px;
+    border: 1px solid black;
+    position: relative;
+}
+
+div#navbar-title {
+	border : 1px solid #000000;
+	width: 50%;
+	height: 300 px;
+	float: left;
+	position: absolute;
+}
+
+div#navbar-button-one {
+	border : 1px solid #000000;
+	margin-right: 200px;
+	float: right;
+	width:10%;
+}
+
+div#navbar-button-two {
+	border : 1px solid #000000;
+	margin-right: 200px;
+	float: right;
+	width:10%;
+}
