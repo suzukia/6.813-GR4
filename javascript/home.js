@@ -1,3 +1,7 @@
 $(document).ready(function() {
- $('#navbar-title').text("This is Home");
+ //$('#navbar-title').text("Welcome, Erik");
+ $('#navbar-title').append($( "h2" ))
+ $('#navbar-button-one').append($( "#friendRequests" ));
+ $('#navbar-button-one').append($( "#gameInvitations" ));
 });
+

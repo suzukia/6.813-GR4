@@ -1,0 +1,8 @@
+#content{
+	position:relative;
+	width:400px;
+	height:auto;
+	border-collapse:collapse;
+	padding:0px;
+	table-layout:fixed;
+}

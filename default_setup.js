@@ -20,7 +20,7 @@ var appendStringToDiv = function (stringhtml, divId) {
 	$('#'+divId).append(stringhtml);
 }
 
-var headerString = '<div id="navbar-header"><div id="navbar-title">[Navbar Title]</div><div id="navbar-buttons"></div></div>';
+var headerString = '<div id="navbar-header"><div id="navbar-title"></div><div id="navbar-button-one"></div><div id="navbar-button-two"></div></div>';
 
 var footerString = '<div id="navbar-footer"><div id="chatbox"></div><div id="chattabs"></div></div>';
 
