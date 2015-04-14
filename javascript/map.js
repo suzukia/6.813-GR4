@@ -1,4 +1,4 @@
-function BasicGameMap(w, h, map, milestones) {
+function BasicGameMap(w, h, bgColor, bgImgPath, milestones) {
 
   var map_grid = {
     width:  w,
@@ -18,51 +18,65 @@ function BasicGameMap(w, h, map, milestones) {
     // Start crafty and set a background color so that we can see it's working
     Crafty.init(w, h, stage);
     Crafty.canvas.init();
-    Crafty.background(bgColor);
+    Crafty.background(bgColor + " url(" + bgImgPath + ") no-repeat center center");
 
     var ctx = Crafty.canvas.context;
 
     // draw all milestone componenets and
     // add extra componenets to the screen
-
-    Crafty.e('Milestone')
-    .attr({
-      x: 2 * tileSize.width,
-      y: 2 * tileSize.height,
-      w: diameter,
-      h: diameter
-    }).drawStone();
+    milestones.forEach(function(milestone) {
+      Crafty.c('Milestone', milestone.milestoneDrawing());
+      Crafty.e('Milestone')
+      .attr({
+        x: 2 * tileSize.width,
+        y: 2 * tileSize.height,
+        w: milestone.w,
+        h: milestone.h
+      }).drawStone();
+    });
  
  }
 
  return this;
 }
 
-function Milestone(incompleteColor, completeColor, ctx) {
-	var c = incompleteColor;
+function Milestone(x_coord, y_coord, width, height, incompleteColor, completeColor, ctx) {
 
-	this.init = function() {
-    this.requires("2D, DOM, Mouse");
-    this.bind('Click', function(MouseEvent) {
-		this.drawCompletedStone();
-	});
+  this.x = x_coord;
+  this.y = y_coord;
+  this.w = width;
+  this.h = height;
+
+  this.milestoneDrawing = function() {
+  	var c = incompleteColor;
+
+  	this.init = function() {
+      this.requires("2D, DOM, Mouse");
+      this.bind('Click', function(MouseEvent) {
+  		this.drawCompletedStone();
+  	});
+      return this;
+    }
+
+    this.drawStone = function() {
+      ctx.beginPath();
+    	ctx.arc(this.x, this.y, Math.min(this.w, this.h)/2, 0, 2 * Math.PI);
+    	ctx.fillStyle = c;
+    	ctx.fill();
+    	ctx.stroke();
+      return this;
+    }
+
+    this.drawCompletedStone = function() {
+    	c = completeColor;
+    	this.drawStone();
+    	return this;
+    }
+
     return this;
-  }
-
-  this.drawStone = function() {
-    ctx.beginPath();
-  	ctx.arc(this._x + this._w/2, this._y + this._h/2, Math.min(this._w, this.h)/2, 0, 2 * Math.PI);
-  	ctx.fillStyle = c;
-  	ctx.fill();
-  	ctx.stroke();
-    return this;
-  }
-
-  this.drawCompletedStone = function() {
-  	c = completeColor;
-  	this.drawStone();
-  	return this;
   }
 
   return this;
 }
+
+Milestone
