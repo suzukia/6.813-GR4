@@ -35,6 +35,8 @@ CSS:
 http://www.w3schools.com/html/html_layout.asp
 http://www.w3schools.com/css/css_border.asp
 http://www.w3schools.com/cssref/pr_font_weight.asp
+http://www.w3schools.com/css/css_align.asp
+http://jsfiddle.net/6DtSS/5/
 
 Javascript:
 http://stackoverflow.com/questions/15741006/adding-div-element-to-body-or-document-in-javascript
