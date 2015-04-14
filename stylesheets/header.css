@@ -1,15 +1,31 @@
-.container {
+/*.container {
     height: 100px;
     border: 1px solid black;
     position: relative;
+}*/
+
+#navbar-header {
+	width: 100%;
+	border : 1px solid #000000;
+	height: 10%;
+	overflow:hidden;
+}
+
+#welcome {
+	/*font-size: 32px;*/
+	color: red;
 }
 
 div#navbar-title {
-	border : 1px solid #000000;
-	width: 50%;
-	height: 300 px;
+	/*border : 1px solid #000000;*/
+	/*display: block;*/
+
 	float: left;
-	position: absolute;
+	padding:5px;
+	/*min-height: 100% !important;*/
+  height: 100%;
+
+	/*position: absolute;*/
 }
 
 div#navbar-button-one {
@@ -25,3 +41,10 @@ div#navbar-button-two {
 	float: right;
 	width:10%;
 }
+
+div#navbar-buttons {
+	float: right;
+	width: auto;
+	height: 100%;
+}
+
