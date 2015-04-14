@@ -4,21 +4,27 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>SELF</title>
 
-        <link rel="stylesheet" type="text/css" href="home.css" />
-
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
-        <script type="text/javascript" src="home.js"></script>
+        <script type="text/javascript" src="external_js/crafty/crafty.js"></script>
+        <script type="text/javascript" src="external_js/crafty/crafty-min.js"></script>
+        <script type="text/javascript" src="external_js/jsDraw2DX/jsDraw2DX.js"></script>
+        <script type="text/javascript" src="javascript/map.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
-            }
-        </script>
+                var width  = $(document).width(),
+                    height = $(document).height();
 
+                var game = new Game(width, height, 20);
+                game.start($('#game_map')[0]);
+            });
+        </script>
     </head>
 
     <body>
-
+        <div id="game_map"></div>
+        <div id="game_navbar"></div>
     </body>
 
 </html>
