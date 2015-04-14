@@ -7,20 +7,10 @@
 	table-layout:fixed;
 }
 
-#friendRequests {
-/*  display:inline;
-  background-image: url(images/button/add-friend.png) 3px 5px no-repeat;
-  width:20%;
-  height: 100%;
-  background-size: 100% 100%;*/
-  /*width:auto;*/
-  /*height:100%;*/
-  /*height: 35px;*/
+.dropdownElements {
+  padding:5px;
 }
 
-#gameInvitations {
-  display:inline;
-  width:auto;
-  height:100%;
+.centerAlign {
+  text-align:center;
 }
-

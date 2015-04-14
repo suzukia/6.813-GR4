@@ -15,6 +15,7 @@ http://stackoverflow.com/questions/13152927/how-to-use-radio-on-change-event
 http://stackoverflow.com/questions/3334935/checked-true-not-working-with-jquery-function
 http://stackoverflow.com/questions/4711036/assign-an-initial-value-to-radio-button-as-checked
 http://stackoverflow.com/questions/13152927/how-to-use-radio-on-change-event
+http://forums.asp.net/t/2018632.aspx?To+select+the+radio+button+when+the+Table+row+is+clicked
 
 
 http://stackoverflow.com/questions/1051782/jquery-this-vs-this
@@ -28,6 +29,9 @@ HTML:
 http://www.w3schools.com/html/html_tables.asp
 http://stackoverflow.com/questions/11152327/how-to-make-html-table-vertically-scrollable
 http://stackoverflow.com/questions/18479570/how-to-center-a-set-of-html-radio-buttons-in-a-fieldset-with-div
+http://stackoverflow.com/questions/11404545/adding-background-image-to-button-using-css-jsfiddle
+http://stackoverflow.com/questions/9507774/how-to-make-background-image-shrink-proportionally-to-fit-button-size-in-javascr
+http://stackoverflow.com/questions/7260490/image-and-text-inside-of-a-tag
 
 http://www.w3schools.com/tags/att_td_width.asp
 
@@ -37,6 +41,12 @@ http://www.w3schools.com/css/css_border.asp
 http://www.w3schools.com/cssref/pr_font_weight.asp
 http://www.w3schools.com/css/css_align.asp
 http://jsfiddle.net/6DtSS/5/
+http://stackoverflow.com/questions/12721605/child-div-expanding-out-of-parent-div-issue
+http://stackoverflow.com/questions/1057574/html-td-wrap-text
+http://designshack.net/articles/css/whats-the-deal-with-display-inline-block/
+http://stackoverflow.com/questions/21722432/center-aligning-buttons-inside-div-dynamically
+
+
 
 Javascript:
 http://stackoverflow.com/questions/15741006/adding-div-element-to-body-or-document-in-javascript
@@ -44,6 +54,9 @@ http://stackoverflow.com/questions/18226598/how-to-add-a-button-dynamically-usin
 
 Bootstrap:
 http://getbootstrap.com/css/
+http://getbootstrap.com/javascript/
+http://getbootstrap.com/javascript/#modals
+http://getbootstrap.com/components/
 http://getbootstrap.com/getting-started/
 http://getbootstrap.com/javascript/ (modals)
 http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-modals.php
@@ -54,3 +67,17 @@ http://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 
 http://www.w3schools.com/bootstrap/bootstrap_tables.asp
 http://stackoverflow.com/questions/15643037/how-do-i-change-the-hover-over-color-for-a-hover-over-table-in-bootstrap
+https://bootstrapbay.com/blog/bootstrap-button-styles/
+
+
+Grids:
+http://www.w3schools.com/bootstrap/bootstrap_grid_examples.asp
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_grid_ex2&stacked=h
+http://getbootstrap.com/2.3.2/scaffolding.html
+
+Navbar:
+http://getbootstrap.com/components/#navbar
+http://getbootstrap.com/examples/navbar-fixed-top/#contact
+http://www.w3schools.com/bootstrap/bootstrap_case_navigation.asp
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_case_navbar&stacked=h
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_case_navbar3&stacked=h
