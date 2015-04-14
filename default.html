@@ -4,24 +4,28 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>SELF</title>
 
-        <link rel="stylesheet" type="text/css" href="home.css" />
-
         <!-- Load any supplemental Javascript libraries here -->
 
         <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="external_js/easeljs-0.8.0/lib/easeljs-0.8.0.combined.js"></script>
+        <script type="text/javascript" src="javascript/sketchpad.js"></script>
         <script type="text/javascript" src="javascript/map.js"></script>
 
         <script type="text/javascript">
-            $(document).load(function() {
-                var gm = new GameMap(window.width, window.height, '#FFFFFF', 'images/map/GR4.png', []);
-                gm.start();
+        console.log("joking");
+            $(document).ready(function() {
+                // var gm = new GameMap(window.width, window.height, '#FFFFFF', 'images/map/GR4.png', []);
+                // gm.start();
+                console.log("hello");
+                var sp = new SketchPad("canvas-test");
+                sp.init(0);
             })
         </script>
 
     </head>
 
     <body>
-
+        <canvas id="canvas-test" height="300" width="300"></canvas>
     </body>
 
 </html>
