@@ -1,4 +1,9 @@
-function BasicGameMap(w, h, bgColor, bgImgPath, milestones) {
+/*
+ * Represents the visual and interactive map for the player
+ */
+function GameMap(w, h, bgColor, bgImgPath, milestones) {
+
+  console.log(w);
 
   var map_grid = {
     width:  w,
@@ -42,10 +47,10 @@ function BasicGameMap(w, h, bgColor, bgImgPath, milestones) {
 
 function Milestone(x_coord, y_coord, width, height, incompleteColor, completeColor, ctx) {
 
-  this.x = x_coord;
-  this.y = y_coord;
-  this.w = width;
-  this.h = height;
+  this._x = x_coord;
+  this._y = y_coord;
+  this._w = width;
+  this._h = height;
 
   this.milestoneDrawing = function() {
   	var c = incompleteColor;
@@ -53,12 +58,11 @@ function Milestone(x_coord, y_coord, width, height, incompleteColor, completeCol
   	this.init = function() {
       this.requires("2D, DOM, Mouse");
       this.bind('Click', function(MouseEvent) {
-  		this.drawCompletedStone();
   	});
       return this;
     }
 
-    this.drawStone = function() {
+    this._drawStone = function() {
       ctx.beginPath();
     	ctx.arc(this.x, this.y, Math.min(this.w, this.h)/2, 0, 2 * Math.PI);
     	ctx.fillStyle = c;
@@ -67,9 +71,9 @@ function Milestone(x_coord, y_coord, width, height, incompleteColor, completeCol
       return this;
     }
 
-    this.drawCompletedStone = function() {
+    this._drawCompletedStone = function() {
     	c = completeColor;
-    	this.drawStone();
+    	this._drawStone();
     	return this;
     }
 
@@ -78,5 +82,3 @@ function Milestone(x_coord, y_coord, width, height, incompleteColor, completeCol
 
   return this;
 }
-
-Milestone
