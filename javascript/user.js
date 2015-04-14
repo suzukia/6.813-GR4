@@ -4,12 +4,13 @@
  * friends, and friendRequests 
  *
  * Constructor takes:
- * 		ident   => unique idnetifier of the user
+ * 		id      => unique idnetifier of the user
  * 		name    => String representing the unique username
  * 		friends => list of user ids
  *		fRequests => initial amount of friendRequests for a user
  */
-function User(ident, name, friends, fRequests) {
+function User(id, name, friends, fRequests) {
+	var friends = typeof friends !== 'undefined' ? friends : [];
 	var friendRequests = typeof fRequests !== 'undefined' ? fRequests : {};
 
 	function arrToDict(arr) {
@@ -30,6 +31,10 @@ function User(ident, name, friends, fRequests) {
 		}
 
 		return d;
+	}
+
+	function uniqueArr(arr) {
+		return dictToArr(arrToDict(arr));
 	}
 
 	function addFRequest(requester) {
@@ -59,9 +64,58 @@ function User(ident, name, friends, fRequests) {
 		return new User(id, name, friends, addFRequest(requester));
 	}
 
+	/*
+	 * Returns user with newly added friend
+	 * id => user identifier
+	 */
 	this.addFriend = function(id) {
 		return new User(id, name, newFriendship(id), friendRequests);
 	}
 
+	/*
+	 * Returns user's friends
+	 */
+	this.friends = function() {
+		return uniqueArr(friends);
+	}
+
+	/*
+	 * Returns user's friend requests
+	 */
+	this.friendRequests = function() {
+		return jQuery.extend(true, {}, friendRequests)
+	}
+
+	/* 
+	 * Returns user's name
+	 */
+	this.name = function() {
+		return name;
+	}
+
+	/*
+	 * Returns user's id
+	 */
+	this.id = function() {
+		return id;
+	}
+
+	this.toString = function() {
+		var fs = friends.length == 0 ? "No Friends" : friends;
+
+		return "id: " + id + ", name: " + name + ", friends: " + 
+				fs + ", friendRequests: " + JSON.stringify(friendRequests);
+	}
 }
+
+/******************** Test Seeded Data *****************/
+var Amy   = new User(0, "Amy");
+var Bob   = new User(1, "Bob");
+var Frank = new User(2, "Frank");
+var Elizabeth = new User(3, "Elizabeth");
+console.log({ "Amy" : Amy.id(), "Bob" : Bob.id() });
+var Eirik = new User(4, "Eirik", [Elizabeth.id(), Frank.id()], { "Amy" : Amy.id(), "Bob" : Bob.id() } );
+
+
+console.log(Eirik.toString());
 
