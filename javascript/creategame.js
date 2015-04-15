@@ -24,7 +24,7 @@ $(document).ready(function() {
 ///////// SET UP /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  $("#createModal").modal('show');
+  // $("#createModal").modal('show');
 
   // set up Radio buttons
   setUpRadioButtons("private");
@@ -67,6 +67,10 @@ $(document).ready(function() {
     // console.log("the one that is checked now");
     // console.log(radioValue);
     return false;
+  });
+
+  $('#startCreateButton').click(function(){
+    window.location = 'map.html'
   });
 
 });
