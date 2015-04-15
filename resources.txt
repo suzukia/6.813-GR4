@@ -74,6 +74,7 @@ Grids:
 http://www.w3schools.com/bootstrap/bootstrap_grid_examples.asp
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_grid_ex2&stacked=h
 http://getbootstrap.com/2.3.2/scaffolding.html
+http://stackoverflow.com/questions/19695784/how-can-i-make-bootstrap-columns-all-the-same-height
 
 Navbar:
 http://getbootstrap.com/components/#navbar
