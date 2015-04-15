@@ -59,10 +59,10 @@
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-                        <div class="centerAlign">Elizabeth Invited you to play the Solar System</div>
-                        <div class="centerAlign dropdownElements">
-                            <button class="btn btn-primary btn-xs">Join</button>
-                            <button class="btn btn-default btn-xs">Ignore</button>
+                        <div class="centerAlign elizabethRequest">Elizabeth Invited you to play the Solar System</div>
+                        <div class="centerAlign dropdownElements elizabethRequest">
+                            <button id="joinElizabethButton" class="btn btn-primary btn-xs">Join</button>
+                            <button id="ignoreElizabethButton" class="btn btn-default btn-xs">Ignore</button>
                         </div>
                       </ul>
                     </li>
@@ -80,8 +80,14 @@
                 <div class="col-lg-4 centerAlign firstRowCol" style="background-color:lavenderblush;">
                     <button id="chooseForMeButton" class="btn btn-default">Choose For Me</button>
                 </div>
-                <div class="col-lg-3 col-lg-offset-1 firstRowCol" style="background-color:lavenderblush;">
-                    <input type="text" class="form-control" placeholder="Search">
+                <div class="col-lg-3 col-lg-offset-1 firstRowCol form-inline centerAlign" style="background-color:lavenderblush;">
+                    <!-- <input type="text" class="form-control" placeholder="Search"> -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search For New Friends">
+                    </div>
+                    <button type="button" class="btn btn-primary" aria-label="search for new friends">
+                        <span class="glyphicon glyphicon-search" style="padding:2.6px;" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
             <br>
@@ -89,16 +95,16 @@
                 <div class="col-lg-8" style="background-color:lavender; padding:13px; overflow:auto; height:60%">
                     <div id="publicGamesHeader">Public Games</div>
                     <table class="table table-responsive" style="width:100%; background-color:white; table-layout: fixed; ">
-                        <tr><td class="friendName">Tralalaasdfasdfadsfasdfasdfasdfasdfasdfasdf</td><td class="tdRight"><button class="alignRight btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
+                        <tr><td class="friendName">Tralalaasdfasdfadsfasdfasdfasdfasdfasdfasdf</td><td class="tdRight"><button class="alignRight btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
 
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
-                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
+                        <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
                     </table>
                 </div>
                 <div class="col-lg-3 col-lg-offset-1 centerAlign" style="background-color:blue;">

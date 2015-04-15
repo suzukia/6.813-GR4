@@ -9,6 +9,10 @@ $(document).ready(function() {
       $("#createModal").modal('show');
     })
 
+    $("#chooseForMeButton").click(function(){
+      window.location = 'map.html';
+    })
+
     $("#AcceptAmyButton").click(function() {
       $(".amyRequest").hide();
     });
@@ -23,6 +27,19 @@ $(document).ready(function() {
 
     $("#IgnoreBobButton").click(function() {
       $(".bobRequest").hide();
+    });
+
+    $("#joinElizabethButton").click(function() {
+      $(".elizabethRequest").hide();
+      window.location = 'map.html';
+    });
+
+    $("#ignoreElizabethButton").click(function() {
+      $(".elizabethRequest").hide();
+    });
+
+    $(".join").click(function() {
+      window.location = 'map.html';
     });
 });
 

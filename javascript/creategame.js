@@ -71,6 +71,6 @@ $(document).ready(function() {
 
   $('#startCreateButton').click(function(){
     window.location = 'map.html'
-  })
+  });
 
 });
