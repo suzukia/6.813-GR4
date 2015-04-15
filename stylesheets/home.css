@@ -29,6 +29,7 @@
   float:left;
 }
 
-#publicGames {
-  font-size: 30px;
+#publicGamesHeader {
+  font-size: 20px;
+  color:red;
 }

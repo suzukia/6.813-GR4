@@ -14,8 +14,9 @@
         <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
         <script type="text/javascript" src="external_js/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
         <!-- // <script type="text/javascript" src="default_setup.js"></script> -->
+        <script type="text/javascript" src="javascript/universal.js"></script>
         <script type="text/javascript" src="javascript/home.js"></script>
-         <script type="text/javascript" src="javascript/creategame.js"></script>
+        <script type="text/javascript" src="javascript/creategame.js"></script>
 
         <!-- // <script type="text/javascript" src="javascript/header.js"></script> -->
 
@@ -40,30 +41,32 @@
                         <button class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="friendRequestsButton" style="height:50px; width:50px; background: url(images/button/add-friend.png) no-repeat center; background-size: 100% 100%; float:right;"></button>
                         <ul id="invitations" class="dropdown-menu" role="menu">
                             <li class="dropdownElements">
-                                <div class="centerAlign amyRequest">Amy wants to be your friend</div>
-                                <div class="centerAlign dropdownElements amyRequest">
-                                    <button id="AcceptAmyButton" class="btn btn-primary btn-xs">Accept</button>
-                                    <button id="IgnoreAmyButton" class="btn btn-default btn-xs">Ignore</button>
+                                <div class="centerAlign amyFriendRequest">Amy wants to be your friend</div>
+                                <div class="centerAlign dropdownElements amyFriendRequest">
+                                    <button id="AcceptAmyFriendButton" class="btn btn-primary btn-xs">Accept</button>
+                                    <button id="IgnoreAmyFriendButton" class="btn btn-default btn-xs">Ignore</button>
                                 </div>
-                                <li class="divider amyRequest"></li>
-                                <div class="centerAlign bobRequest">Bob wants to be your friend</div>
-                                <div class="centerAlign dropdownElements bobRequest">
-                                    <button id="AcceptBobButton" class="btn btn-primary btn-xs">Accept</button>
-                                    <button id="IgnoreBobButton" class="btn btn-default btn-xs">Ignore</button>
+                                <li class="divider amyFriendRequest"></li>
+                                <div class="centerAlign bobFriendRequest">Bob wants to be your friend</div>
+                                <div class="centerAlign dropdownElements bobFriendRequest">
+                                    <button id="AcceptBobFriendButton" class="btn btn-primary btn-xs">Accept</button>
+                                    <button id="IgnoreBobFriendButton" class="btn btn-default btn-xs">Ignore</button>
                                 </div>
-                                <li class="divider bobRequest"></li>
-                                <li class><a href="myfriends.html">View My Friends</a></li>
+                                <li class="divider bobFriendRequest"></li>
+                                <li class="centerAlign"><a id="toMyFriends" href="myfriends.html">View My Friends</a></li>
                             </li>
                         </ul>
                     </li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-                        <div class="centerAlign elizabethRequest">Elizabeth Invited you to play the Solar System</div>
-                        <div class="centerAlign dropdownElements elizabethRequest">
+                        <div class="centerAlign elizabethGameInvitation">Elizabeth Invited you to play the Solar System</div>
+                        <div class="centerAlign dropdownElements elizabethGameInvitation">
                             <button id="joinElizabethButton" class="btn btn-primary btn-xs">Join</button>
                             <button id="ignoreElizabethButton" class="btn btn-default btn-xs">Ignore</button>
                         </div>
+                        <li class="divider elizabethGameInvitation"></li>
+                        <li id="noGameInvitation" class="centerAlign">You have no game invitations</li>
                       </ul>
                     </li>
                 </ul>
@@ -92,8 +95,8 @@
             </div>
             <br>
             <div class="row secondRow">
-                <div class="col-lg-8" style="background-color:lavender; padding:13px; overflow:auto; height:60%">
-                    <div id="publicGamesHeader">Public Games</div>
+                <div class="col-lg-8" style="background-color:lavender; overflow:auto; height:60%; padding:15px;">
+                    <div id="publicGamesHeader" style="height:30px">Public Games</div>
                     <table class="table table-responsive" style="width:100%; background-color:white; table-layout: fixed; ">
                         <tr><td class="friendName">Tralalaasdfasdfadsfasdfasdfasdfasdfasdfasdf</td><td class="tdRight"><button class="alignRight btn btn-info btn-sm join">Join</button></td></tr>
                         <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
@@ -107,8 +110,14 @@
                         <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
                     </table>
                 </div>
-                <div class="col-lg-3 col-lg-offset-1 centerAlign" style="background-color:blue;">
-                    <button class="btn btn-default">New Game</button>
+                <div class="col-lg-3 col-lg-offset-1 centerAlign" id="friends-chat" style="background-color:blue; overflow:auto; height:60%; padding:15px">
+                    <!-- <button class="btn btn-default">New Game</button> -->
+                    <div style="height:30px"></div>
+                    <div class="panel panel-default" style="height:100%">
+                        <div class="panel-heading">Chat</div>
+                        <ul id="chatList" class="list-group">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -173,30 +182,19 @@
                             <div id="leftContainer">
                                 <div id="yourFriendsHeader">Your Friends</div>
                                 <table id="friendsTable" class="table table-striped table-condensed">
-                                    <tr><td class="friendName">Tralalaasdfasdfadsfasdfasdfasdfasdfasdfasdf</td><td><button class="alignRight btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
-                                    <tr><td>Tralala2</td><td><button class="btn btn-info btn-xs">Uninvite</button></td></tr>
                                 </table>
                             </div>
                             <div id="rightContainer">
                                 <div id="mapsHeader">Select a Map</div>
                                 <table id="mapsTable" class="table table-striped table-hover">
-                                    <tr><td><div>Tralala</div></td></tr>
-                                    <tr><td><div>Tralala2</div></td></tr>
-                                    <tr><td><div>Tralala</div></td></tr>
-                                    <tr><td><div>Tralala2</div></td></tr>
-                                    <tr><td><div>Tralala</div></td></tr>
-                                    <tr><td><div>Tralala2</div></td></tr>
-                                    <tr><td><div>Tralala</div></td></tr>
-                                    <tr><td><div>Tralala2</div></td></tr>
-
+                                    <tr><td><div class="mapRow">Tralala</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala2</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala2</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala2</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala</div></td></tr>
+                                    <tr><td><div class="mapRow">Tralala2</div></td></tr>
                                 </table>
                             </div>
                         </div>

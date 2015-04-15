@@ -32,10 +32,31 @@ $(document).ready(function() {
   var uncheckedButtonId;
 
   $("button").button();
-  console.log($("button"));
+  // console.log($("button"));
+
+  var invitedFriends = {};
 
 
-  var friendInvite = {"Bob": false, "Fred":false, "Julie":false};
+  window.resetFriendInviteList = function() {
+    $("#friendsTable").html('');
+    console.log(friends);
+    invitedFriends = {};
+    for (var i=0;i<friends.length;i++) {
+      $("#friendsTable").append('<tr><td class="friendName">'+friends[i]+'</td><td><button id="invite'+friends[i]+'Button" class="alignRight btn btn-info btn-xs">Invite</button></td></tr>');
+      $('#invite'+friends[i]+'Button').click(function() {
+        if (!invitedFriends[friends[i]]) {
+          invitedFriends[friends[i]] = true;
+          $(this).html('Uninvite');
+        }
+        else {
+          delete invitedFriends[friends[i]];
+          $(this).html('Invite');
+        }
+      });
+    }
+  }
+
+
 
 
 ////////// EVENT HANDLERS //////////////////////////////////////////////////////////////////////////////////////
@@ -69,8 +90,12 @@ $(document).ready(function() {
     return false;
   });
 
+
+
+
   $('#startCreateButton').click(function(){
-    window.location = 'map.html'
+    var playersList = invitedFriends.keys();
+    window.location = 'map.html'+getFriendsURL()+getPlayersURL(playerList);
   });
 
 });
