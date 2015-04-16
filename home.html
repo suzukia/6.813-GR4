@@ -7,8 +7,6 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/home.css" />
          <link rel="stylesheet" type="text/css" href="stylesheets/creategame.css" />
         <!-- <link rel="stylesheet" type="text/css" href="stylesheets/header.css" /> -->
-        <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/magic-bootstrap-min.css">
 
 
@@ -30,12 +28,14 @@
     </head>
 
 
-    <body>
+    <body class="home_body">
 
         <!-- navbar -->
         <nav class="navbar navbar-default container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" style="background-color:transparent">Welcome, Eirik</a>
+                    <ul class="nav navbar-nav">
+                        <li><a class="navbar-title">Welcome, Eirik</a></li>
+                    </ul>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <br>
-            <div class="row secondRow">
+            <!-- <div class="row secondRow">
                 <div class="col-lg-8" style="overflow:auto; height:60%; padding:15px;">
                     <div id="publicGamesHeader" style="height:30px">Public Games</div>
                     <table class="table table-responsive" style="width:100%; table-layout: fixed; ">
@@ -112,13 +112,53 @@
                 </div>
                 <div class="col-lg-3 col-lg-offset-1 centerAlign" id="friends-chat" style="overflow:auto; height:60%; padding:15px">
                     <!-- <button class="btn btn-default">New Game</button> -->
-                    <div style="height:30px"></div>
+                    <!--div style="height:30px"></div>
                     <div class="panel panel-default" style="height:100%">
                         <div class="panel-heading">Chat</div>
                         <ul id="chatList" class="list-group">
                         </ul>
                     </div>
+                </div> -->
+                <div class="row" id="friend-related-container">
+                <div class="col-md-offset-1 col-md-7">
+                    <div class="panel panel-default">
+                        <div class="title panel-heading">Public Games</div>
+                        <ul class="list-group" id="friends-list">
+                            <li class="list-group-item clearfix">Universal
+                                <button type="button" class="btn btn-info pull-right join">Join</button>
+                            </li>
+<!--
+                          <li class="list-group-item clearfix">Amy
+                            <button type="button" class="btn btn-primary pull-right" value="unfriend-amy">Unfriend</button>
+                          </li>
+
+                          <li class="list-group-item clearfix">Bob
+                            <button type="button" class="btn btn-primary pull-right" value="unfriend-bob">Unfriend</button>
+                          </li> -->
+
+                        </ul>
+                    </div>
                 </div>
+
+                <div class="col-md-offset-1 col-md-3">
+                    <div class="panel panel-default">
+                        <div class="title panel-heading">Chat</div>
+                        <ul class="list-group" id="friends-chat">
+<!--
+                          <li class="list-group-item" value="chat-amy">
+                            <img style="height:auto; width:auto; max-width:18px; max-height:18px;" hspace="1" src="images/chat/online.png">
+                            Amy
+                          </li>
+
+                          <li class="list-group-item" value="chat-amy">
+                            <img style="height:auto; width:auto; max-width:15px; max-height:15px;" hspace="2" src="images/chat/offline.png">
+                            Bob
+                          </li> -->
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
 

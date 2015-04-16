@@ -29,6 +29,10 @@
   float:left;
 }
 
+.home_body {
+  font-size: 20px;
+}
+
 #publicGamesHeader {
   font-size: 20px;
   color:black;
