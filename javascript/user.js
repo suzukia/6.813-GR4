@@ -113,9 +113,6 @@ var Amy   = new User(0, "Amy");
 var Bob   = new User(1, "Bob");
 var Frank = new User(2, "Frank");
 var Elizabeth = new User(3, "Elizabeth");
-console.log({ "Amy" : Amy.id(), "Bob" : Bob.id() });
 var Eirik = new User(4, "Eirik", [Elizabeth.id(), Frank.id()], { "Amy" : Amy.id(), "Bob" : Bob.id() } );
 
-
-console.log(Eirik.toString());
-
+var users = [Amy, Bob, Frank, Elizabeth, Eirik];
