@@ -23,6 +23,9 @@ http://stackoverflow.com/questions/4345427/jquery-set-and-get-href
 
 http://stackoverflow.com/questions/1051782/jquery-this-vs-this
 http://www.ssiddique.info/different-ways-to-add-row-to-a-table-using-jquery.html
+http://stackoverflow.com/questions/5580616/jquery-change-button-text
+https://forum.jquery.com/topic/change-contents-of-ul-with-jquery
+http://www.ssiddique.info/different-ways-to-add-row-to-a-table-using-jquery.html
 
 
 http://api.jquery.com/append/
@@ -68,6 +71,8 @@ http://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-st
 http://stackoverflow.com/questions/14332901/accessing-global-variable-from-other-js-file
 http://ziemecki.net/content/javascript-parsing-url-parameters
 http://stackoverflow.com/questions/5767325/remove-specific-element-from-an-array
+http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
+https://zenscript.wordpress.com/2013/11/23/how-to-pick-a-random-entry-out-of-an-array-javascript/
 
 Bootstrap:
 http://getbootstrap.com/css/
