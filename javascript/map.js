@@ -1,6 +1,9 @@
 /*
  * Represents the visual and interactive map for the player
  */
+
+
+
 function GameMap(w, h, bgColor, bgImgPath, milestones) {
 
   console.log(w);
@@ -13,11 +16,11 @@ function GameMap(w, h, bgColor, bgImgPath, milestones) {
   this.width = function() {
     return map_grid.width;
   }
- 
+
   this.height = function() {
     return map_grid.height;
   }
- 
+
   // Initialize and start our game
   this.start = function(stage) {
     // Start crafty and set a background color so that we can see it's working
@@ -39,7 +42,7 @@ function GameMap(w, h, bgColor, bgImgPath, milestones) {
         h: milestone.h
       }).drawStone();
     });
- 
+
  }
 
  return this;
@@ -82,3 +85,7 @@ function Milestone(x_coord, y_coord, width, height, incompleteColor, completeCol
 
   return this;
 }
+$(document).ready(function() {
+
+
+});
