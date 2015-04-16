@@ -9,6 +9,8 @@
         <!-- <link rel="stylesheet" type="text/css" href="stylesheets/header.css" /> -->
         <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="external_js/bootstrap-3.3.4-dist/css/magic-bootstrap-min.css">
+
 
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="external_js/jquery-2.1.3.min.js"></script>
@@ -31,10 +33,9 @@
     <body>
 
         <!-- navbar -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
+        <nav class="navbar navbar-default container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand">Welcome, Eirik</a>
+                    <a class="navbar-brand" style="background-color:transparent">Welcome, Eirik</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -71,19 +72,18 @@
                     </li>
                 </ul>
             </div>
-            </div>
         </nav>
 
         <!-- page content -->
         <div id="content" class="container-fluid">
             <div class="row firstRow">
-                <div class="col-lg-4 centerAlign firstRowCol" style="background-color:lavender;">
-                    <button id="newGameButton" class="btn btn-default">New Game</button>
+                <div class="col-lg-4 centerAlign firstRowCol">
+                    <button id="newGameButton" class="btn btn-primary">New Game</button>
                 </div>
-                <div class="col-lg-4 centerAlign firstRowCol" style="background-color:lavenderblush;">
-                    <button id="chooseForMeButton" class="btn btn-default">Choose For Me</button>
+                <div class="col-lg-4 centerAlign firstRowCol">
+                    <button id="chooseForMeButton" class="btn btn-primary">Choose For Me</button>
                 </div>
-                <div class="col-lg-3 col-lg-offset-1 firstRowCol form-inline centerAlign" style="background-color:lavenderblush;">
+                <div class="col-lg-3 col-lg-offset-1 firstRowCol form-inline centerAlign">
                     <!-- <input type="text" class="form-control" placeholder="Search"> -->
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search For New Friends">
@@ -95,9 +95,9 @@
             </div>
             <br>
             <div class="row secondRow">
-                <div class="col-lg-8" style="background-color:lavender; overflow:auto; height:60%; padding:15px;">
+                <div class="col-lg-8" style="overflow:auto; height:60%; padding:15px;">
                     <div id="publicGamesHeader" style="height:30px">Public Games</div>
-                    <table class="table table-responsive" style="width:100%; background-color:white; table-layout: fixed; ">
+                    <table class="table table-responsive" style="width:100%; table-layout: fixed; ">
                         <tr><td class="friendName">Tralalaasdfasdfadsfasdfasdfasdfasdfasdfasdf</td><td class="tdRight"><button class="alignRight btn btn-info btn-sm join">Join</button></td></tr>
                         <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
                         <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
@@ -110,7 +110,7 @@
                         <tr><td>Tralala2</td><td class="tdRight"><button class="btn btn-info btn-sm join">Join</button></td></tr>
                     </table>
                 </div>
-                <div class="col-lg-3 col-lg-offset-1 centerAlign" id="friends-chat" style="background-color:blue; overflow:auto; height:60%; padding:15px">
+                <div class="col-lg-3 col-lg-offset-1 centerAlign" id="friends-chat" style="overflow:auto; height:60%; padding:15px">
                     <!-- <button class="btn btn-default">New Game</button> -->
                     <div style="height:30px"></div>
                     <div class="panel panel-default" style="height:100%">
