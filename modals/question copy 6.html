@@ -1,0 +1,64 @@
+<html>
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <title>SELF</title>
+
+        <link rel="stylesheet" type="text/css" href="../stylehseets/question.css" />
+        <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
+
+        <!-- Load any supplemental Javascript libraries here -->
+        <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="../external_js/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../javascript/question.js"></script>
+        <script type="text/javascript" src="../external_js/easeljs-0.8.0/lib/easeljs-0.8.0.combined.js"></script>
+        <script type="text/javascript" src="../javascript/sketchpad.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                console.log("hello");
+                var sp = new SketchPad("canvas-test");
+                var sp2 = new SketchPad("canvas-test-2");
+                sp.init(0);
+                sp2.init(0);
+            })
+        </script>
+
+    </head>
+
+    <body>
+        <!-- modal html -->
+        <!-- <form id="createForm"> -->
+        <div id="createModal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id="createHeader" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 id="createTitle" class="modal-title">Q: Basic Solutions</h2>
+                    </div>
+                    <div id="createBody" class="modal-body">
+                        <div id="middleContainers">
+                            <div id="questionContainer">
+                                <div id="questionHeader">What is the pH of soap?</div>
+                                <table id="questionTable" class="table table-striped table-condensed">
+                                    <tr><td width = "5%"><button class="btn btn-info btn-xs">A</button></td><td width = "95%">7</td></tr>
+                                    <tr><td width = "5%"><button class="btn btn-info btn-xs">B</button></td><td width = "95%">8</td></tr>
+                                    <tr><td width = "5%"><button class="btn btn-info btn-xs">C</button></td><td width = "95%">9</td></tr>
+                                    <tr><td width = "5%"><button class="btn btn-info btn-xs">D</button></td><td width = "95%">10</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="featureContainer">
+                            <canvas id="canvas-test" height="300" width="500"></canvas>
+                            <!-- place chat box here; canvas-test-2 just a placeholder -->
+                            <canvas id="canvas-test-2" height="300" width="300"></canvas>
+                        </div>
+                    </div>
+                </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+        </div> <!-- createModal -->
+        <!-- </form> -->
+    </body>
+
+</html>
