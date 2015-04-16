@@ -16,9 +16,16 @@ http://stackoverflow.com/questions/3334935/checked-true-not-working-with-jquery-
 http://stackoverflow.com/questions/4711036/assign-an-initial-value-to-radio-button-as-checked
 http://stackoverflow.com/questions/13152927/how-to-use-radio-on-change-event
 http://forums.asp.net/t/2018632.aspx?To+select+the+radio+button+when+the+Table+row+is+clicked
+http://stackoverflow.com/questions/10172933/how-to-change-html-links-href-property-dynamically
 
+http://stackoverflow.com/questions/1145208/jquery-how-to-add-li-in-an-existing-ul
+http://stackoverflow.com/questions/4345427/jquery-set-and-get-href
 
 http://stackoverflow.com/questions/1051782/jquery-this-vs-this
+http://www.ssiddique.info/different-ways-to-add-row-to-a-table-using-jquery.html
+http://stackoverflow.com/questions/5580616/jquery-change-button-text
+https://forum.jquery.com/topic/change-contents-of-ul-with-jquery
+http://www.ssiddique.info/different-ways-to-add-row-to-a-table-using-jquery.html
 
 
 http://api.jquery.com/append/
@@ -33,6 +40,7 @@ http://stackoverflow.com/questions/11404545/adding-background-image-to-button-us
 http://stackoverflow.com/questions/9507774/how-to-make-background-image-shrink-proportionally-to-fit-button-size-in-javascr
 http://stackoverflow.com/questions/7260490/image-and-text-inside-of-a-tag
 
+
 http://www.w3schools.com/tags/att_td_width.asp
 
 CSS:
@@ -46,12 +54,25 @@ http://stackoverflow.com/questions/1057574/html-td-wrap-text
 http://designshack.net/articles/css/whats-the-deal-with-display-inline-block/
 http://stackoverflow.com/questions/21722432/center-aligning-buttons-inside-div-dynamically
 http://stackoverflow.com/questions/8847270/how-to-give-a-href-inside-the-button-tag-in-html
+http://stackoverflow.com/questions/19559197/how-to-make-scrollable-table-with-fixed-headers-using-css
 
 
 
 Javascript:
 http://stackoverflow.com/questions/15741006/adding-div-element-to-body-or-document-in-javascript
 http://stackoverflow.com/questions/18226598/how-to-add-a-button-dynamically-using-jquery
+http://stackoverflow.com/questions/10943635/how-do-i-pass-multiple-parameter-in-url
+http://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
+http://stackoverflow.com/questions/351409/appending-to-array
+http://www.w3schools.com/jsref/jsref_join.asp
+http://www.w3schools.com/jsref/jsref_sort.asp
+http://www.w3schools.com/jsref/jsref_slice_array.asp
+http://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string
+http://stackoverflow.com/questions/14332901/accessing-global-variable-from-other-js-file
+http://ziemecki.net/content/javascript-parsing-url-parameters
+http://stackoverflow.com/questions/5767325/remove-specific-element-from-an-array
+http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
+https://zenscript.wordpress.com/2013/11/23/how-to-pick-a-random-entry-out-of-an-array-javascript/
 
 Bootstrap:
 http://getbootstrap.com/css/
@@ -84,3 +105,4 @@ http://getbootstrap.com/examples/navbar-fixed-top/#contact
 http://www.w3schools.com/bootstrap/bootstrap_case_navigation.asp
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_case_navbar&stacked=h
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_case_navbar3&stacked=h
+http://stackoverflow.com/questions/28339119/bootstrap-table-wont-fill-container-width
