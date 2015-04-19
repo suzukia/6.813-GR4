@@ -1,0 +1,35 @@
+
+
+.klt-navbar {
+    background-color: yellow;
+
+}
+
+.container-fluid {
+    background-color: grey;
+}
+
+.left-header {
+    background-color: orange;
+}
+
+.right-header {
+    background-color: red;
+}
+
+.elements {
+    background-color: white;
+}
+
+.title {
+    background-color: pink;
+}
+
+#navbar-title {
+    color: black;
+}
+
+.icon {
+    color: black;
+}
+
