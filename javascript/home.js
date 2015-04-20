@@ -27,7 +27,8 @@ function configGameListing() {
         //     var gChildren = $($(this).children()[0]);
         //     gChildren.hide( "slide", { direction: "up" }, "fast" );
         // });
-        function giMouseover(){
+
+        game_info.mouseover(function() {
             var gChildren = $($(this).children()[0]);
             game_info.mouseover = undefined;
             gChildren.show( "slide", { direction: "down" }, function() {
