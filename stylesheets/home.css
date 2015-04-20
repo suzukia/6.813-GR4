@@ -36,12 +36,8 @@
 */
 .top-buffer { margin-top:20px; }
 
-#chat-bar {
-	position:absolute;
-	top:60;
-	right:0;
-	bottom:0;
-	padding-right: 0px;
+.extra_game_info {
+	display: none;
 }
 
 body, html {
