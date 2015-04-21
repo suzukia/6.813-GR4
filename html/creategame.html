@@ -35,7 +35,16 @@
                                     <input id="create-game-title" class="col-md-12"  placeholder="Enter a Game Title">
                                 </div>
                                 <div id="create-game-title-right" class="col-md-6">
-                                    <button id="choose-for-me" class="btn btn-primary col-md-offset-4 col-md-4" >Choose For Me</button>
+                                    <!-- <button id="choose-for-me" class="btn btn-primary col-md-offset-4 col-md-4" >Choose For Me</button> -->
+                                    <div id="buttonGroup" class="btn-group btn-toggl" data-toggle="buttons">
+                                        <label id="privateButtonLabel" name="private-public-label" class="btn">
+                                          <input id="privateButton" type="radio" name="private-public" value="Private"> Private
+                                        </label>
+                                        <label id="publicButtonLabel" name="private-public-label" class="btn">
+                                          <input id="publicButton" type="radio" name="private-public" value="Public"> Public
+                                        </label>
+                                        <!-- </form> -->
+                                    </div>
                                 </div>
                             </div>
                             <div id="create-lists" class="row">
