@@ -1,0 +1,37 @@
+#left-list {
+  padding-left: 0px;
+  padding-right: 5px;
+  /*margin:5px*/
+}
+
+#right-list {
+  padding-left: 5px;
+  padding-right: 0px;
+  /*margin:1px*/
+}
+
+#create-lists {
+  padding: 1px;
+}
+
+#game-title-row {
+  padding-bottom: 5px;
+}
+
+#create-game-title {
+  padding-right: 0px;
+  /*vertical-align: bottom;*/
+
+}
+
+#create-game-title-left {
+  padding-left: 0px;
+  padding-right:5px;
+  /*vertical-align: bottom;*/
+}
+
+#create-game-title-right {
+  padding-left: 5px;
+  padding-right:0px;
+  text-align: center;
+}
