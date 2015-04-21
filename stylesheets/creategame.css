@@ -1,0 +1,19 @@
+#left-list {
+  padding-left: 0px;
+  padding-right: 0px;
+  /*margin:5px*/
+}
+
+#right-list {
+  padding-left: 0px;
+  padding-right: 0px;
+  /*margin:1px*/
+}
+
+#create-lists {
+  padding: 1px;
+}
+
+#game-title-row {
+  padding: 5px;
+}
