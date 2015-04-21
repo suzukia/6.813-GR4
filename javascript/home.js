@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     $(window).resize(function() {
-        $('#friends').slimScroll({destroy: true});
+        friendsChat.slimScroll({destroy: true});
         configChat();
     });
 
@@ -20,22 +20,32 @@ function configChat() {
 function configGameListing() {
     var listing = $('.game_info');
 
+
     for (var i = 0; i < listing.length; i++) {
         var game_info = $(listing[i]);
+        game_info.addClass('glist-item'); // will not stay here with dynamic population
 
-        // game_info.mouseout(function() {
-        //     var gChildren = $($(this).children()[0]);
-        //     gChildren.hide( "slide", { direction: "up" }, "fast" );
-        // });
-
+        var t = true;
         game_info.mouseover(function() {
-            var gChildren = $($(this).children()[0]);
-            game_info.mouseover = undefined;
-            gChildren.show( "slide", { direction: "down" }, function() {
-                gChildren.mouseout(function() {
-                    gChildren.hide( "slide", { direction: "up" } );
+            var thisDiv = $(this);
+            var gMainChild = $(thisDiv.children()[0]);
+            var opened = function() { return thisDiv.attr('opened'); }
+            thisDiv.attr('opened', opened() == undefined || opened() == 'true' ? true : false);
+
+            if (thisDiv.attr('opened') == 'true') {
+                console.log("mouseover");
+                thisDiv.attr('opened', false);
+                gMainChild.show( "slide", { direction: "down" }, 400, function() {
+
+                    setTimeout(function() {
+                        gMainChild.mouseout(function() {
+                            gMainChild.hide( "slide", {direction: "up" }, 200, function() {
+                                thisDiv.attr('opened', true);
+                            });
+                        });
+                    }, 400);
                 });
-            });
+            }
         });
     };
 }

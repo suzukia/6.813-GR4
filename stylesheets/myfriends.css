@@ -1,0 +1,29 @@
+body, html {
+	overflow: hidden;
+}
+
+.klt-navbar {
+	font-size: 24px;
+}
+
+.myfriends_body {
+	font-size: 20px;
+}
+
+.title {
+	font-weight: bold;
+}
+
+.top-buffer { margin-top:20px; }
+
+.extra_game_info {
+	display: none;
+}
+
+#search-friends-btn-area {
+	padding: 0;
+}
+
+.flist-item {
+	font-size: 20px;
+}
