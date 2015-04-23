@@ -14,7 +14,7 @@ body, html {
     font-weight: bold;
 }
 
-.top-buffer { margin-top:20px; }
+.top-buffer { margin-top:5px; }
 
 .extra_game_info {
     display: none;

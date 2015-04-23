@@ -22,26 +22,23 @@ function configChat() {
 }
 
 function configFriendsList() {
-    var kltNavbar = $('.klt-navbar');
-    var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
+    var kltNavbar = $('.klt-navbar'),
+    	heightfromNav = 68;
+    var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10) + heightfromNav,
         bottom = kltNavbar.outerHeight();
 
-    // setupFriendsListStyle(top, bottom);
+    setupFriendsListStyle(top, bottom);
 }
 
 function setupFriendsListStyle(top, bottom) {
-	var chat = $('#chat-bar'),
+	var friendsCont = $('#friends-container'),
 		friends = $('#friends-list');
 
-	chat.css('position', 'absolute');
-	chat.css('top', top);
-	chat.css('bottom', bottom);
-	chat.css('right', 0);
-	chat.css('padding-right', 0);
-	chat.css('padding-top', 0);
+	friendsCont.css('max-height', $(window).height()-top-bottom);
+	friends.css('max-height', $(window).height()-top-bottom);
 
 	friends.slimScroll({
-        height: $(window).height()-top-bottom
+        height: $(window).height()-top-bottom-25
     });
 }
 
@@ -83,47 +80,6 @@ function addFriendToFriendList(name, pending) {
 	}
 
 	$('#friends-list').append(li.append(btn));
-}
-
-
-openChats = {};
-
-function openChat(name) {
-	/*
-	    now if box is not null,
-	    we are toggling chat box.
-	*/
-	var box = openChat[name];
-
-	if(box != undefined)
-	{
-	    box.chatbox("option", "boxManager").toggleBox();
-	}
-	else
-	{
-		var chatBox = $('<div />', { id: 'chat_div_'+name });
-		$('#chat-boxes').append(chatBox);
-
-	    box = chatBox.chatbox(
-	    {
-	        id:name,
-	        user:
-	        {
-	            key : "value"
-	        },
-	        title : name,
-	        /*
-	            messageSend as name suggest,
-	            this will called when message sent.
-	            and for demo we have appended sent message to our log div.
-	        */
-	        messageSent : function(id, user, msg)
-	        {
-	            $("#log").append(id + " said: " + msg + "<br/>");
-	            chatBox.chatbox("option", "boxManager").addMsg(id, msg);
-	        }
-	    });
-	}
 }
 
 function refreshChatAndFriendList() {

@@ -51,6 +51,48 @@ function addFriendToChat(name, online) {
 	friendsChat.append(li.append(img).append(name));
 }
 
+
+openChats = {};
+openChatsOrder = [];
+backedUpChats = [];
+chatWidth = 250;
+
+function openChat(name) {
+	/*
+	    now if box is not null,
+	    we are toggling chat box.
+	*/
+	var box = openChats[name];
+
+	if(box != undefined)
+	{
+		console.log(box.chatbox("option", "hidden"));
+		if (!box.chatbox("option", "boxManager").open)
+	    	box.chatbox("toggleContent");
+	    box.chatbox("inputBox").focus();
+	}
+	else
+	{
+		if (chatBoxOffset(Object.keys(openChats).length) + chatWidth > $(window).width() + 30) {
+			if (backedUpChats.indexOf(name) < 0) {
+				backedUpChats.push(name);
+				updateChatBoxOverflowIcon();
+			}
+		}
+		else {
+			var chatBox = $('<div />', { id: 'chat_div_'+name });
+			$('#chat-boxes').append(chatBox);
+
+		    box = createChatBox(chatBox, name);
+
+		    openChats[name] = box;
+		    openChatsOrder.push(name);
+		    box.chatbox("inputBox").focus();
+		}
+	}
+
+}
+
 function refreshChatList() {
 	friendsChat.empty();
 
@@ -59,4 +101,50 @@ function refreshChatList() {
 	    addFriendToChat(name, friends[name])
 	  }
 	}
+}
+
+function createChatBox(chatBox, name) {
+	return chatBox.chatbox(
+    {
+        id:name,
+        user:
+        {
+            key : "value"
+        },
+        title : name,
+        offset: chatBoxOffset(Object.keys(openChats).length),
+        width: chatWidth,
+        /*
+            messageSend as name suggest,
+            this will called when message sent.
+            and for demo we have appended sent message to our log div.
+        */
+        messageSent : function(id, user, msg)
+        {
+            $("#log").append(id + " said: " + msg + "<br/>");
+            chatBox.chatbox("option", "boxManager").addMsg(id, msg);
+        },
+        boxClosed : function(id)
+        {
+        	delete openChats[id]
+        	openChatsOrder.splice(openChatsOrder.indexOf(id), 1);
+        	// reset positions
+        	var i = 0;
+        	openChatsOrder.forEach(function(name) {
+        		console.log(openChats[name].chatbox('widget'));
+        		console.log(openChats[name].chatbox('widget').css("right"));
+        		openChats[name].chatbox('widget').css("right", chatBoxOffset(i));
+        		i += 1;
+        	});
+
+        }
+    });
+}
+
+function updateChatBoxoverflow() {
+
+}
+
+function chatBoxOffset(i) {
+	return (i * (chatWidth+20)) + 310
 }
