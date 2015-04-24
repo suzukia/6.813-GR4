@@ -130,7 +130,7 @@ function refreshChatList() {
 function createChatBox(chatBox, name) {
 	return chatBox.chatbox(
     {
-        id:name,
+        id:'Eirik',
         user:
         {
             key : "value"
@@ -155,8 +155,6 @@ function createChatBox(chatBox, name) {
         	// reset positions
         	var i = 0;
         	openChatsOrder.forEach(function(name) {
-        		console.log(openChats[name].chatbox('widget'));
-        		console.log(openChats[name].chatbox('widget').css("right"));
         		openChats[name].chatbox('widget').css("right", chatBoxOffset(i));
         		i += 1;
         	});
