@@ -14,18 +14,20 @@ $(document).ready(function() {
 });
 
 function configChat() {
-    var kltNavbar = $('.klt-navbar');
+    var kltNavbar = $('.klt-navbar'),
+    	kltFooter = $('.klt-footer');
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = kltNavbar.outerHeight();
+        bottom = kltFooter.height();
 
     setupChatStyle(top, bottom);
 }
 
 function configFriendsList() {
     var kltNavbar = $('.klt-navbar'),
+    	kltFooter = $('.klt-footer'),
     	heightfromNav = 68;
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10) + heightfromNav,
-        bottom = kltNavbar.outerHeight();
+        bottom = kltFooter.height();
 
     setupFriendsListStyle(top, bottom);
 }

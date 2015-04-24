@@ -15,3 +15,32 @@
 .clist-item {
     font-size: 12px;
 }
+
+.chatTextArea {
+    resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
+    overflow: hidden;
+}
+
+.hiddendiv {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+}
+
+/* the styles for 'commmon' are applied to both the textarea and the hidden clone */
+/* these must be the same for both */
+.common {
+    min-height: 25px;
+    font-family: sans-serif;
+    font-size: 13px;
+    overflow: hidden;
+}
+
+.initHiddenDiv {
+	height: 25px;
+}
+
+.lbr {
+    line-height: 3px;
+}

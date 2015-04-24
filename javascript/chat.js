@@ -73,7 +73,7 @@ function openChat(name) {
 	}
 	else
 	{
-		if (chatBoxOffset(Object.keys(openChats).length) + chatWidth > $(window).width() + 30) {
+		if (chatBoxOffset(Object.keys(openChats).length) + chatWidth > parseInt($(window).width()) - 30) {
 			if (backedUpChats.indexOf(name) < 0) {
 				backedUpChats.push(name);
 				updateChatBoxOverflowIcon();
@@ -81,16 +81,40 @@ function openChat(name) {
 		}
 		else {
 			var chatBox = $('<div />', { id: 'chat_div_'+name });
-			$('#chat-boxes').append(chatBox);
+			// $('#chat-boxes').append(chatBox);
 
 		    box = createChatBox(chatBox, name);
 
 		    openChats[name] = box;
 		    openChatsOrder.push(name);
+		    extraChatTextAreaFormatting(box.chatbox("inputBox"));
 		    box.chatbox("inputBox").focus();
 		}
 	}
 
+}
+
+function extraChatTextAreaFormatting(textArea) {
+	var hiddenDiv = $(document.createElement('div')),
+    	content = null;
+
+	textArea.addClass('chatTextArea common');
+	textArea.css('height', 25);
+
+	hiddenDiv.addClass('hiddendiv common');
+	hiddenDiv.css('width', textArea.css('width'));
+
+	$('body').append(hiddenDiv);
+
+	textArea.on('keyup', function () {
+
+	    content = $(this).val();
+
+	    content = content.replace(/\n/g, '<br>');
+	    hiddenDiv.html(content + '<br class="lbr">');
+
+	    $(this).css('height', hiddenDiv.height());
+	});
 }
 
 function refreshChatList() {
@@ -141,7 +165,7 @@ function createChatBox(chatBox, name) {
     });
 }
 
-function updateChatBoxoverflow() {
+function updateChatBoxOverflowIcon() {
 
 }
 

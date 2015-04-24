@@ -27,3 +27,11 @@ body, html {
 .flist-item {
 	font-size: 20px;
 }
+
+.klt-footer {
+	height: 47px;
+	bottom: 0px;
+	background-color: #E7E7E7;
+	position: absolute;
+	width: 100%
+}
