@@ -25,7 +25,7 @@ function configChat() {
 function configFriendsList() {
     var kltNavbar = $('.klt-navbar'),
     	kltFooter = $('.klt-footer'),
-    	heightfromNav = 68;
+    	heightfromNav = 75;
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10) + heightfromNav,
         bottom = kltFooter.height();
 
