@@ -126,7 +126,14 @@ function setupAutocompleteSearch() {
 	searchInput.val("");
 
 	$("#search-friends-btn").autocomplete({
-        source: filterNonFriends(users, friends, pendingFriendReqs),
+        source: function(req, responseFn) {
+	        var re = $.ui.autocomplete.escapeRegex(req.term);
+	        var matcher = new RegExp( "^" + re, "i" );
+	        var a = $.grep( filterNonFriends(users, friends, pendingFriendReqs), function(item,index){
+	            return matcher.test(item.name());
+	        });
+	        responseFn( a );
+	    },
         focus: function (event, ui) {
             return false;
         },
