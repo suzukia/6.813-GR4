@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+
     $("#createModal").modal('show');
 
 
@@ -34,6 +36,113 @@ $(document).ready(function() {
   var uncheckedButtonId;
 
   $("button").button();
+
+
+  var invitedFriends = {};
+  var currentMap;
+
+  var loadFriendsList = function() {
+    var friendNames = Object.keys(friends);
+    for (var i=0; i<friendNames.length; i++) {
+      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friendNames[i]+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friendNames[i]+'" >Invite</button></li>');
+      $('#inviteButton'+friendNames[i]).click(function() {
+        var name = $(this).attr("id").slice(12);
+        if (!invitedFriends[name]) {
+          if (Object.keys(invitedFriends).length >= 3) {
+            alert("You can only invite up to 3 friends");
+          }
+          else {
+            invitedFriends[name] = true;
+            // console.log("clicked");
+            // console.log(invitedFriends);
+            $(this).html("Uninvite");
+          }
+        }
+        else {
+          delete invitedFriends[name];
+          // console.log("clicked");
+          // console.log(invitedFriends);
+          $(this).html("Invite");
+        }
+      });
+    }
+  }
+
+
+    var loadMapList = function() {
+    var maps = ['Space', 'Medieval'];
+    for (var i=0; i<maps.length; i++) {
+      $('#map-list').append('<li class="list-group-item map_info" id="'+maps[i]+' ">'+maps[i]+'<div class="extra_map_info"> Map extra info </div></li>');
+      // $('#inviteButton'+friendNames[i]).click(function() {
+      //   var name = $(this).attr("id").slice(12);
+      //   if (!invitedFriends[name]) {
+      //     if (Object.keys(invitedFriends).length >= 3) {
+      //       alert("You can only invite up to 3 friends");
+      //     }
+      //     else {
+      //       invitedFriends[name] = true;
+      //       // console.log("clicked");
+      //       // console.log(invitedFriends);
+      //       $(this).html("Uninvite");
+      //     }
+      //   }
+      //   else {
+      //     delete invitedFriends[name];
+      //     // console.log("clicked");
+      //     // console.log(invitedFriends);
+      //     $(this).html("Invite");
+      //   }
+      // });
+    }
+    $('.map_info').click(function() {
+      // if (currentMap !== $(this).attr("id")) {
+      //   if (currentMap) {
+      //     $('#'+currentMap).css("border-width",'');
+      //     $('#'+currentMap).css("border-color",'');
+      //   }
+      //   $(this).css("border-width",2);
+      //   $(this).css("border-color","orange");
+      // }
+      $(this).addClass('selectedMap');
+    });
+
+    // $('#invite-friends').height(0.5*$(window).height());
+    // $('#invite-friends').css("overflow-y", "auto");
+
+    // $('#map-list').height(0.5*$(window).height());
+    // $('#map-list').css("overflow-y", "auto");
+
+
+  }
+
+  $('#invite-friends').slimScroll({
+    height: 0.5*$(window).height()
+  });
+
+  $('#map-list').slimScroll({
+    height: 0.5*$(window).height()
+  });
+
+
+  loadFriendsList();
+  loadMapList();
+
+
+    $(window).resize(function() {
+      $('#invite-friends').slimScroll({destroy: true});
+      $('#map-list').slimScroll({destroy: true});
+      $('#invite-friends').slimScroll({
+        height: 0.5*$(window).height()
+      });
+      $('#map-list').slimScroll({
+        height: 0.5*$(window).height()
+      });
+    });
+
+
+
+
+
   // console.log($("button"));
 
   // var invitedFriends = {};
@@ -95,15 +204,13 @@ $(document).ready(function() {
 
 
 
-//   $('#startCreateButton').click(function(){
-//     var playersList = invitedFriends.keys();
-//     window.location = 'map.html'+getFriendsURL()+getPlayersURL(playerList);
-//   });
-
-// });
-
-
-
-
+  $('#startCreateButton').click(function(){
+    alert(invitedFriends.keys())
+  });
 
 });
+
+
+
+
+
