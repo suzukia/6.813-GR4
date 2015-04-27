@@ -37,7 +37,7 @@ var names = ['Awesomeusername','Beef_sister','Pork_brother','CltrAltDelicious','
  			 'Willy_ Foo_Foo','Rumpelstiltskin','Optimus Prime','Autobot','PrettyPotato','HandsomeBanana','Pringles',
  			 'Keish-Keish','Breadquanda','LittleMermaid','Cinderella','SleуpingBeauty','CaptainAwesome',
  			 'Baron_Von_Awesome','Mr.Magnificent','Mr.Fabulous','Mr.Wonderful','Mr.Sir','PrinceCharming',
- 			 'Floyd_Pincus','Lovemakingfriend','QueenKong','MrGooglehead','Blue_Skype','Asleep','Kiss-my-Axe', 
+ 			 'Floyd_Pincus','Lovemakingfriend','QueenKong','MrGooglehead','Blue_Skype','Asleep','Kiss-my-Axe',
  			 'Chief-Choke-a-ho','About_30_ninjas','Toastoftheundead','Yourself','Gigantic_Wang','Potato_Ghost',
  			 'Bad_Karma','Angry_Groceries','Brosef_Stalin Game_over','Amy','Bob','Frank','Elizabeth']
 names.sort();
