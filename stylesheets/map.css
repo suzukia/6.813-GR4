@@ -1,0 +1,41 @@
+body, html {
+    overflow: hidden;
+}
+
+.klt-navbar {
+    font-size: 24px;
+}
+
+.home_body {
+    font-size: 20px;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.top-buffer { margin-top:5px; }
+
+.extra_game_info {
+    display: none;
+    background-image: linear-gradient(to bottom, #C3DFF7 0px, #A5D2FA 100%);
+    height: 50px;
+}
+
+.glist-item {
+    font-size: 20px;
+}
+
+.map-image {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.klt-footer {
+	height: 47px;
+	bottom: 0px;
+	background-color: #E7E7E7;
+	position: absolute;
+	width: 100%
+}
