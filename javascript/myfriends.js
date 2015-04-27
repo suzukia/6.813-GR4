@@ -1,17 +1,24 @@
 $(document).ready(function() {
 
+    if (getStorageItem("users") == null)
+      redirectTo("login.html");
+
     $(window).resize(function() {
         $('#friends-chat').slimScroll({destroy: true});
-        $('#friends-list').slimScroll({destroy: true});
-        configFriendsList();
+        // $('#friends-list').slimScroll({destroy: true});
+        // configFriendsList();
         configChat();
     });
 
-    configFriendsList();
+    // configFriendsList();
     configChat();
     refreshFriendList();
 	setupAutocompleteSearch();
 });
+
+var users = formatUsers(getStorageItem("users")),
+	friends = formatUsers(getStorageItem("friends")),
+	pendingFriendReqs = formatUsers(getStorageItem("friendReqs"));
 
 function configChat() {
     var kltNavbar = $('.klt-navbar'),
@@ -32,17 +39,17 @@ function configFriendsList() {
     setupFriendsListStyle(top, bottom);
 }
 
-function setupFriendsListStyle(top, bottom) {
-	var friendsCont = $('#friends-container'),
-		friends = $('#friends-list');
+// function setupFriendsListStyle(top, bottom) {
+// 	var friendsCont = $('#friends-container'),
+// 		friends = $('#friends-list');
 
-	friendsCont.css('max-height', $(window).height()-top-bottom);
-	friends.css('max-height', $(window).height()-top-bottom);
+// 	friendsCont.css('max-height', $(window).height()-top-bottom);
+// 	friends.css('max-height', $(window).height()-top-bottom);
 
-	friends.slimScroll({
-        height: $(window).height()-top-bottom-25
-    });
-}
+// 	friends.slimScroll({
+//         height: $(window).height()-top-bottom-25
+//     });
+// }
 
 
 /****************** Friends Associated Code *******************/
@@ -76,7 +83,7 @@ function addFriendToFriendList(name, pending) {
 		});
 
 		btn.click(function() {
-			delete friends[name];
+			//update friends list in localStorage
 			refreshChatAndFriendList();
 		});
 	}
@@ -85,21 +92,6 @@ function addFriendToFriendList(name, pending) {
 }
 
 function refreshChatAndFriendList() {
-	// $('#friends-list').empty();
-	// $('#friends-chat').empty();
-
-	// for (var name in friends) {
-	//   if (friends.hasOwnProperty(name)) {
-	//     addFriendToFriendList(name, false);
-	//     addFriendToChat(name, friends[name])
-	//   }
-	// }
-
-	// for (var name in pendingFriendReqs) {
-	// 	if (pendingFriendReqs.hasOwnProperty(name)) {
-	// 		addFriendToFriendList(name, true);
-	// 	}
-	// }
 	refreshFriendList();
 	refreshChatList();
 }
@@ -107,17 +99,13 @@ function refreshChatAndFriendList() {
 function refreshFriendList() {
 	$('#friends-list').empty();
 
-	for (var name in friends) {
-	  if (friends.hasOwnProperty(name)) {
-	    addFriendToFriendList(name, false);
-	  }
-	}
+	friends.forEach(function(user) {
+		addFriendToFriendList(user.name(), false);
+	});
 
-	for (var name in pendingFriendReqs) {
-		if (pendingFriendReqs.hasOwnProperty(name)) {
-			addFriendToFriendList(name, true);
-		}
-	}
+	pendingFriendReqs.forEach(function(user) {
+		addFriendToFriendList(user.name(), true);
+	});
 }
 
 function setupAutocompleteSearch() {
@@ -129,8 +117,8 @@ function setupAutocompleteSearch() {
         source: function(req, responseFn) {
 	        var re = $.ui.autocomplete.escapeRegex(req.term);
 	        var matcher = new RegExp( "^" + re, "i" );
-	        var a = $.grep( filterNonFriends(users, friends, pendingFriendReqs), function(item,index){
-	            return matcher.test(item.name());
+	        var a = $.grep( filterNonFriends(users, friends, pendingFriendReqs), function(user,index){
+	            return matcher.test(user.name());
 	        });
 	        responseFn( a );
 	    },
@@ -142,8 +130,8 @@ function setupAutocompleteSearch() {
             return false;
         }
     })
-        .data("autocomplete")._renderItem = function (ul, item) {
-        	var name = item.name();
+        .data("autocomplete")._renderItem = function (ul, user) {
+        	var name = user.name();
 
         	var li = $('<li />', {
 				class : "list-group-item clearfix",
@@ -159,7 +147,8 @@ function setupAutocompleteSearch() {
 			});
 
 			btn.click(function(event) {
-				pendingFriendReqs[name] = setOnline();
+				//Save updated reqs to loacalstorage
+				pendingFriendReqs.push(user);
 				refreshChatAndFriendList();
 				setupAutocompleteSearch();
 				console.log($(this).parent().parent().parent());
@@ -169,16 +158,17 @@ function setupAutocompleteSearch() {
     };
 }
 
-function setOnline() {
-	var probOnline = .5;
-	return Math.random() < probOnline;
-}
+// function setOnline() {
+// 	var probOnline = .5;
+// 	return Math.random() < probOnline;
+// }
 
 function filterNonFriends(users, friends, pendingFriends) {
+
 	var nonFriends = [];
 	users.forEach(function(user) {
 		var name = user.name();
-		if (friends[name] == undefined && pendingFriends[name] == undefined) {
+		if (!inUserSet(friends, name) && !inUserSet(pendingFriends, name)) {
 			nonFriends.push(user);
 		}
 	});

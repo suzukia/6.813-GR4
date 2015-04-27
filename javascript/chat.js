@@ -3,24 +3,33 @@
 /******* with friends var defined ******/
 /***************************************/
 
+var friends = formatUsers(getStorageItem("friends"));
 var friendsChat;
+
 $(document).ready(function() {
 	friendsChat = $('#friends-chat');
-	refreshChatList();
 });
 
 function setupChatStyle(top, bottom) {
-	var chat = $('#chat-bar');
+	refreshChatList();
 
-	chat.css('position', 'absolute');
+	var chat = $('#chat-bar');
+	var bottomFactor = .6;
+
+	chat.css('position', 'fixed');
 	// chat.css('top', top);
 	chat.css('bottom', bottom);
 	chat.css('right', 0);
 	chat.css('padding-right', 0);
 	chat.css('padding-top', 0);
+	chat.css('max-height', $(window).height()-top-bottom);
+
+	$('#friends-chat.list-group').css('margin-bottom', 0);
+	var bottomMargin = Math.round(parseInt($('#friends-chat.list-group').css('margin-bottom'))/2.3);
+	console.log(bottomMargin);
 
 	friendsChat.slimScroll({
-        height: $(window).height()-top-bottom
+        height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
     });
 }
 
@@ -28,27 +37,55 @@ function setupChatStyle(top, bottom) {
  * First letter of name must be uppercase. rest lowercase
  * If student is currently online, online = true
  */
-function addFriendToChat(name, online) {
+function addFriendToChat(name, online, avatar) {
 	var status   = online ? 'online.png' : 'offline.png';
 	var row_type = online ? 'online-friend-chat' : 'offline-friend-chat';
 	var hspace   = online ? 4 : 5;
 
-	var li = $('<li />', {
-		class : "list-group-item clist-item",
-		value : "chat-" + name.toLowerCase(),
-	});
+	if (online) {
+		var li = $('<li />', {
+			class : "list-group-item clist-item",
+			value : "chat-" + name.toLowerCase(),
+		});
 
-	li.click(function() {
-		openChat(name);
-	});
+		li.hover(function() {
+			console.log("hovering");
+			console.log($(this).height());
+			$(this).css('background-color', '#E7E7E7');
+		}, function() {
+			$(this).css('background-color', '');
+		});
 
-	var img = $('<img />', {
-		id : row_type,
-		hspace : hspace,
-		src : '../images/chat/' + status
-	});
+		li.click(function() {
+			openChat(name);
+		});
 
-	friendsChat.append(li.append(img).append(name));
+		var img;
+
+		if (avatar != undefined) {
+			img = $('<img />', {
+				id : row_type,
+				hspace : hspace,
+				src : avatar
+			});
+		} else {
+			img = $('<img />', {
+				id : row_type,
+				hspace : hspace,
+				src : '../images/chat/' + status
+			});
+		}
+
+		friendsChat.append(li.append(img).append(name));
+	}
+}
+
+function refreshChatList() {
+	friendsChat.empty();
+
+	friends.forEach(function(user) {
+		addFriendToChat(user.name(), true, user.avatar());
+	});
 }
 
 
@@ -115,16 +152,6 @@ function extraChatTextAreaFormatting(textArea) {
 
 	    $(this).css('height', hiddenDiv.height());
 	});
-}
-
-function refreshChatList() {
-	friendsChat.empty();
-
-	for (var name in friends) {
-	  if (friends.hasOwnProperty(name)) {
-	    addFriendToChat(name, friends[name])
-	  }
-	}
 }
 
 function createChatBox(chatBox, name) {

@@ -28,10 +28,15 @@ body, html {
 	font-size: 20px;
 }
 
+#main {
+	margin-bottom: 30px;
+}
+
 .klt-footer {
 	height: 47px;
 	bottom: 0px;
 	background-color: #E7E7E7;
 	position: absolute;
-	width: 100%
+	width: 100%;
+	position: fixed;
 }

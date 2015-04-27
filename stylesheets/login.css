@@ -1,0 +1,8 @@
+input[type=text], input[type=submit] {
+	margin: auto;
+	display: block;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}

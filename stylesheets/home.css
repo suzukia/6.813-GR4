@@ -26,6 +26,10 @@ body, html {
     font-size: 20px;
 }
 
+#main {
+    margin-bottom: 30px;
+}
+
 .klt-footer {
 	height: 47px;
 	bottom: 0px;
