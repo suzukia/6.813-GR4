@@ -1,3 +1,8 @@
+/**
+  * Global Variables
+  */
+var kltNavbar;
+
 $(document).ready(function() {
 
     $(window).resize(function() {
@@ -5,12 +10,14 @@ $(document).ready(function() {
         configChat();
     });
 
+    kltNavbar = $('.klt-navbar');
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    
     configChat();
     configGameListing();
 });
 
 function configChat() {
-    var kltNavbar = $('.klt-navbar');
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
         bottom = kltNavbar.outerHeight();
 

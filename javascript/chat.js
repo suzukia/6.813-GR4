@@ -11,10 +11,13 @@ $(document).ready(function() {
 });
 
 function setupChatStyle(top, bottom) {
+	console.log(top);
+	console.log(bottom);
 	refreshChatList();
 
 	var chat = $('#chat-bar');
 	var bottomFactor = .6;
+	var windowSize = parseInt($(window).height());
 
 	chat.css('position', 'fixed');
 	// chat.css('top', top);
@@ -25,8 +28,8 @@ function setupChatStyle(top, bottom) {
 	chat.css('max-height', $(window).height()-top-bottom);
 
 	$('#friends-chat.list-group').css('margin-bottom', 0);
-	var bottomMargin = Math.round(parseInt($('#friends-chat.list-group').css('margin-bottom'))/2.3);
-	console.log(bottomMargin);
+	console.log("friends-chat: " + friendsChat.height());
+	console.log("window: " + (windowSize-top-bottom));
 
 	friendsChat.slimScroll({
         height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
@@ -82,6 +85,7 @@ function addFriendToChat(name, online, avatar) {
 
 function refreshChatList() {
 	friendsChat.empty();
+	friendsChat.css('height', "");
 
 	friends.forEach(function(user) {
 		addFriendToChat(user.name(), true, user.avatar());

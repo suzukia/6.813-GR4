@@ -1,15 +1,26 @@
+/**
+ * Global Variables
+ */
+ var kltNavbar, kltFooter, friendsLst;
+
 $(document).ready(function() {
 
     if (getStorageItem("users") == null)
       redirectTo("login.html");
 
     $(window).resize(function() {
-        $('#friends-chat').slimScroll({destroy: true});
+    	$('#friends-chat').slimScroll({destroy: true});	
         // $('#friends-list').slimScroll({destroy: true});
         // configFriendsList();
+        console.log("window resize");
         configChat();
     });
 
+    kltNavbar  = $('.klt-navbar');
+    kltFooter  = $('.klt-footer');
+    friendsLst = $('#friends-list');
+
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     // configFriendsList();
     configChat();
     refreshFriendList();
@@ -21,18 +32,14 @@ var users = formatUsers(getStorageItem("users")),
 	pendingFriendReqs = formatUsers(getStorageItem("friendReqs"));
 
 function configChat() {
-    var kltNavbar = $('.klt-navbar'),
-    	kltFooter = $('.klt-footer');
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = kltFooter.height();
+        bottom = parseInt(kltFooter.height());
 
     setupChatStyle(top, bottom);
 }
 
 function configFriendsList() {
-    var kltNavbar = $('.klt-navbar'),
-    	kltFooter = $('.klt-footer'),
-    	heightfromNav = 75;
+    var heightfromNav = 75;
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10) + heightfromNav,
         bottom = kltFooter.height();
 
@@ -88,7 +95,7 @@ function addFriendToFriendList(name, pending) {
 		});
 	}
 
-	$('#friends-list').append(li.append(btn));
+	friendsLst.append(li.append(btn));
 }
 
 function refreshChatAndFriendList() {
@@ -97,7 +104,7 @@ function refreshChatAndFriendList() {
 }
 
 function refreshFriendList() {
-	$('#friends-list').empty();
+	friendsLst.empty();
 
 	friends.forEach(function(user) {
 		addFriendToFriendList(user.name(), false);
