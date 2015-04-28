@@ -1,7 +1,7 @@
 /**
   * Global Variables
   */
-var kltNavbar;
+var kltNavbar, username;
 
 $(document).ready(function() {
 
@@ -10,12 +10,18 @@ $(document).ready(function() {
         configChat();
     });
 
+    username = sessionStorage.getItem("username");
     kltNavbar = $('.klt-navbar');
-    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     
+    configNavbar();
     configChat();
     configGameListing();
 });
+
+function configNavbar(){
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    $('#navbar-title').text("Welcome, " + username);
+}
 
 function configChat() {
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),

@@ -29,6 +29,15 @@ $(document).ready(function() {
 
 	var numOfReqs = 3;
 	setStorageItem("friendReqs", populateFriendReqs(users, friends, numOfReqs));
+
+	var chatIsOpen = {};
+	setStorageItem("chatIsOpen", chatIsOpen);
+
+	var openChatsOrder = [];
+	setStorageItem("openChatsOrder", openChatsOrder);
+
+	var backedUpChats = [];
+	setStorageItem("backedUpChats", backedUpChats);
 });
 
 
