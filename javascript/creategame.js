@@ -13,10 +13,13 @@ $(document).ready(function() {
     if (defaultChecked === "private") {
       uncheckedButtonId = 'publicButton';
       checkedButtonId = 'privateButton';
+      privateGame = true;
     }
     else {
       uncheckedButtonId = 'privateButton';
       checkedButtonId = 'publicButton';
+      privateGame = false;
+
     }
     document.getElementById(checkedButtonId).checked = true;
     $('#'+checkedButtonId).attr("checked", true);
@@ -34,34 +37,37 @@ $(document).ready(function() {
   setUpRadioButtons("private");
   var checkedButtonId;
   var uncheckedButtonId;
+  var privateGame;
 
   $("button").button();
 
 
-  var invitedFriends = {};
-  var currentMap;
+  var invitedFriends = [];
+  var selectedMap;
+  var gameTitle;
 
-  var loadFriendsList = function() {
-    var friendNames = Object.keys(friends);
-    for (var i=0; i<friendNames.length; i++) {
-      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friendNames[i]+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friendNames[i]+'" >Invite</button></li>');
-      $('#inviteButton'+friendNames[i]).click(function() {
+
+
+  // load list of friends
+  var loadCreateGameFriendList = function() {
+    var friends = formatUsers(getStorageItem("friends"));
+    for (var i=0; i<friends.length; i++) {
+      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friends[i].name()+'" >Invite</button></li>');
+      $('#inviteButton'+friends[i].name()).click(function() {
         var name = $(this).attr("id").slice(12);
-        if (!invitedFriends[name]) {
-          if (Object.keys(invitedFriends).length >= 3) {
+
+        var invitedIndex = checkIfInObjectArray(name, invitedFriends);
+        if (invitedIndex === -1) {
+          if (invitedFriends.length >= 3) {
             alert("You can only invite up to 3 friends");
           }
           else {
-            invitedFriends[name] = true;
-            // console.log("clicked");
-            // console.log(invitedFriends);
+            invitedFriends.push(getUserByName(name));
             $(this).html("Uninvite");
           }
         }
         else {
-          delete invitedFriends[name];
-          // console.log("clicked");
-          // console.log(invitedFriends);
+          invitedFriends.splice(invitedIndex,1);
           $(this).html("Invite");
         }
       });
@@ -70,49 +76,22 @@ $(document).ready(function() {
 
 
     var loadMapList = function() {
-    var maps = ['Space', 'Medieval'];
+    var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
-      $('#map-list').append('<li class="list-group-item map_info" id="'+maps[i]+' ">'+maps[i]+'<div class="extra_map_info"> Map extra info </div></li>');
-      // $('#inviteButton'+friendNames[i]).click(function() {
-      //   var name = $(this).attr("id").slice(12);
-      //   if (!invitedFriends[name]) {
-      //     if (Object.keys(invitedFriends).length >= 3) {
-      //       alert("You can only invite up to 3 friends");
-      //     }
-      //     else {
-      //       invitedFriends[name] = true;
-      //       // console.log("clicked");
-      //       // console.log(invitedFriends);
-      //       $(this).html("Uninvite");
-      //     }
-      //   }
-      //   else {
-      //     delete invitedFriends[name];
-      //     // console.log("clicked");
-      //     // console.log(invitedFriends);
-      //     $(this).html("Invite");
-      //   }
-      // });
+      $('#map-list').append('<li class="list-group-item map_info" id="select'+maps[i].name+'" style="margin-bottom:1">'+maps[i].name+'<div class="extra_map_info">'+maps[i].description+'</div></li>');
     }
+    // this is to make the bottom margin visible
+    $('.map_info').css("margin-bottom", 0);
+
     $('.map_info').click(function() {
-      // if (currentMap !== $(this).attr("id")) {
-      //   if (currentMap) {
-      //     $('#'+currentMap).css("border-width",'');
-      //     $('#'+currentMap).css("border-color",'');
-      //   }
-      //   $(this).css("border-width",2);
-      //   $(this).css("border-color","orange");
-      // }
-      $(this).addClass('selectedMap');
+      if (selectedMap) {
+        // reset previous selection to have a grey border
+        selectedMap.css("border-color","#ddd");
+      }
+      // new selection gets an orange border
+      $(this).css("border-color","orange");
+      selectedMap = $(this);
     });
-
-    // $('#invite-friends').height(0.5*$(window).height());
-    // $('#invite-friends').css("overflow-y", "auto");
-
-    // $('#map-list').height(0.5*$(window).height());
-    // $('#map-list').css("overflow-y", "auto");
-
-
   }
 
   $('#invite-friends').slimScroll({
@@ -124,7 +103,7 @@ $(document).ready(function() {
   });
 
 
-  loadFriendsList();
+  loadCreateGameFriendList();
   loadMapList();
 
 
@@ -140,36 +119,6 @@ $(document).ready(function() {
     });
 
 
-
-
-
-  // console.log($("button"));
-
-  // var invitedFriends = {};
-
-
-  // window.resetFriendInviteList = function() {
-  //   $("#friendsTable").html('');
-  //   console.log(friends);
-  //   invitedFriends = {};
-  //   for (var i=0;i<friends.length;i++) {
-  //     $("#friendsTable").append('<tr><td class="friendName">'+friends[i]+'</td><td><button id="invite'+friends[i]+'Button" class="alignRight btn btn-info btn-xs">Invite</button></td></tr>');
-  //     $('#invite'+friends[i]+'Button').click(function() {
-  //       if (!invitedFriends[friends[i]]) {
-  //         invitedFriends[friends[i]] = true;
-  //         $(this).html('Uninvite');
-  //       }
-  //       else {
-  //         delete invitedFriends[friends[i]];
-  //         $(this).html('Invite');
-  //       }
-  //     });
-  //   }
-  // }
-
-
-
-
 ////////// EVENT HANDLERS //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,10 +129,12 @@ $(document).ready(function() {
     if (checkedButtonId === "publicButton") {
         checkedButtonId = 'privateButton';
         uncheckedButtonId = 'publicButton';
+        privateGame = true;
     }
     else {
         checkedButtonId = 'publicButton';
         uncheckedButtonId = 'privateButton';
+        privateGame = false;
     }
     // manually change which button is checked (using JS and also jQuery)
     document.getElementById(checkedButtonId).checked = true;
@@ -194,18 +145,42 @@ $(document).ready(function() {
     // add and remove classes for styling
     document.getElementById(checkedButtonId+'Label').className = 'btn btn-primary active';
     document.getElementById(uncheckedButtonId+'Label').className = 'btn btn-default';
-
-    // var radioValue = $("input[name='private-public']:checked").val();
-    // console.log("the one that is checked now");
-    // console.log(radioValue);
     return false;
   });
 
 
-
-
   $('#startCreateButton').click(function(){
-    alert(invitedFriends.keys())
+    // check if game title and map are selected
+    gameTitle = $('#create-game-title').val().trim();
+    if (gameTitle === "") {
+      alert("You must enter a game title");
+    }
+    else if (!selectedMap) {
+      alert("You must select a map");
+    }
+    else {
+      // store in local storage the invitedFriends, selectedMap, gameTitle, public/private information
+      var mapTitle = selectedMap.attr("id").slice(6);
+      var map = getMapByName(mapTitle);
+      players = [];
+      if (!privateGame) { //add random users for public games; max number of other players is 3
+        var players = getRandomUsers(3 - invitedFriends.length);
+      }
+      for (var i=0; i<invitedFriends.length; i++) {
+        if (checkIfInObjectArray(invitedFriends[i].name, players) === -1) {
+          players.push(invitedFriends[i]);
+        }
+      }
+
+      var gameInfo = {
+        map: map,
+        players: players,
+        privateGame: privateGame
+      }
+      setStorageItem("gameInfo", gameInfo);
+      // redirect to map page
+      redirectTo("map.html");
+    }
   });
 
 });

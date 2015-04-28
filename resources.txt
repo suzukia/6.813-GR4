@@ -29,10 +29,12 @@ http://www.ssiddique.info/different-ways-to-add-row-to-a-table-using-jquery.html
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 https://api.jquery.com/height/
+http://api.jquery.com/text/
 
 
 http://api.jquery.com/append/
 http://stackoverflow.com/questions/3239598/how-can-i-get-the-id-of-an-element-using-jquery
+http://api.jquery.com/val/
 
 
 
@@ -78,6 +80,9 @@ http://stackoverflow.com/questions/5767325/remove-specific-element-from-an-array
 http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
 https://zenscript.wordpress.com/2013/11/23/how-to-pick-a-random-entry-out-of-an-array-javascript/
 http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
+http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
+http://www.w3schools.com/jsref/jsref_min.asp
+
 
 Bootstrap:
 http://getbootstrap.com/css/
