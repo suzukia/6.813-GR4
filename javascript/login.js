@@ -77,7 +77,3 @@ function populateFriendReqs(users, friends, numOfReqs) {
 
 	return reqs;
 }
-
-function getRandomNum(maxNum) {
-	return Math.round( Math.random() * maxNum-1);
-}

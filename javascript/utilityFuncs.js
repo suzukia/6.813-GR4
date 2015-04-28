@@ -29,3 +29,33 @@ function formatUsers(users) {
 
 	return users;
 }
+
+function getRandomNum(maxNum) {
+	return Math.round( Math.random() * maxNum-1);
+}
+
+function getRandomUsers(number) {
+	var users = formatUsers(getStorageItem("users"));
+	var totalUsers = users.length;
+	var randomIndices = {};
+	var howManyToGet = Math.min(number, totalUsers);
+	var randomUsers = [];
+	while (Object.keys(randomIndices).length < howManyToGet) {
+		var randomNumber = getRandomNum(totalUsers);
+		if (!randomIndices[randomNumber]) {
+			randomIndices[randomNumber] = true;
+			randomUsers.push(users[randomNumber]);
+		}
+	}
+	return randomUsers;
+}
+
+// check if someone with name is in an array of user objects; return the index
+function checkIfInObjectArray(name, object) {
+  for (var i=0; i<object.length; i++) {
+    if (object[i].name() === name) {
+      return i;
+    }
+  }
+  return -1;
+}

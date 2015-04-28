@@ -46,16 +46,7 @@ $(document).ready(function() {
   var selectedMap;
   var gameTitle;
 
-  // helper function returning index of friend if they are already in the invitedFriends array; returns -1 if they are not in the array
-  var checkIfInvited = function(friendName) {
-    console.log(invitedFriends);
-    for (var i=0; i<invitedFriends.length; i++) {
-      if (invitedFriends[i].name() === friendName) {
-        return i;
-      }
-    }
-    return -1;
-  }
+
 
   // load list of friends
   var loadCreateGameFriendList = function() {
@@ -65,7 +56,7 @@ $(document).ready(function() {
       $('#inviteButton'+friends[i].name()).click(function() {
         var name = $(this).attr("id").slice(12);
 
-        var invitedIndex = checkIfInvited(name);
+        var invitedIndex = checkIfInObjectArray(name, invitedFriends);
         if (invitedIndex === -1) {
           if (invitedFriends.length >= 3) {
             alert("You can only invite up to 3 friends");
@@ -158,15 +149,6 @@ $(document).ready(function() {
   });
 
 
-  var getUsersByNames = function(userNames) {
-    var userObjectsList = [];
-    for (var i=0; i<userNames.length; i++) {
-
-    }
-  }
-
-
-
   $('#startCreateButton').click(function(){
     // check if game title and map are selected
     gameTitle = $('#create-game-title').val().trim();
@@ -180,13 +162,21 @@ $(document).ready(function() {
       // store in local storage the invitedFriends, selectedMap, gameTitle, public/private information
       var mapTitle = selectedMap.attr("id").slice(6);
       var map = getMapByName(mapTitle);
+      players = [];
+      if (!privateGame) { //add random users for public games; max number of other players is 3
+        var players = getRandomUsers(3 - invitedFriends.length);
+      }
+      for (var i=0; i<invitedFriends.length; i++) {
+        if (checkIfInObjectArray(invitedFriends[i].name, players) === -1) {
+          players.push(invitedFriends[i]);
+        }
+      }
 
       var gameInfo = {
         map: map,
-        players: invitedFriends, // need to get random people if # friends are invited are less than 3 and it's public
+        players: players,
         privateGame: privateGame
       }
-      // console.log(gameInfo);
       setStorageItem("gameInfo", gameInfo);
       // redirect to map page
       redirectTo("map.html");

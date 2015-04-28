@@ -1,3 +1,17 @@
+$(document).ready(function() { // must be loaded AFTER utilityFuncs.js
+
+  var maps = [
+    {name:"Space",
+    description: "Explore the solar system!"
+    },
+    {name:"Medieval",
+    description: "Journey to your throne"
+    }
+  ]
+  setStorageItem("maps", maps);
+
+});
+
 
 // returns map object from list of maps
 function getMapByName(name) {
@@ -19,19 +33,3 @@ function getUserByName(name) {
     }
   }
 }
-
-$(document).ready(function() { // must be loaded AFTER utilityFuncs.js
-
-  var maps = [
-    {name:"Space",
-    description: "Explore the solar system!"
-    },
-    {name:"Medieval",
-    description: "Journey to your throne"
-    }
-  ]
-  setStorageItem("maps", maps);
-
-});
-
-
