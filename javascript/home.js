@@ -15,6 +15,7 @@ $(document).ready(function() {
     
     configNavbar();
     configChat();
+    openExistingChats(openChatsOrder, chatIsOpen);
     configGameListing();
 });
 

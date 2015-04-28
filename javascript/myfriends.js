@@ -23,6 +23,7 @@ $(document).ready(function() {
     $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     // configFriendsList();
     configChat();
+    openExistingChats(openChatsOrder, chatIsOpen);
     refreshFriendList();
 	setupAutocompleteSearch();
 });

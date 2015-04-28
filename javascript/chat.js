@@ -96,10 +96,9 @@ var	openChatsOrder = getStorageItem("openChatsOrder"),
 	backedUpChats = getStorageItem("backedUpChats"),
 	chatWidth = 250;
 
-var openChats = {}
-openExistingChats(openChatsOrder, chatIsOpen);
+var openChats = {};
 
-function openChat(name) {
+function openChat(name, state) {
 	/*
 	    now if box is not null,
 	    we are toggling chat box.
@@ -125,16 +124,21 @@ function openChat(name) {
 
 		    box = createChatBox(chatBox, name);
 
-		    addChat(name, box);
-		    extraChatTextAreaFormatting(box.chatbox("inputBox"));
-
-		    if (state != undefined) {
+		    if (state != undefined) { 
+		    	openChats[name] = box;
 		    	if (currentChatOpen(box) != state)
-		    		box.chatbox("toggleContent");
-		    }
+	    			box.chatbox("toggleContent");
+	    	}
 
 		    if (currentChatOpen(box))
 		    	box.chatbox("inputBox").focus();
+
+		    if (state == undefined) {
+		    	console.log("adding new chatBox");
+		    	addChat(name, box);
+		    }
+
+		    extraChatTextAreaFormatting(box.chatbox("inputBox"));
 		}
 	}
 
@@ -144,23 +148,28 @@ function currentChatOpen(box) {
 	return box.chatbox("option", "boxManager").open;
 }
 
-function openExistingChats(openChats, chatStates) {
-	var i = 0;
-	openChats.forEach(function(chatName) {
-		openChat(chatName, chatStates[i]);
-		i += 1;
+function openExistingChats(chats, chatStates) {
+	console.log("openChats: " + JSON.stringify(openChats));
+	console.log("existing chats: " + JSON.stringify(chats));
+	console.log("existing chat states: " + JSON.stringify(chatStates));
+	chats.forEach(function(chatName) {
+		openChat(chatName, chatStates[chatName]);
 	});
+	console.log("openChats: " + JSON.stringify(openChats));
 }
 
 function addChat(name, box) {
+	console.log("adding chatbox: " + name);
 	openChats[name] = box;
 	openChatsOrder.push(name);
 	updateChatInfo();
 }
 
 function removeChat(name) {
-	delete openChats[chatboxID]
-    openChatsOrder.splice(openChatsOrder.indexOf(chatboxID), 1);
+	delete openChats[name]
+	console.log(openChatsOrder);
+    openChatsOrder.splice(openChatsOrder.indexOf(name), 1);
+    console.log(openChatsOrder);
     updateChatInfo();
 }
 
@@ -186,6 +195,8 @@ function updateChatInfo() {
 }
 
 function createChatBox(chatBox, name) {
+	console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
+	chatIsOpen[name] = true;
 	return chatBox.chatbox(
     {
         id:'Eirik',
@@ -216,8 +227,9 @@ function createChatBox(chatBox, name) {
 
         	// reset positions
         	var i = 0;
-        	openChatsOrder.forEach(function(name) {
-        		openChats[name].chatbox('widget').css("right", chatBoxOffset(i));
+        	openChatsOrder.forEach(function(chatName) {
+        		console.log(chatName);
+        		openChats[chatName].chatbox('widget').css("right", chatBoxOffset(i));
         		i += 1;
         	});
 
@@ -253,5 +265,7 @@ function updateChatBoxOverflowIcon() {
 }
 
 function chatBoxOffset(i) {
+	console.log($('#friends-chat').width());
+	console.log("ith chatbox: " + i);
 	return (i * (chatWidth+20)) + $('#friends-chat').width() + 5
 }

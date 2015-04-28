@@ -12,17 +12,20 @@
         <link rel="stylesheet" type="text/css" href="../external_js/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css">
         <link type="text/css" href="../stylesheets/jquery.ui.chatbox.css" rel="stylesheet" />
 
-        <!-- Load any supplemental Javascript libraries here -->
+        <!-- Load any supplemental External Javascript libraries here -->
         <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
         <script type="text/javascript" src="../external_js/bootstrap-3.3.4-dist/js/bootstrap.js"></script>
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
         <script type="text/javascript" src="../external_js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
         <script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
+
+        <!-- Load any supplemental Internal Javascript libraries or files here -->
         <script type="text/javascript" src="../javascript/utilityFuncs.js"></script>
+        <script type="text/javascript" src="../javascript/requiredFields.js"></script>
         <script type="text/javascript" src="../javascript/user.js"></script>
+        <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
         <script type="text/javascript" src="../javascript/chat.js"></script>
         <script type="text/javascript" src="../javascript/home.js"></script>
-        <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
     </head>
 
 
@@ -45,9 +48,11 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="myfriends.html" class="icon" id="my-friends" aria-label="my-friends" role="button">
-                      <img src="../images/glyphicons_free/glyphicons/png/glyphicons-44-group.png">
-                    </a></li>
+                    <li>
+                      <a href="myfriends.html" class="icon" id="my-friends" aria-label="my-friends" role="button">
+                        <img src="../images/glyphicons_free/glyphicons/png/glyphicons-44-group.png">
+                      </a>
+                    </li>
 
                     <li class="dropdown">
                         <!-- <a href="#" class="icon dropdown-toggle glyphicon glyphicon-globe" id="notifs" aria-label="notifications" data-toggle="dropdown" role="button" aria-expanded="false"></a> -->
@@ -59,6 +64,15 @@
                             <li><a href="#">Notification 2</a></li>
                             <li><a href="#">Notification 3</a></li>
                         </ul>
+                    </li>
+
+                    <li class="dropdown">
+                      <a href="#" class="icon dropdown-toggle" id="settings" aria-label="settings" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <img src="../images/glyphicons_free/glyphicons/png/glyphicons-137-cogwheel.png">
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="logout.html">Logout</a></li>
+                      </ul>
                     </li>
 
                 </ul>
