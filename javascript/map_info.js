@@ -10,7 +10,7 @@ function getMapByName(name) {
   }
 }
 
-// returns map object from list of maps
+// returns user object from list of users
 function getUserByName(name) {
   var users = formatUsers(getStorageItem("users"))
   for (var i=0; i<users.length; i++) {
