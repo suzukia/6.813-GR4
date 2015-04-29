@@ -82,6 +82,7 @@ https://zenscript.wordpress.com/2013/11/23/how-to-pick-a-random-entry-out-of-an-
 http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
 http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
 http://www.w3schools.com/jsref/jsref_min.asp
+http://www.w3schools.com/jsref/jsref_splice.asp
 
 
 Bootstrap:
@@ -102,6 +103,13 @@ http://stackoverflow.com/questions/15643037/how-do-i-change-the-hover-over-color
 https://bootstrapbay.com/blog/bootstrap-button-styles/
 http://stackoverflow.com/questions/19010845/how-do-i-add-a-margin-between-bootstrap-columns-without-wrapping
 
+http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-alerts.php
+http://getbootstrap.com/components/
+http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-alerts.php
+http://stackoverflow.com/questions/10903526/how-to-toggle-a-bootstrap-alert-on-and-off-with-button-click
+http://stackoverflow.com/questions/7676356/can-twitter-bootstrap-alerts-fade-in-as-well-as-out
+http://jsfiddle.net/gabrieleromanato/cX88R/
+http://www.tutorialspoint.com/bootstrap/bootstrap_alerts.htm
 
 
 Grids:

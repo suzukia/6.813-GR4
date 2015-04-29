@@ -1,8 +1,22 @@
 $(document).ready(function() {
 
+  var fadeOutAlert = function() {
+    $('#errorDiv').fadeOut(150);
+  }
 
-    $("#createModal").modal('show');
+  var fadeInAlert = function() {
+    $('#errorDiv').fadeIn(150);
+  }
 
+
+  $("#createModal").modal('show');
+  // $('#errorDiv').alert("close");
+  $('#errorDiv').hide();
+  // $('#errorDiv').addClass("in");
+
+  $('#create-game-title').click(function() {
+    fadeOutAlert();
+  });
 
 ////////// HELPER FUNCTIONS ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,12 +92,13 @@ $(document).ready(function() {
     var loadMapList = function() {
     var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
-      $('#map-list').append('<li class="list-group-item map_info" id="select'+maps[i].name+'" style="margin-bottom:1">'+maps[i].name+'<div class="extra_map_info">'+maps[i].description+'</div></li>');
+      $('#map-list').append('<a href="#" class="list-group-item map_info" id="select'+maps[i].name+'" style="margin-bottom:1">'+maps[i].name+'<div class="extra_map_info">'+maps[i].description+'</div></a>');
     }
     // this is to make the bottom margin visible
     $('.map_info').css("margin-bottom", 0);
 
     $('.map_info').click(function() {
+      fadeOutAlert();
       if (selectedMap) {
         // reset previous selection to have a grey border
         selectedMap.css("border-color","#ddd");
@@ -150,19 +165,32 @@ $(document).ready(function() {
 
 
   $('#startCreateButton').click(function(){
+    var otherContent =  '<a href="#" class="close" id="closeAlert" >&times;</a><p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><strong> Error!</strong></p>'
+    var errorString = "";
     // check if game title and map are selected
     gameTitle = $('#create-game-title').val().trim();
-    if (gameTitle === "") {
-      alert("You must enter a game title");
-    }
-    else if (!selectedMap) {
-      alert("You must select a map");
+    if (gameTitle === "" || !selectedMap) {
+      if (gameTitle === "") {
+        errorString += "<p>- You must enter a game title</p>"
+      }
+      if (!selectedMap) {
+        errorString += "<p>- You must select a map</p>"
+      }
+      $('#errorDiv').html(otherContent+errorString);
+
+      $('#closeAlert').click(function() {
+        fadeOutAlert();
+      });
+
+      fadeInAlert();
     }
     else {
       // store in local storage the invitedFriends, selectedMap, gameTitle, public/private information
       var mapTitle = selectedMap.attr("id").slice(6);
       var map = getMapByName(mapTitle);
       players = [];
+
+
       if (!privateGame) { //add random users for public games; max number of other players is 3
         var players = getRandomUsers(3 - invitedFriends.length);
       }
@@ -173,13 +201,15 @@ $(document).ready(function() {
       }
 
       var gameInfo = {
+        // gameTitle
         map: map,
         players: players,
         privateGame: privateGame
       }
       setStorageItem("gameInfo", gameInfo);
+      console.log(gameInfo)
       // redirect to map page
-      redirectTo("map.html");
+      // redirectTo("map.html");
     }
   });
 
