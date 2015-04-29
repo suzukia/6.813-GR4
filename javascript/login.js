@@ -36,8 +36,8 @@ $(document).ready(function() {
 	var openChatsOrder = [];
 	setStorageItem("openChatsOrder", openChatsOrder);
 
-	var backedUpChats = [];
-	setStorageItem("backedUpChats", backedUpChats);
+	var queuedChats = [];
+	setStorageItem("queuedChats", queuedChats);
 });
 
 

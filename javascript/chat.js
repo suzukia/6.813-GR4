@@ -93,7 +93,7 @@ function refreshChatList() {
 
 var	openChatsOrder = getStorageItem("openChatsOrder"),
 	chatIsOpen = getStorageItem("chatIsOpen"),
-	backedUpChats = getStorageItem("backedUpChats"),
+	queuedChats = getStorageItem("queuedChats"),
 	chatWidth = 250;
 
 var openChats = {};
@@ -114,7 +114,7 @@ function openChat(name, state) {
 	else
 	{
 		if (chatBoxOffset(Object.keys(openChats).length) + chatWidth > parseInt($(window).width()) - 30) {
-			if (backedUpChats.indexOf(name) < 0) {
+			if (queuedChats.indexOf(name) < 0) {
 				queueChat(name);
 				updateChatBoxOverflowIcon();
 			}
@@ -149,13 +149,9 @@ function currentChatOpen(box) {
 }
 
 function openExistingChats(chats, chatStates) {
-	console.log("openChats: " + JSON.stringify(openChats));
-	console.log("existing chats: " + JSON.stringify(chats));
-	console.log("existing chat states: " + JSON.stringify(chatStates));
 	chats.forEach(function(chatName) {
 		openChat(chatName, chatStates[chatName]);
 	});
-	console.log("openChats: " + JSON.stringify(openChats));
 }
 
 function addChat(name, box) {
@@ -174,12 +170,12 @@ function removeChat(name) {
 }
 
 function queueChat(name) {
-	backedUpChats.push(name);
+	queuedChats.push(name);
 	updateChatInfo();
 }
 
 function dequeChat() {
-	openChat(backedUpChats.splice(0, 1));
+	openChat(queuedChats.splice(0, 1));
 	updateChatInfo();
 }
 
@@ -191,7 +187,7 @@ function updateChatState(name, state) {
 function updateChatInfo() {
 	setStorageItem("chatIsOpen", chatIsOpen);
 	setStorageItem("openChatsOrder", openChatsOrder);
-	setStorageItem("backedUpChats", backedUpChats);
+	setStorageItem("queuedChats", queuedChats);
 }
 
 function createChatBox(chatBox, name) {
@@ -224,6 +220,8 @@ function createChatBox(chatBox, name) {
         boxClosed : function(chatboxID)
         {
         	removeChat(chatboxID)
+
+        	addQueuedChat();
 
         	// reset positions
         	var i = 0;
@@ -262,6 +260,11 @@ function extraChatTextAreaFormatting(textArea) {
 
 function updateChatBoxOverflowIcon() {
 
+}
+
+function addQueuedChat() {
+	if (queuedChats.length > 0)
+		dequeChat();
 }
 
 function chatBoxOffset(i) {

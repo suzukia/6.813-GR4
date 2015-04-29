@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <title>Logout</title>
+
+        <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="../javascript/utilityFuncs.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                sessionStorage.clear();
+                redirectTo("login.html")
+            });
+        </script>
+
+    </head>
+
+    <body></body>
+
+</html>
