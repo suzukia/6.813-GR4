@@ -19,9 +19,10 @@ $(document).ready(function() {
     kltNavbar  = $('.klt-navbar');
     kltFooter  = $('.klt-footer');
     friendsLst = $('#friends-list');
+    username = sessionStorage.getItem("username");
 
-    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     // configFriendsList();
+    configNavbar();
     configChat();
     openExistingChats(openChatsOrder, chatIsOpen);
     refreshFriendList();
@@ -31,6 +32,11 @@ $(document).ready(function() {
 var users = formatUsers(getStorageItem("users")),
 	friends = formatUsers(getStorageItem("friends")),
 	pendingFriendReqs = formatUsers(getStorageItem("friendReqs"));
+
+function configNavbar(){
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    $('#navbar-title').text(username + "'s Friends");
+}
 
 function configChat() {
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),

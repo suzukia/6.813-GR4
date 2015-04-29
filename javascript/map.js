@@ -1,9 +1,13 @@
-$(document).ready(function() {
-	var currentMap = "space";
-	var currentAct = 0;
+var kltNavbar, map, currentAct;
 
-	var toggle = function(currentMap, currentAct) {
-		if (currentMap = "space") {
+$(document).ready(function() {
+	map = sessionStorage.getItem("map");
+    kltNavbar = $('.klt-navbar');
+    
+    configNavbar();
+
+    var toggle = function(currentMap, currentAct) {
+		if (map = "space") {
 			// space stuff
 		} else {
 			// medieval stuff
@@ -24,7 +28,12 @@ $(document).ready(function() {
         $(".ui-chatbox") 
             .draggable() 
             .resizable();
-                    
-	}
 
-})
+	}
+});
+
+function configNavbar(){
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    $('#navbar-title').text(map);
+}
+	
