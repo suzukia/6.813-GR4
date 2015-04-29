@@ -17,11 +17,15 @@
     $.widget("ui.chatbox", {
         options: {
             id: null, //id for the DOM element
+            chatboxID: null, //chatboxID for location in dom
             title: null, // title of the chatbox
             user: null, // can be anything associated with this chatbox
             hidden: false,
             offset: 0, // relative to right edge of the browser window
-            width: 300, // width of the chatbox
+            width: 300, // width of the chatbox 
+            updateChatState: function(chatboxID, state) {
+
+            },
             messageSent: function(id, user, msg) {
                 // override this
                 this.boxManager.addMsg(user.first_name, msg);
@@ -89,6 +93,7 @@
         toggleContent: function(event) {
             this.uiChatboxContent.toggle();
             this.options.boxManager.open = !this.options.boxManager.open;
+            this.options.updateChatState(this.options.chatboxID, this.options.boxManager.open);
             if (this.uiChatboxContent.is(":visible")) {
                 this.uiChatboxInputBox.focus();
             }
@@ -142,7 +147,7 @@
                        function() { uiChatboxTitlebarClose.removeClass('ui-state-hover'); })
                 .click(function(event) {
                     uiChatbox.hide();
-                    self.options.boxClosed(self.options.id);
+                    self.options.boxClosed(self.options.chatboxID);
                     return false;
                 })
                 .appendTo(uiChatboxTitlebar),

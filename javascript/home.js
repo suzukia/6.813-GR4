@@ -1,3 +1,8 @@
+/**
+  * Global Variables
+  */
+var kltNavbar, username;
+
 $(document).ready(function() {
 
     $(window).resize(function() {
@@ -5,12 +10,21 @@ $(document).ready(function() {
         configChat();
     });
 
+    username = sessionStorage.getItem("username");
+    kltNavbar = $('.klt-navbar');
+    
+    configNavbar();
     configChat();
+    openExistingChats(openChatsOrder, chatIsOpen);
     configGameListing();
 });
 
+function configNavbar(){
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    $('#navbar-title').text("Welcome, " + username);
+}
+
 function configChat() {
-    var kltNavbar = $('.klt-navbar');
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
         bottom = kltNavbar.outerHeight();
 

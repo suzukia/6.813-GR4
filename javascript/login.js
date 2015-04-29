@@ -20,15 +20,24 @@ $(document).ready(function() {
 
 	/********** Populate Data **********/
 	var users = populateUsers(names);
-	console.log("Users: " + users);
+	// console.log("Users: " + users);
 	setStorageItem("users", users);
 
 	var friends = populateFriends(users);
 	setStorageItem("friends", friends);
-	console.log(JSON.parse(sessionStorage.getItem("friends")));
+	// console.log(JSON.parse(sessionStorage.getItem("friends")));
 
 	var numOfReqs = 3;
 	setStorageItem("friendReqs", populateFriendReqs(users, friends, numOfReqs));
+
+	var chatIsOpen = {};
+	setStorageItem("chatIsOpen", chatIsOpen);
+
+	var openChatsOrder = [];
+	setStorageItem("openChatsOrder", openChatsOrder);
+
+	var backedUpChats = [];
+	setStorageItem("backedUpChats", backedUpChats);
 });
 
 

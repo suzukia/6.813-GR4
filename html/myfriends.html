@@ -3,7 +3,7 @@
 
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <title>SELF</title>
+        <title>Friends</title>
 
         <link rel="stylesheet" type="text/css" href="../stylesheets/myfriends.css" />
         <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css"><!-- 
@@ -20,6 +20,7 @@
         <script type="text/javascript" src="../external_js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
         <script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
         <script type="text/javascript" src="../javascript/utilityFuncs.js"></script>
+        <script type="text/javascript" src="../javascript/requiredFields.js"></script>
         <script type="text/javascript" src="../javascript/user.js"></script>
         <script type="text/javascript" src="../javascript/chat.js"></script>
         <script type="text/javascript" src="../javascript/myfriends.js"></script>
@@ -29,7 +30,7 @@
 
     <body class="myfriends-body">
       <div id="main">
-        <nav class="navbar navbar-default klt-navbar">
+        <nav class="navbar navbar-default navbar-fixed-top klt-navbar">
           <div class="container-fluid">
             <div class="navbar-header">
                 <ul class="nav navbar-nav">
@@ -60,6 +61,15 @@
                         </ul>
                     </li>
                     
+                    <li class="dropdown">
+                      <a href="#" class="icon" id="settings" aria-label="settings" role="button">
+                        <img src="../images/glyphicons_free/glyphicons/png/glyphicons-137-cogwheel.png">
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="logout.html">Logout</a></li>
+                      </ul>
+                    </li>
+
                 </ul>
             </div>
           </div><!-- /.container-fluid -->

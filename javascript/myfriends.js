@@ -1,17 +1,29 @@
+/**
+ * Global Variables
+ */
+ var kltNavbar, kltFooter, friendsLst;
+
 $(document).ready(function() {
 
     if (getStorageItem("users") == null)
       redirectTo("login.html");
 
     $(window).resize(function() {
-        $('#friends-chat').slimScroll({destroy: true});
+    	$('#friends-chat').slimScroll({destroy: true});	
         // $('#friends-list').slimScroll({destroy: true});
         // configFriendsList();
+        console.log("window resize");
         configChat();
     });
 
+    kltNavbar  = $('.klt-navbar');
+    kltFooter  = $('.klt-footer');
+    friendsLst = $('#friends-list');
+
+    $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     // configFriendsList();
     configChat();
+    openExistingChats(openChatsOrder, chatIsOpen);
     refreshFriendList();
 	setupAutocompleteSearch();
 });
@@ -21,18 +33,14 @@ var users = formatUsers(getStorageItem("users")),
 	pendingFriendReqs = formatUsers(getStorageItem("friendReqs"));
 
 function configChat() {
-    var kltNavbar = $('.klt-navbar'),
-    	kltFooter = $('.klt-footer');
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = kltFooter.height();
+        bottom = parseInt(kltFooter.height());
 
     setupChatStyle(top, bottom);
 }
 
 function configFriendsList() {
-    var kltNavbar = $('.klt-navbar'),
-    	kltFooter = $('.klt-footer'),
-    	heightfromNav = 75;
+    var heightfromNav = 75;
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10) + heightfromNav,
         bottom = kltFooter.height();
 
@@ -69,11 +77,16 @@ function addFriendToFriendList(name, pending) {
 	if (pending) {
 		btn = $('<button />', {
 			type  : 'button',
-			class : 'btn btn-default pull-right',
+			class : 'btn btn-danger pull-right',
 			value : 'pending-' + name.toLowerCase() + '-button',
-			text  : 'Pending...',
-			disabled : 'disabled'
+			text  : 'Cancel'
 		});
+
+		btn.click(function() {
+			removeFriendReq(name);
+			refreshChatAndFriendList();
+			setupAutocompleteSearch();
+		});		
 	} else {
 		btn = $('<button />', {
 			type  : 'button',
@@ -83,12 +96,13 @@ function addFriendToFriendList(name, pending) {
 		});
 
 		btn.click(function() {
-			//update friends list in localStorage
+			removeFriend(name);
 			refreshChatAndFriendList();
+			setupAutocompleteSearch();
 		});
 	}
 
-	$('#friends-list').append(li.append(btn));
+	friendsLst.append(li.append(btn));
 }
 
 function refreshChatAndFriendList() {
@@ -96,14 +110,24 @@ function refreshChatAndFriendList() {
 	refreshChatList();
 }
 
-function refreshFriendList() {
-	$('#friends-list').empty();
+function compareUserBy(f) {
+	return function(a,b) {
+		return f(a).localeCompare(f(b));
+	}
+}
 
-	friends.forEach(function(user) {
+function usersName(user) { 
+	return user.name(); 
+}
+
+function refreshFriendList() {
+	friendsLst.empty();
+
+	friends.sort(compareUserBy(usersName)).forEach(function(user) {
 		addFriendToFriendList(user.name(), false);
 	});
 
-	pendingFriendReqs.forEach(function(user) {
+	pendingFriendReqs.sort(compareUserBy(usersName)).forEach(function(user) {
 		addFriendToFriendList(user.name(), true);
 	});
 }
@@ -112,6 +136,13 @@ function setupAutocompleteSearch() {
 
 	var searchInput = $('#search-friends-btn');
 	searchInput.val("");
+
+	$('#search-friends-btn').keydown(function(event){
+	    if(event.keyCode == 13) {
+	      event.preventDefault();
+	      return false;
+	  }
+	});
 
 	$("#search-friends-btn").autocomplete({
         source: function(req, responseFn) {
@@ -128,7 +159,13 @@ function setupAutocompleteSearch() {
         select: function (event, ui) {
         	event.preventDefault();
             return false;
-        }
+        },
+        keydown: function(event, ui) {
+		    if(event.keyCode == 13) {
+		      event.preventDefault();
+		      return false;
+		    }
+		}
     })
         .data("autocomplete")._renderItem = function (ul, user) {
         	var name = user.name();
@@ -148,7 +185,7 @@ function setupAutocompleteSearch() {
 
 			btn.click(function(event) {
 				//Save updated reqs to loacalstorage
-				pendingFriendReqs.push(user);
+				addFriendReq(user);
 				refreshChatAndFriendList();
 				setupAutocompleteSearch();
 				console.log($(this).parent().parent().parent());
@@ -158,10 +195,38 @@ function setupAutocompleteSearch() {
     };
 }
 
-// function setOnline() {
-// 	var probOnline = .5;
-// 	return Math.random() < probOnline;
-// }
+function addFriendReq(user) {
+	pendingFriendReqs.push(user);
+	setStorageItem("friendReqs", pendingFriendReqs);
+}
+
+function removeFriendReq(username) {
+	var userIndex = -1,
+		i = 0;
+	pendingFriendReqs.forEach(function(user) {
+		if(usersName(user) == username)
+			userIndex = i;
+		i += 1;
+	});
+
+	if (userIndex != -1)
+		pendingFriendReqs.splice(userIndex,1);
+	setStorageItem("friendReqs", pendingFriendReqs);
+}
+
+function removeFriend(username) {
+	var userIndex = -1,
+		i = 0;
+	friends.forEach(function(user) {
+		if(usersName(user) == username)
+			userIndex = i;
+		i += 1;
+	});
+
+	if (userIndex != -1)
+		friends.splice(userIndex,1);
+	setStorageItem("friends", friends);
+}
 
 function filterNonFriends(users, friends, pendingFriends) {
 

@@ -11,10 +11,13 @@ $(document).ready(function() {
 });
 
 function setupChatStyle(top, bottom) {
+	console.log(top);
+	console.log(bottom);
 	refreshChatList();
 
 	var chat = $('#chat-bar');
 	var bottomFactor = .6;
+	var windowSize = parseInt($(window).height());
 
 	chat.css('position', 'fixed');
 	// chat.css('top', top);
@@ -25,8 +28,8 @@ function setupChatStyle(top, bottom) {
 	chat.css('max-height', $(window).height()-top-bottom);
 
 	$('#friends-chat.list-group').css('margin-bottom', 0);
-	var bottomMargin = Math.round(parseInt($('#friends-chat.list-group').css('margin-bottom'))/2.3);
-	console.log(bottomMargin);
+	// console.log("friends-chat: " + friendsChat.height());
+	// console.log("window: " + (windowSize-top-bottom));
 
 	friendsChat.slimScroll({
         height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
@@ -49,8 +52,6 @@ function addFriendToChat(name, online, avatar) {
 		});
 
 		li.hover(function() {
-			console.log("hovering");
-			console.log($(this).height());
 			$(this).css('background-color', '#E7E7E7');
 		}, function() {
 			$(this).css('background-color', '');
@@ -82,6 +83,7 @@ function addFriendToChat(name, online, avatar) {
 
 function refreshChatList() {
 	friendsChat.empty();
+	friendsChat.css('height', "");
 
 	friends.forEach(function(user) {
 		addFriendToChat(user.name(), true, user.avatar());
@@ -89,12 +91,14 @@ function refreshChatList() {
 }
 
 
-openChats = {};
-openChatsOrder = [];
-backedUpChats = [];
-chatWidth = 250;
+var	openChatsOrder = getStorageItem("openChatsOrder"),
+	chatIsOpen = getStorageItem("chatIsOpen"),
+	backedUpChats = getStorageItem("backedUpChats"),
+	chatWidth = 250;
 
-function openChat(name) {
+var openChats = {};
+
+function openChat(name, state) {
 	/*
 	    now if box is not null,
 	    we are toggling chat box.
@@ -103,8 +107,7 @@ function openChat(name) {
 
 	if(box != undefined)
 	{
-		console.log(box.chatbox("option", "hidden"));
-		if (!box.chatbox("option", "boxManager").open)
+		if (!currentChatOpen(box))
 	    	box.chatbox("toggleContent");
 	    box.chatbox("inputBox").focus();
 	}
@@ -112,23 +115,126 @@ function openChat(name) {
 	{
 		if (chatBoxOffset(Object.keys(openChats).length) + chatWidth > parseInt($(window).width()) - 30) {
 			if (backedUpChats.indexOf(name) < 0) {
-				backedUpChats.push(name);
+				queueChat(name);
 				updateChatBoxOverflowIcon();
 			}
 		}
 		else {
 			var chatBox = $('<div />', { id: 'chat_div_'+name });
-			// $('#chat-boxes').append(chatBox);
 
 		    box = createChatBox(chatBox, name);
 
-		    openChats[name] = box;
-		    openChatsOrder.push(name);
+		    if (state != undefined) { 
+		    	openChats[name] = box;
+		    	if (currentChatOpen(box) != state)
+	    			box.chatbox("toggleContent");
+	    	}
+
+		    if (currentChatOpen(box))
+		    	box.chatbox("inputBox").focus();
+
+		    if (state == undefined) {
+		    	console.log("adding new chatBox");
+		    	addChat(name, box);
+		    }
+
 		    extraChatTextAreaFormatting(box.chatbox("inputBox"));
-		    box.chatbox("inputBox").focus();
 		}
 	}
 
+}
+
+function currentChatOpen(box) {
+	return box.chatbox("option", "boxManager").open;
+}
+
+function openExistingChats(chats, chatStates) {
+	console.log("openChats: " + JSON.stringify(openChats));
+	console.log("existing chats: " + JSON.stringify(chats));
+	console.log("existing chat states: " + JSON.stringify(chatStates));
+	chats.forEach(function(chatName) {
+		openChat(chatName, chatStates[chatName]);
+	});
+	console.log("openChats: " + JSON.stringify(openChats));
+}
+
+function addChat(name, box) {
+	console.log("adding chatbox: " + name);
+	openChats[name] = box;
+	openChatsOrder.push(name);
+	updateChatInfo();
+}
+
+function removeChat(name) {
+	delete openChats[name]
+	console.log(openChatsOrder);
+    openChatsOrder.splice(openChatsOrder.indexOf(name), 1);
+    console.log(openChatsOrder);
+    updateChatInfo();
+}
+
+function queueChat(name) {
+	backedUpChats.push(name);
+	updateChatInfo();
+}
+
+function dequeChat() {
+	openChat(backedUpChats.splice(0, 1));
+	updateChatInfo();
+}
+
+function updateChatState(name, state) {
+	chatIsOpen[name] = state;
+	updateChatInfo();
+}
+
+function updateChatInfo() {
+	setStorageItem("chatIsOpen", chatIsOpen);
+	setStorageItem("openChatsOrder", openChatsOrder);
+	setStorageItem("backedUpChats", backedUpChats);
+}
+
+function createChatBox(chatBox, name) {
+	console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
+	chatIsOpen[name] = true;
+	return chatBox.chatbox(
+    {
+        id:'Eirik',
+        chatboxID: name,
+        user:
+        {
+            key : "value"
+        },
+        title : name,
+        offset: chatBoxOffset(Object.keys(openChats).length),
+        width: chatWidth,
+        updateChatState : function(chatboxID, state) {
+        	updateChatState(chatboxID, state);
+        },
+        /*
+            messageSend as name suggest,
+            this will called when message sent.
+            and for demo we have appended sent message to our log div.
+        */
+        messageSent : function(id, user, msg)
+        {
+            $("#log").append(id + " said: " + msg + "<br/>");
+            chatBox.chatbox("option", "boxManager").addMsg(id, msg);
+        },
+        boxClosed : function(chatboxID)
+        {
+        	removeChat(chatboxID)
+
+        	// reset positions
+        	var i = 0;
+        	openChatsOrder.forEach(function(chatName) {
+        		console.log(chatName);
+        		openChats[chatName].chatbox('widget').css("right", chatBoxOffset(i));
+        		i += 1;
+        	});
+
+        }
+    });
 }
 
 function extraChatTextAreaFormatting(textArea) {
@@ -154,46 +260,12 @@ function extraChatTextAreaFormatting(textArea) {
 	});
 }
 
-function createChatBox(chatBox, name) {
-	return chatBox.chatbox(
-    {
-        id:'Eirik',
-        user:
-        {
-            key : "value"
-        },
-        title : name,
-        offset: chatBoxOffset(Object.keys(openChats).length),
-        width: chatWidth,
-        /*
-            messageSend as name suggest,
-            this will called when message sent.
-            and for demo we have appended sent message to our log div.
-        */
-        messageSent : function(id, user, msg)
-        {
-            $("#log").append(id + " said: " + msg + "<br/>");
-            chatBox.chatbox("option", "boxManager").addMsg(id, msg);
-        },
-        boxClosed : function(id)
-        {
-        	delete openChats[id]
-        	openChatsOrder.splice(openChatsOrder.indexOf(id), 1);
-        	// reset positions
-        	var i = 0;
-        	openChatsOrder.forEach(function(name) {
-        		openChats[name].chatbox('widget').css("right", chatBoxOffset(i));
-        		i += 1;
-        	});
-
-        }
-    });
-}
-
 function updateChatBoxOverflowIcon() {
 
 }
 
 function chatBoxOffset(i) {
+	console.log($('#friends-chat').width());
+	console.log("ith chatbox: " + i);
 	return (i * (chatWidth+20)) + $('#friends-chat').width() + 5
 }

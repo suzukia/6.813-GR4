@@ -1,10 +1,10 @@
 function setStorageItem(name, object) {
-	console.log(name + " " + JSON.stringify(object))
+	// console.log(name + " " + JSON.stringify(object))
 	return sessionStorage.setItem(name, JSON.stringify(object));
 }
 
 function getStorageItem(name) {
-	console.log(name + " " + sessionStorage.getItem(name));
+	// console.log(name + " " + sessionStorage.getItem(name));
 	return JSON.parse(sessionStorage.getItem(name));
 }
 
