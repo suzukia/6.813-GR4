@@ -268,7 +268,5 @@ function addQueuedChat() {
 }
 
 function chatBoxOffset(i) {
-	console.log($('#friends-chat').width());
-	console.log("ith chatbox: " + i);
 	return (i * (chatWidth+20)) + $('#friends-chat').width() + 5
 }

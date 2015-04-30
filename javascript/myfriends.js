@@ -40,7 +40,7 @@ function configNavbar(){
 
 function configChat() {
     var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = parseInt(kltFooter.height());
+        bottom = kltFooter.height();
 
     setupChatStyle(top, bottom);
 }
