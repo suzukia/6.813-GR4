@@ -1,0 +1,43 @@
+
+#createTitle {
+  color: #93DB70;
+  text-align: center;
+}
+
+#createBody {
+  /*position: relative;*/
+  width: 100%;
+  padding: 0px;
+}
+
+#buttonGroup {
+  display: inline-block;
+  margin: 0px;
+}
+
+#questionContainer {
+  /*display: inline;*/
+  width: 100%;
+  vertical-align: top;
+  /*height: 100%;*/
+  padding: 2%;
+  /*height: 40%;*/
+}
+
+#featureContainers {
+  /*display: inline;*/
+  width: 100%;
+  vertical-align: top;
+  /*height: 100%;*/
+  /*padding: 2%; */
+  /*height: 60%; */
+}
+
+#createFooter {
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #9ACD32;
+}

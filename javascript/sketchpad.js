@@ -14,7 +14,9 @@ function SketchPad(canvasID) {
 	var yOffset;
 
 	this.init = function(userID) {
-		canvas = document.getElementById(canvasID);
+		//canvas = document.getElementById(canvasID);
+		canvas = $("#canvas-test")[0];
+		console.log("creating canvas");
 		console.log(canvas);
 		index = 0;
 		users = {userID: index};
