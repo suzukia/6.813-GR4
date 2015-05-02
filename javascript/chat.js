@@ -292,7 +292,7 @@ function gameMsgSentFunc(chatBox, name) {
 	    addMsgToChatLog(name, id, msg);
 	    
 	    if (chatSimCount[name] == 0)
-	    	simulateSecondGameConversation(chatBox, name);
+	    	simulateGameConversation(chatBox, name, secondMsgs);
 	    	// simulateInitGameConversation(chatBox, name);
 	    // if (chatSimCount[name] == 1)
 	    // 	simulateSecondGameConversation(chatBox, name);
@@ -414,27 +414,34 @@ function simulateSecondConversation(chatBox, name) {
 /******************** Game Chat Simulation ******************/
 /************************************************************/
 //var gamePlayers = ["User1", "User2", "User3", "User4"];
-function simulateInitGameConversation(chatBox, boxName) {
+var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
+var secondMsgs = ["sure am!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+
+function simulateGameConversation(chatBox, boxName, msgs) {
 	var gamePlayers = boxName.split(',').sort(function() {return 0.5 - Math.random()}),
 		firstMsgTime = 2500,
-		firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"].sort(function() {return 0.5 - Math.random()}),
-		secondMsgs = ["sure am!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+		msgs = msgs.sort(function() { return 0.5 - Math.random() }),
 		resetTime = 100,
 		playerToSpeak = 0,
 		msgID = 0;
 
-
-	setTimeout(function() {
-		chatBox.chatbox("toggleTypingIndicator");
-	}, firstMsgTime - 1500);
-
-	setTimeout(function() {
-		var firstPerson = gamePlayers[playerToSpeak];
-		addMsgToChatbox(chatBox, firstPerson, firstMsgs[msgID]);
-		addMsgToChatLog(boxName, firstPerson, firstMsgs[msgID]);
-	}, firstMsgTime);
-
 	gamePlayers.forEach(function(playerName) {
+		var msgTime = (firstMsgTime*playerToSpeak + firstMsgTime);
+		setTimeout(function() {
+			chatBox.chatbox("toggleTypingIndicator");
+		}, msgTime - 1500);
 
+		setTimeout(function() {
+			var person = gamePlayers[playerToSpeak];
+			addMsgToChatbox(chatBox, person, msgs[msgID]);
+			addMsgToChatLog(boxName, person, msgs[msgID]);
+		}, msgTime);
+
+		setTimeout(function() {
+			chatBox.chatbox("toggleTypingIndicator");
+		}, msgTime - resetTime);
+
+		playerToSpeak += 1;
+		msgID += 1;
 	});
 }

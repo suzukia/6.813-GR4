@@ -8,7 +8,7 @@ var chatName = "User1,User2,User3,User4";
 
 $(document).ready(function() {
   chatbox = openChat(chatName, gameMsgSentFunc);
-  simulateInitGameConversation(chatbox, chatName);
+  simulateGameConversation(chatbox, chatName, firstMsgs);
 
 	map = localStorage.getItem("map");
 	if (map == null) {
