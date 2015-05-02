@@ -22,7 +22,8 @@
             user: null, // can be anything associated with this chatbox
             hidden: false,
             offset: 0, // relative to right edge of the browser window
-            width: 300, // width of the chatbox 
+            width: 300, // width of the chatbox,
+            typingIndVis: false,
             updateChatState: function(chatboxID, state) {
 
             },
@@ -97,6 +98,13 @@
             if (this.uiChatboxContent.is(":visible")) {
                 this.uiChatboxInputBox.focus();
             }
+        },
+        toggleTypingIndicator: function() {
+            if (this.typingIndVis)
+                this.typingInd.css('display', 'None');
+            else { this.typingInd.css('display', ''); }
+
+            this.typingIndVis = !this.typingIndVis;
         },
         widget: function() {
             return this.uiChatbox
@@ -225,6 +233,20 @@
                 // click on any children, set focus on input box
                 self.uiChatboxInputBox.focus();
             });
+
+            // altered code
+            var typingInd = (self.typingInd = $('<div />', {
+                id : "typing-indicator",
+                text : "Entering Text..."
+            }));
+
+            typingInd.css('position', 'absolute');
+            typingInd.css('bottom', (uiChatboxInputBox.height() + uiChatboxInput.height()) / 2);
+            typingInd.css('text-align', 'center');
+            typingInd.css('font-size', '10px');
+            typingInd.css('width', '100%');
+            typingInd.css('display', 'None');
+            uiChatboxLog.append(typingInd);
 
             self._setWidth(self.options.width);
             self._position(self.options.offset);
