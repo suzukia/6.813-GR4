@@ -89,11 +89,100 @@ $(document).ready(function() {
   }
 
 
-    var loadMapList = function() {
+  var loadMapList = function() {
     var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
-      $('#map-list').append('<a href="#" class="list-group-item map_info" id="select'+maps[i].name+'" style="margin-bottom:1">'+maps[i].name+'<div class="extra_map_info">'+maps[i].description+'</div></a>');
+      console.log(maps[i].name)
+      var text1 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description description description asdf  asdflkj;l  l;akjsdf ;lkj ;lakjdf ;lakjdf ;lkajd ;lkajdf lksjdf lkjadsf lkjsd lkjasldkfj alskdfj laksdjf lkasdfj lkfj lksjdflk jaslfk jlakdj';
+      var text2 = 'this asdfj lkfj lksjdflk jaslfk jlakdj';
+      var text3 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description descripti';
+      var text;
+
+      var image = $('<img />', {
+        id : "iconFor" +maps[i].name,
+        hspace : 4,
+        src : "../images/chat/avatar5.gif"
+      }).css({
+        "vertical-align" : "middle",
+        "margin" : 0,
+        "height" : "50px",
+        "width" : "50px"
+      });
+      var span1 = $('<span />', {
+        class : "helper"
+      });
+      var span2 = $('<span />', {
+        class : "helper"
+      });
+
+
+      var divForImage = $('<div />', {
+        class : "col-md-2 divForImage",
+        id : 'divForImage'+maps[i].name
+
+      }).css({
+        "padding-left" : 0,
+        "padding-right" : 0,
+        "vertical-align" : "middle"
+      }).append(span1).append(image);
+
+      var descriptionContent = $('<div />', {
+        id : 'descriptionContent'+maps[i].name,
+        text : text1
+      }).css({
+         "display" : "table-cell",
+         "vertical-align": "middle"
+      });
+
+      var descriptionDiv = $('<div />', {
+        class : "col-md-10 descriptionDiv",
+        id : 'descriptionDiv'+maps[i].name,
+      }).css({
+         "display" : "table",
+         "vertical-align": "middle",
+         "padding": 0
+      }).append(descriptionContent);
+
+      // var span = $('<span />', {
+      //   class : "helper"
+      // });
+
+      var anchor = $('<a />', {
+        href : '#',
+        class : "list-group-item map_info" ,
+        id : 'select'+maps[i].name
+      }).css({
+        "margin-bottom" : 1
+      });
+
+      var mapRowDiv = $('<div />', {
+        class : "row",
+        id : 'row'+maps[i].name
+      }).css({
+        margin : 0
+      });
+
+      // mapRowDiv.append(span);
+      mapRowDiv.append(divForImage).append(descriptionDiv);
+      anchor.append(mapRowDiv);
+      $('#map-list').append(anchor);
+
+
+      // make all the image and texts the same height, for centering
+      setTimeout(function() {
+        for (var i=0; i<maps.length; i++) {
+          var maxHeight = Math.max($('#descriptionDiv'+maps[i].name).height(), $('#divForImage'+maps[i].name).height());
+          $('#divForImage'+maps[i].name).height(maxHeight);
+          $('#descriptionDiv'+maps[i].name).height(maxHeight);
+          // console.log($('#divForImage'+maps[i].name).height());
+          // console.log($('#descriptionDiv'+maps[i].name).height());
+        }
+      }, 150);
+
+
+
     }
+
     // this is to make the bottom margin visible
     $('.map_info').css("margin-bottom", 0);
 
@@ -109,6 +198,16 @@ $(document).ready(function() {
     });
   }
 
+  var adjustHeight = function() {
+    var h = $('#descriptionDivSpace').height();
+    // console.log(h);
+    // console.log("here");
+  }
+
+
+
+
+
   $('#invite-friends').slimScroll({
     height: 0.5*$(window).height()
   });
@@ -120,7 +219,7 @@ $(document).ready(function() {
 
   loadCreateGameFriendList();
   loadMapList();
-
+  adjustHeight();
 
     $(window).resize(function() {
       $('#invite-friends').slimScroll({destroy: true});
