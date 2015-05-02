@@ -1,9 +1,4 @@
-<!-- 
-maps: some theme ie. medieval, space, 
-each theme consists of 3-4 different acts, stored in a list; map just loads in each image as an act.
-each act comes with set of questions which can be found by looking at the index of the current act and
-indexing into a dictionary of questions
- -->
+<!-- file contains map content and two modals, question and challenges. -->
 
 <!DOCTYPE html>
 <html>
@@ -13,27 +8,21 @@ indexing into a dictionary of questions
         <title>Map Title</title>
 
         <link rel="stylesheet" type="text/css" href="../stylesheets/map.css" />
-        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css"><!-- 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css">
         <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../external_js/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css">
-        <link type="text/css" href="../stylesheets/jquery.ui.chatbox.css" rel="stylesheet" />
 
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
 
         <!-- chat stuff -->
+        <script type="text/javascript" src="../external_js/easeljs-0.8.0/lib/easeljs-0.8.0.combined.js"></script>
+        <script type="text/javascript" src="../javascript/sketchpad.js"></script> 
 
-
-        <!-- <script type="text/javascript" src="../external_js/bootstrap-3.3.4-dist/js/bootstrap.js"></script> -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../external_js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
-        <script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
-        <script type="text/javascript" src="../javascript/chat.js"></script>
+        <script type="text/javascript" src="../external_js/bootstrap-3.3.4-dist/js/bootstrap.js"></script>
+        <!--script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script-->
         <script type="text/javascript" src="../javascript/user.js"></script>
         <script type="text/javascript" src="../javascript/map.js"></script>
-        <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
 
     </head>
 
@@ -159,6 +148,7 @@ indexing into a dictionary of questions
         <div id="questionModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+                	<!-- Content is populated using javascript -->
                     <div id="createHeader" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h2 id="createTitle" class="modal-title">Q: Composition of Matter</h2>
@@ -167,14 +157,20 @@ indexing into a dictionary of questions
                         <div id="questionContainer">
                             <div id="questionHeader">Which is the first element in the periodic table?</div>
                             <table id="questionTable" class="table table-striped table-condensed">
-                                <tr><td width = "5%"><button class="btn btn-info btn-xs">A</button></td><td width = "95%">Li</td></tr>
-                                <tr><td width = "5%"><button class="btn btn-info btn-xs">B</button></td><td width = "95%">He</td></tr>
-                                <tr><td width = "5%"><button class="btn btn-info btn-xs">C</button></td><td width = "95%">H</td></tr>
-                                <tr><td width = "5%"><button class="btn btn-info btn-xs">D</button></td><td width = "95%">Ne</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="A"></label></td><td width = "95%">N</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="B"></label></td><td width = "95%">He</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="C"></label></td><td width = "95%">H</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="D"></label></td><td width = "95%">Ne</td></tr>
+
+                                <!-- <tr><td width = "5%"><button class="btn btn-info btn-xs" id="B">B</button></td><td width = "95%">He</td></tr>
+                                <tr><td width = "5%"><button class="btn btn-info btn-xs" id="C">C</button></td><td width = "95%">H</td></tr>
+                                <tr><td width = "5%"><button class="btn btn-info btn-xs" id="D">D</button></td><td width = "95%">Ne</td></tr> -->
                             </table>
+                            <button class="btn btn-info btn-s" id="getHelp">Get Help</button>
+                            <button class="btn btn-info btn-s" id="submit">Submit</button>
                         </div>
                         <div id="featureContainers">
-                            <canvas id="canvas-test" height="300" width="500"></canvas>
+                            <canvas id="canvas-test" height="300" width="800"></canvas>
                             <!-- place chat box here; canvas-test-2 just a placeholder -->
                             <div id="chatbox"  width="200" height="200"></div> 
                             <!--canvas id="canvas-test-2" height="300" width="300"></canvas-->

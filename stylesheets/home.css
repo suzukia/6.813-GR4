@@ -31,9 +31,29 @@ body, html {
 }
 
 .klt-footer {
-	height: 47px;
-	bottom: 0px;
-	background-color: #E7E7E7;
-	position: absolute;
-	width: 100%
+    height: 34px;
+    bottom: 0px;
+    background-color: #E7E7E7;
+    position: absolute;
+    width: 100%;
+    position: fixed;
+}
+
+#chat-search {
+    padding-right: 0;
+}
+
+#dropdown-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#dropdown-icon-container {
+    vertical-align: middle;
+    float: right;
+}
+
+#dropdown-icon {
+    height: 10px;
 }

@@ -3,7 +3,9 @@
 /******* with friends var defined ******/
 /***************************************/
 
+var username = sessionStorage.getItem("username");
 var friends = formatUsers(getStorageItem("friends"));
+var chatSimCount = getStorageItem("chatSimCount");
 var friendsChat;
 
 $(document).ready(function() {
@@ -94,6 +96,7 @@ function refreshChatList() {
 var	openChatsOrder = getStorageItem("openChatsOrder"),
 	chatIsOpen = getStorageItem("chatIsOpen"),
 	queuedChats = getStorageItem("queuedChats"),
+	chatLogs = getStorageItem("chatLogs");
 	chatWidth = 250;
 
 var openChats = {};
@@ -126,15 +129,17 @@ function openChat(name, state) {
 
 		    if (state != undefined) { 
 		    	openChats[name] = box;
+		    	populateChatWithPreviousMsgs(box, chatLogs[name]);
 		    	if (currentChatOpen(box) != state)
 	    			box.chatbox("toggleContent");
 	    	}
 
-		    if (currentChatOpen(box))
+		    if (currentChatOpen(box))	// if the chat is open then focus on it
 		    	box.chatbox("inputBox").focus();
 
-		    if (state == undefined) {
-		    	console.log("adding new chatBox");
+		    if (state == undefined) {	// adding new chatbox
+		    	chatSimCount[name] = 0;
+		    	console.log(chatSimCount);
 		    	addChat(name, box);
 		    }
 
@@ -184,10 +189,40 @@ function updateChatState(name, state) {
 	updateChatInfo();
 }
 
+function addMsgToChatLog(boxName, sender, msg) {
+	if (!chatLogs.hasOwnProperty(boxName))
+		chatLogs[boxName] = [[sender, msg]];
+	else
+		chatLogs[boxName].push([sender, msg]);
+	updateChatInfo();
+	console.log(chatLogs);
+}
+
+function addMsgToChatbox(chatBox, name, msg) {
+	chatBox.chatbox("option", "boxManager").addMsg(name, msg);
+}
+
+function populateChatWithPreviousMsgs(chatBox, msgs) {
+	msgs.forEach(function(msg) {
+		addMsgToChatbox(chatBox, msg[0], msg[1]);
+	});
+}
+
+function addQueuedChat() {
+	if (queuedChats.length > 0)
+		dequeChat();
+}
+
+function updateChatSimCount(name) {
+	chatSimCount[name] = parseInt(chatSimCount[name]) + 1;
+	setStorageItem("chatSimCount", chatSimCount);
+}
+
 function updateChatInfo() {
 	setStorageItem("chatIsOpen", chatIsOpen);
 	setStorageItem("openChatsOrder", openChatsOrder);
 	setStorageItem("queuedChats", queuedChats);
+	setStorageItem("chatLogs", chatLogs);
 }
 
 function createChatBox(chatBox, name) {
@@ -195,7 +230,7 @@ function createChatBox(chatBox, name) {
 	chatIsOpen[name] = true;
 	return chatBox.chatbox(
     {
-        id:'Eirik',
+        id:username,
         chatboxID: name,
         user:
         {
@@ -214,8 +249,17 @@ function createChatBox(chatBox, name) {
         */
         messageSent : function(id, user, msg)
         {
-            $("#log").append(id + " said: " + msg + "<br/>");
+            //$("#log").append(id + " said: " + msg + "<br/>");
             chatBox.chatbox("option", "boxManager").addMsg(id, msg);
+
+            addMsgToChatLog(name, id, msg);
+            
+            if (chatSimCount[name] == 0)
+            	simulateInitConversation(chatBox, name);
+            if (chatSimCount[name] == 1)
+            	simulateSecondConversation(chatBox, name);
+            updateChatSimCount(name);
+            console.log(getStorageItem("chatSimCount"));
         },
         boxClosed : function(chatboxID)
         {
@@ -262,13 +306,84 @@ function updateChatBoxOverflowIcon() {
 
 }
 
-function addQueuedChat() {
-	if (queuedChats.length > 0)
-		dequeChat();
+function chatBoxOffset(i) {
+	return (i * (chatWidth+20)) + $('#friends-chat').width() + 5
 }
 
-function chatBoxOffset(i) {
-	console.log($('#friends-chat').width());
-	console.log("ith chatbox: " + i);
-	return (i * (chatWidth+20)) + $('#friends-chat').width() + 5
+function toggleTypingIndicator(chatBox) {
+	chatBox.chatbox("toggleTypingIndicator");
+}
+
+
+/********************************************************/
+/******************** Chat Simulation *******************/
+/********************************************************/
+
+function simulateInitConversation(chatBox, name) {
+	var firstMsgTime = 2500,
+		firstMsg = "hey " + username,
+		secondMsgTime = 5500,
+		secondMsg = "Ooo Let's play a game! I'll send you an invitation",
+		thirdMsgTime = 8000,
+		thirdMsg = "Got it?!",
+		resetTime = 100;
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, firstMsgTime - 1500);
+
+	setTimeout(function() {
+		addMsgToChatbox(chatBox, name, firstMsg);
+		addMsgToChatLog(name, name, firstMsg);
+	}, firstMsgTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, firstMsgTime - resetTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, secondMsgTime - 2000);
+
+	setTimeout(function() {
+		addMsgToChatbox(chatBox, name, secondMsg);
+		addMsgToChatLog(name, name, secondMsg);
+	}, secondMsgTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, secondMsgTime - resetTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, thirdMsgTime - 1000);
+
+	setTimeout(function() {
+		addMsgToChatbox(chatBox, name, thirdMsg);
+		addMsgToChatLog(name, name, thirdMsg);
+	}, thirdMsgTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, thirdMsgTime - resetTime);
+	
+}
+
+function simulateSecondConversation(chatBox, name) {
+	var firstMsgTime = 2500,
+		firstMsg = "Cool! See you in the Game!",
+		resetTime = 100;
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, firstMsgTime - 1500);
+
+	setTimeout(function() {
+		addMsgToChatbox(chatBox, name, firstMsg);
+		addMsgToChatLog(name, name, firstMsg);
+	}, firstMsgTime);
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, firstMsgTime - resetTime);
 }
