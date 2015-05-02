@@ -3,7 +3,7 @@
 /******* with friends var defined ******/
 /***************************************/
 
-var username = sessionStorage.getItem("username");
+var username = localStorage.getItem("username");
 var friends = formatUsers(getStorageItem("friends"));
 var chatSimCount = getStorageItem("chatSimCount");
 var friendsChat;
@@ -12,10 +12,10 @@ $(document).ready(function() {
 	friendsChat = $('#friends-chat');
 });
 
-function setupChatStyle(top, bottom) {
+function setupChatStyle(top, bottom, filter) {
 	console.log(top);
 	console.log(bottom);
-	refreshChatList();
+	refreshChatList(filter);
 
 	var chat = $('#chat-bar');
 	var bottomFactor = .6;
@@ -27,12 +27,13 @@ function setupChatStyle(top, bottom) {
 	chat.css('right', 0);
 	chat.css('padding-right', 0);
 	chat.css('padding-top', 0);
+	chat.css('padding-bottom', 0);
 	chat.css('max-height', $(window).height()-top-bottom);
 
 	$('#friends-chat.list-group').css('margin-bottom', 0);
 	// console.log("friends-chat: " + friendsChat.height());
 	// console.log("window: " + (windowSize-top-bottom));
-
+	console.log("friendsChat height: " + friendsChat.height());
 	friendsChat.slimScroll({
         height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
     });
@@ -60,7 +61,7 @@ function addFriendToChat(name, online, avatar) {
 		});
 
 		li.click(function() {
-			openChat(name);
+			openChat(name, basicMsgSentFuncConv);
 		});
 
 		var img;
@@ -83,12 +84,14 @@ function addFriendToChat(name, online, avatar) {
 	}
 }
 
-function refreshChatList() {
+function refreshChatList(filter) {
+	console.log("inside refreshChatList");
 	friendsChat.empty();
 	friendsChat.css('height', "");
 
 	friends.forEach(function(user) {
-		addFriendToChat(user.name(), true, user.avatar());
+		if ((filter == undefined) || (filter != undefined && filter(user.name())) )
+			addFriendToChat(user.name(), true, user.avatar());
 	});
 }
 
@@ -101,7 +104,7 @@ var	openChatsOrder = getStorageItem("openChatsOrder"),
 
 var openChats = {};
 
-function openChat(name, state) {
+function openChat(name, msgSentFunc, state) {
 	/*
 	    now if box is not null,
 	    we are toggling chat box.
@@ -125,7 +128,7 @@ function openChat(name, state) {
 		else {
 			var chatBox = $('<div />', { id: 'chat_div_'+name });
 
-		    box = createChatBox(chatBox, name);
+		    box = createChatBox(chatBox, name, msgSentFunc);
 
 		    if (state != undefined) { 
 		    	openChats[name] = box;
@@ -139,13 +142,16 @@ function openChat(name, state) {
 
 		    if (state == undefined) {	// adding new chatbox
 		    	chatSimCount[name] = 0;
-		    	console.log(chatSimCount);
+		    	console.log("chat sim count: " + chatSimCount[name]);
+		    	chatLogs[name] = [];
 		    	addChat(name, box);
 		    }
 
 		    extraChatTextAreaFormatting(box.chatbox("inputBox"));
 		}
 	}
+
+	return box;
 
 }
 
@@ -155,7 +161,7 @@ function currentChatOpen(box) {
 
 function openExistingChats(chats, chatStates) {
 	chats.forEach(function(chatName) {
-		openChat(chatName, chatStates[chatName]);
+		openChat(chatName, basicMsgSentFunc, chatStates[chatName]);
 	});
 }
 
@@ -190,10 +196,7 @@ function updateChatState(name, state) {
 }
 
 function addMsgToChatLog(boxName, sender, msg) {
-	if (!chatLogs.hasOwnProperty(boxName))
-		chatLogs[boxName] = [[sender, msg]];
-	else
-		chatLogs[boxName].push([sender, msg]);
+	chatLogs[boxName].push([sender, msg]);
 	updateChatInfo();
 	console.log(chatLogs);
 }
@@ -225,7 +228,7 @@ function updateChatInfo() {
 	setStorageItem("chatLogs", chatLogs);
 }
 
-function createChatBox(chatBox, name) {
+function createChatBox(chatBox, name, msgSentFunc) {
 	console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
 	chatIsOpen[name] = true;
 	return chatBox.chatbox(
@@ -239,27 +242,14 @@ function createChatBox(chatBox, name) {
         title : name,
         offset: chatBoxOffset(Object.keys(openChats).length),
         width: chatWidth,
-        updateChatState : function(chatboxID, state) {
-        	updateChatState(chatboxID, state);
-        },
         /*
             messageSend as name suggest,
             this will called when message sent.
             and for demo we have appended sent message to our log div.
         */
-        messageSent : function(id, user, msg)
-        {
-            //$("#log").append(id + " said: " + msg + "<br/>");
-            chatBox.chatbox("option", "boxManager").addMsg(id, msg);
-
-            addMsgToChatLog(name, id, msg);
-            
-            if (chatSimCount[name] == 0)
-            	simulateInitConversation(chatBox, name);
-            if (chatSimCount[name] == 1)
-            	simulateSecondConversation(chatBox, name);
-            updateChatSimCount(name);
-            console.log(getStorageItem("chatSimCount"));
+        messageSent : msgSentFunc(chatBox, name),
+        updateChatState : function(chatboxID, state) {
+        	updateChatState(chatboxID, state);
         },
         boxClosed : function(chatboxID)
         {
@@ -277,6 +267,38 @@ function createChatBox(chatBox, name) {
 
         }
     });
+}
+
+function basicMsgSentFunc(chatBox, name) {
+    //$("#log").append(id + " said: " + msg + "<br/>");
+    return function(id, user, msg) {
+	    chatBox.chatbox("option", "boxManager").addMsg(id, msg);
+
+	    addMsgToChatLog(name, id, msg);
+	    
+	    if (chatSimCount[name] == 0)
+	    	simulateInitConversation(chatBox, name);
+	    if (chatSimCount[name] == 1)
+	    	simulateSecondConversation(chatBox, name);
+	    updateChatSimCount(name);
+	    console.log(getStorageItem("chatSimCount"));
+	}
+}
+
+function gameMsgSentFunc(chatBox, name) {
+	return function(id, user, msg) {
+	    chatBox.chatbox("option", "boxManager").addMsg(id, msg);
+
+	    addMsgToChatLog(name, id, msg);
+	    
+	    if (chatSimCount[name] == 0)
+	    	simulateSecondGameConversation(chatBox, name);
+	    	// simulateInitGameConversation(chatBox, name);
+	    // if (chatSimCount[name] == 1)
+	    // 	simulateSecondGameConversation(chatBox, name);
+	    updateChatSimCount(name);
+	    console.log(getStorageItem("chatSimCount"));
+	}
 }
 
 function extraChatTextAreaFormatting(textArea) {
@@ -386,4 +408,33 @@ function simulateSecondConversation(chatBox, name) {
 	setTimeout(function() {
 		chatBox.chatbox("toggleTypingIndicator");
 	}, firstMsgTime - resetTime);
+}
+
+/************************************************************/
+/******************** Game Chat Simulation ******************/
+/************************************************************/
+//var gamePlayers = ["User1", "User2", "User3", "User4"];
+function simulateInitGameConversation(chatBox, boxName) {
+	var gamePlayers = boxName.split(',').sort(function() {return 0.5 - Math.random()}),
+		firstMsgTime = 2500,
+		firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"].sort(function() {return 0.5 - Math.random()}),
+		secondMsgs = ["sure am!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+		resetTime = 100,
+		playerToSpeak = 0,
+		msgID = 0;
+
+
+	setTimeout(function() {
+		chatBox.chatbox("toggleTypingIndicator");
+	}, firstMsgTime - 1500);
+
+	setTimeout(function() {
+		var firstPerson = gamePlayers[playerToSpeak];
+		addMsgToChatbox(chatBox, firstPerson, firstMsgs[msgID]);
+		addMsgToChatLog(boxName, firstPerson, firstMsgs[msgID]);
+	}, firstMsgTime);
+
+	gamePlayers.forEach(function(playerName) {
+
+	});
 }

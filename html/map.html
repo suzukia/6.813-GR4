@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css">
         <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../external_js/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css">
+        <link type="text/css" href="../stylesheets/jquery.ui.chatbox.css" rel="stylesheet" />
 
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
@@ -20,9 +21,13 @@
         <script type="text/javascript" src="../javascript/sketchpad.js"></script> 
 
         <script type="text/javascript" src="../external_js/bootstrap-3.3.4-dist/js/bootstrap.js"></script>
-        <!--script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script-->
+        <script type="text/javascript" src="../external_js/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
+        <script type="text/javascript" src="../javascript/utilityFuncs.js"></script>
+        <script type="text/javascript" src="../javascript/requiredFields.js"></script>
         <script type="text/javascript" src="../javascript/user.js"></script>
+        <script type="text/javascript" src="../javascript/chat.js"></script>
         <script type="text/javascript" src="../javascript/map.js"></script>
+        <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
 
     </head>
 
@@ -48,6 +53,7 @@
 
 					<script>
 					function alertUser() {
+                        removeChat(chatName);
 					    confirm("Are you sure you want to exit this game?");
 					}
 					</script>
@@ -157,10 +163,10 @@
                         <div id="questionContainer">
                             <div id="questionHeader">Which is the first element in the periodic table?</div>
                             <table id="questionTable" class="table table-striped table-condensed">
-                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="A"></label></td><td width = "95%">N</td></tr>
-                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="B"></label></td><td width = "95%">He</td></tr>
-                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="C"></label></td><td width = "95%">H</td></tr>
-                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" value="D"></label></td><td width = "95%">Ne</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" name="multipleChoice" value="A"></label></td><td width = "95%">N</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" name="multipleChoice" value="B"></label></td><td width = "95%">He</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" name="multipleChoice" value="C"></label></td><td width = "95%">H</td></tr>
+                                <tr><td width = "5%"><label class="btn btn-info btn-xs"><input type="radio" name="multipleChoice" value="D"></label></td><td width = "95%">Ne</td></tr>
 
                                 <!-- <tr><td width = "5%"><button class="btn btn-info btn-xs" id="B">B</button></td><td width = "95%">He</td></tr>
                                 <tr><td width = "5%"><button class="btn btn-info btn-xs" id="C">C</button></td><td width = "95%">H</td></tr>
@@ -170,7 +176,7 @@
                             <button class="btn btn-info btn-s" id="submit">Submit</button>
                         </div>
                         <div id="featureContainers">
-                            <canvas id="canvas-test" height="300" width="800"></canvas>
+                            <canvas id="canvas-test" height="300" width="850"></canvas>
                             <!-- place chat box here; canvas-test-2 just a placeholder -->
                             <div id="chatbox"  width="200" height="200"></div> 
                             <!--canvas id="canvas-test-2" height="300" width="300"></canvas-->

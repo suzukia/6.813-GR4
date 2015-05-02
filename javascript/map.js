@@ -1,39 +1,82 @@
-var kltNavbar, map, currentAct;
+var kltNavbar;
+var currentMap;		
+var currentAct;			
+var mapsToScenes = {};
+var scenesToImages = {};
+var challengesToQuestions = {};
+var chatName = "User1,User2,User3,User4";
 
 $(document).ready(function() {
-	map = sessionStorage.getItem("map");
+  chatbox = openChat(chatName, gameMsgSentFunc);
+  simulateInitGameConversation(chatbox, chatName);
+
+	map = localStorage.getItem("map");
+	if (map == null) {
+		currentMap = "Space"; // default
+	} else {
+		currentMap = map.name;
+	}
     kltNavbar = $('.klt-navbar');
     
+    currentAct = 0;				// default
     configNavbar();
+    setUpDictionaries();
 
-    var toggle = function(currentMap, currentAct) {
-		if (map = "space") {
-			// space stuff
-		} else {
-			// medieval stuff
-		}
-		var sp = new SketchPad("canvas-test");
-        var sp2 = new SketchPad("canvas-test-2");
-        sp.init(0);
-        sp2.init(0);
-        var box = $("#chatbox").chatbox({id:"Eirik", 
-          user:{key : "value"}, 
-          title : "Elizabeth, Frank", 
-          
-          messageSent : function(id, user, msg) { 
-          $("#log").append(id + " said: " + msg + "<br/>"); 
-          $("#chatbox").chatbox("option", "boxManager").addMsg(id, msg); 
-          }}); 
+    var sp = new SketchPad("canvas-test");
+    sp.init(0);
 
-        $(".ui-chatbox") 
-            .draggable() 
-            .resizable();
+    populateData();
 
-	}
-});
+    console.log(challengesToQuestions.act1[0].title);
+  });
+
+function populateData() {
+
+}
+
+function setUpDictionaries() {
+	// We can use currentAct to index into the list of values and get the proper item
+    // key (currentMap) -> value (name of scene or image)
+    mapsToScenes["Space"] 		= ["act1", "act2", "act3"];
+	mapsToScenes["Medieval"] 	= ["voyage1", "voyage2", "voyage3"];
+    scenesToImages["Space"] 	= ["act1.jpg", "act2.png", "act3.png"];
+	scenesToImages["Medieval"]  = ["voyage1.jpg", "voyage2.jpeg", "voyage3.jpg"];
+
+	// key (currentMap, currentAct) -> value (list of the names of questions)
+	challengesToQuestions["act1"]	 = [compositionOfMatter, lifeOfPi, famousComposers];
+	challengesToQuestions["act2"] 	 = [compositionOfMatter, lifeOfPi, famousComposers];
+	challengesToQuestions["act3"] 	 = [compositionOfMatter, lifeOfPi, famousComposers];
+	challengesToQuestions["voyage1"] = [compositionOfMatter, lifeOfPi, famousComposers];
+	challengesToQuestions["voyage2"] = [compositionOfMatter, lifeOfPi, famousComposers];
+	challengesToQuestions["voyage3"] = [compositionOfMatter, lifeOfPi, famousComposers];	
+}
 
 function configNavbar(){
     $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
-    $('#navbar-title').text(map);
+    $('#navbar-title').text(currentMap);
 }
-	
+
+function Question(title, description, choices, correctAnswer) {
+    this.title = title;
+    this.description = description;
+    this.choices = choices;
+    this.correctAnswer = correctAnswer;
+    return this;
+}
+
+$('#submit').click(function(){
+});
+
+$('#questionTable input').on('change', function() {
+   alert($('input[name=radioName]:checked', '#questionTable').val()); 
+});
+
+
+var compositionOfMatter = new Question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
+var lifeOfPi = new Question("Life of Pi", "Rally", [""], "A");
+var famousComposers = new Question("Famous Composers", "Which composer was deaf?", ["Mozart", "Beethoven", "Handel", "Bach"], "B");
+
+$(window).unload(function(){
+    console.log("here about to remove chatbox: " + chatName);
+    removeChat(chatName);
+});
