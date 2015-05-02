@@ -10,9 +10,7 @@ $(document).ready(function() {
 
 
   $("#createModal").modal('show');
-  // $('#errorDiv').alert("close");
   $('#errorDiv').hide();
-  // $('#errorDiv').addClass("in");
 
   $('#create-game-title').click(function() {
     fadeOutAlert();
@@ -45,8 +43,6 @@ $(document).ready(function() {
 ///////// SET UP /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // $("#createModal").modal('show');
-
   // set up Radio buttons
   setUpRadioButtons("private");
   var checkedButtonId;
@@ -61,28 +57,49 @@ $(document).ready(function() {
   var gameTitle;
 
 
+  var disableAllUnselectedCheckboxes = function() {
+    // $('.inviteCheckbox').attr("disabled", true);
+    $('.inviteCheckbox').not(':checked').attr("disabled", true);
+  }
+
+  var enableAllCheckboxes = function() { // code snippet from: http://stackoverflow.com/questions/13471820/get-all-disabled-checkboxes
+    $('.inviteCheckbox:disabled').removeAttr("disabled");
+  }
+
+  // var selectedCheckboxes = [];
+  // var unselectedCheckboxes = [];
 
   // load list of friends
   var loadCreateGameFriendList = function() {
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
-      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friends[i].name()+'" >Invite</button></li>');
-      $('#inviteButton'+friends[i].name()).click(function() {
-        var name = $(this).attr("id").slice(12);
 
+      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
+      // $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friends[i].name()+'" >Invite</button></li>');
+
+      // $('#inviteButton'+friends[i].name()).click(function() {
+      $('#inviteCheckbox'+friends[i].name()).change(function() {
+        var name = $(this).attr("id").slice(14);
         var invitedIndex = checkIfInObjectArray(name, invitedFriends);
-        if (invitedIndex === -1) {
-          if (invitedFriends.length >= 3) {
-            alert("You can only invite up to 3 friends");
-          }
-          else {
+
+        if (invitedIndex === -1) { // this friend was not invited before
+          if (invitedFriends.length === 2) { // adding 3rd friend
             invitedFriends.push(getUserByName(name));
-            $(this).html("Uninvite");
+            disableAllUnselectedCheckboxes();
+          }
+          else if (invitedFriends.length <2) { // 1st or second friend inviting
+            invitedFriends.push(getUserByName(name));
+            // $(this).html("Uninvite");
+          }
+          else { // more than 3 friends (you should never get here!)
+            alert("You can only invite up to three friends");
           }
         }
-        else {
+        else { //this friend was invited before, so uninvite
           invitedFriends.splice(invitedIndex,1);
-          $(this).html("Invite");
+          enableAllCheckboxes();
+
+          // $(this).html("Invite");
         }
       });
     }
@@ -143,10 +160,6 @@ $(document).ready(function() {
          "padding": 0
       }).append(descriptionContent);
 
-      // var span = $('<span />', {
-      //   class : "helper"
-      // });
-
       var anchor = $('<a />', {
         href : '#',
         class : "list-group-item map_info" ,
@@ -162,11 +175,9 @@ $(document).ready(function() {
         margin : 0
       });
 
-      // mapRowDiv.append(span);
       mapRowDiv.append(divForImage).append(descriptionDiv);
       anchor.append(mapRowDiv);
       $('#map-list').append(anchor);
-
 
       // make all the image and texts the same height, for centering
       setTimeout(function() {
@@ -174,8 +185,6 @@ $(document).ready(function() {
           var maxHeight = Math.max($('#descriptionDiv'+maps[i].name).height(), $('#divForImage'+maps[i].name).height());
           $('#divForImage'+maps[i].name).height(maxHeight);
           $('#descriptionDiv'+maps[i].name).height(maxHeight);
-          // console.log($('#divForImage'+maps[i].name).height());
-          // console.log($('#descriptionDiv'+maps[i].name).height());
         }
       }, 150);
 
@@ -198,15 +207,6 @@ $(document).ready(function() {
     });
   }
 
-  var adjustHeight = function() {
-    var h = $('#descriptionDivSpace').height();
-    // console.log(h);
-    // console.log("here");
-  }
-
-
-
-
 
   $('#invite-friends').slimScroll({
     height: 0.5*$(window).height()
@@ -219,18 +219,17 @@ $(document).ready(function() {
 
   loadCreateGameFriendList();
   loadMapList();
-  adjustHeight();
 
-    $(window).resize(function() {
-      $('#invite-friends').slimScroll({destroy: true});
-      $('#map-list').slimScroll({destroy: true});
-      $('#invite-friends').slimScroll({
-        height: 0.5*$(window).height()
-      });
-      $('#map-list').slimScroll({
-        height: 0.5*$(window).height()
-      });
+  $(window).resize(function() {
+    $('#invite-friends').slimScroll({destroy: true});
+    $('#map-list').slimScroll({destroy: true});
+    $('#invite-friends').slimScroll({
+      height: 0.5*$(window).height()
     });
+    $('#map-list').slimScroll({
+      height: 0.5*$(window).height()
+    });
+  });
 
 
 ////////// EVENT HANDLERS //////////////////////////////////////////////////////////////////////////////////////
@@ -311,7 +310,6 @@ $(document).ready(function() {
       // redirectTo("map.html");
     }
   });
-
 });
 
 
