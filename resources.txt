@@ -36,6 +36,20 @@ http://api.jquery.com/append/
 http://stackoverflow.com/questions/3239598/how-can-i-get-the-id-of-an-element-using-jquery
 http://api.jquery.com/val/
 
+http://stackoverflow.com/questions/9304342/use-jquery-to-build-an-anchor
+http://stackoverflow.com/questions/9592575/get-height-of-div-with-no-height-set-in-css
+
+
+http://stackoverflow.com/questions/1539841/wait-until-previous-append-is-complete
+https://api.jquery.com/category/deferred-object/
+http://stackoverflow.com/questions/17216438/chain-multiple-then-in-jquery-when
+http://jsfiddle.net/yTTRq/
+http://viralpatel.net/blogs/jquery-window-height-incorrect/
+https://forum.jquery.com/topic/how-to-get-div-height
+http://jsfiddle.net/vPMDh/1/
+http://www.zyxware.com/articles/2545/jquery-set-the-height-of-one-div-to-another-div
+http://gotoanswer.com/?q=jQuery+width%28%29+and+height%28%29+return+0+for+img+element
+http://stackoverflow.com/questions/16084374/jquery-width-and-height-return-0-for-img-element
 
 
 HTML:
@@ -61,7 +75,14 @@ http://designshack.net/articles/css/whats-the-deal-with-display-inline-block/
 http://stackoverflow.com/questions/21722432/center-aligning-buttons-inside-div-dynamically
 http://stackoverflow.com/questions/8847270/how-to-give-a-href-inside-the-button-tag-in-html
 http://stackoverflow.com/questions/19559197/how-to-make-scrollable-table-with-fixed-headers-using-css
+http://stackoverflow.com/questions/18516317/vertically-align-an-image-inside-a-div-with-responsive-height
+http://www.dev-metal.com/center-div-vertically-horizontally-modern-method-without-fixed-size/
+http://www.w3schools.com/jsref/prop_style_height.asp
 
+THE GOOD ONE:   http://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-div
+http://jsfiddle.net/Cthulhu/QHEnL/1/
+http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
+http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div
 
 
 Javascript:
@@ -83,6 +104,8 @@ http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript
 http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
 http://www.w3schools.com/jsref/jsref_min.asp
 http://www.w3schools.com/jsref/jsref_splice.asp
+http://bytes.com/topic/javascript/answers/788432-determining-height-width-div-dynamically
+http://stackoverflow.com/questions/4057236/how-to-add-onload-event-to-a-div-element
 
 
 Bootstrap:
@@ -110,6 +133,11 @@ http://stackoverflow.com/questions/10903526/how-to-toggle-a-bootstrap-alert-on-a
 http://stackoverflow.com/questions/7676356/can-twitter-bootstrap-alerts-fade-in-as-well-as-out
 http://jsfiddle.net/gabrieleromanato/cX88R/
 http://www.tutorialspoint.com/bootstrap/bootstrap_alerts.htm
+http://tutorialspalace.com/wp-content/uploads/demos/bootstrap/list-group-3.html
+http://tutorialspalace.com/bootstrap-list-group/
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_select&stacked=h
+http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
+
 
 
 Grids:
