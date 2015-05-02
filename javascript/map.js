@@ -5,10 +5,10 @@ var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
 var chatName = "User1,User2,User3,User4";
+// var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
-  chatbox = openChat(chatName, gameMsgSentFunc);
-  simulateGameConversation(chatbox, chatName, firstMsgs);
+  openChat(chatName, gameMsgSentFunc);
 
 	map = localStorage.getItem("map");
 	if (map == null) {

@@ -151,7 +151,7 @@ function openChat(name, msgSentFunc, state) {
 		}
 	}
 
-	return box;
+	// return box;
 
 }
 
@@ -292,10 +292,9 @@ function gameMsgSentFunc(chatBox, name) {
 	    addMsgToChatLog(name, id, msg);
 	    
 	    if (chatSimCount[name] == 0)
+	    	simulateGameConversation(chatBox, name, firstMsgs);
+	    if (chatSimCount[name] == 1)
 	    	simulateGameConversation(chatBox, name, secondMsgs);
-	    	// simulateInitGameConversation(chatBox, name);
-	    // if (chatSimCount[name] == 1)
-	    // 	simulateSecondGameConversation(chatBox, name);
 	    updateChatSimCount(name);
 	    console.log(getStorageItem("chatSimCount"));
 	}
@@ -415,26 +414,26 @@ function simulateSecondConversation(chatBox, name) {
 /************************************************************/
 //var gamePlayers = ["User1", "User2", "User3", "User4"];
 var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
-var secondMsgs = ["sure am!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+var secondMsgs = ["sure let's go!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
 
 function simulateGameConversation(chatBox, boxName, msgs) {
 	var gamePlayers = boxName.split(',').sort(function() {return 0.5 - Math.random()}),
 		firstMsgTime = 2500,
-		msgs = msgs.sort(function() { return 0.5 - Math.random() }),
+		nmsgs = msgs.slice(0,msgs.length),
+		msgs = msgs.slice(0,msgs.length -1).sort(function() { return 0.5 - Math.random() }).concat([nmsgs[nmsgs.length-1]]),
 		resetTime = 100,
-		playerToSpeak = 0,
-		msgID = 0;
+		playerToSpeak = 0;
 
-	gamePlayers.forEach(function(playerName) {
+	msgs.forEach(function(msg, playerName) {
+
 		var msgTime = (firstMsgTime*playerToSpeak + firstMsgTime);
 		setTimeout(function() {
 			chatBox.chatbox("toggleTypingIndicator");
 		}, msgTime - 1500);
 
 		setTimeout(function() {
-			var person = gamePlayers[playerToSpeak];
-			addMsgToChatbox(chatBox, person, msgs[msgID]);
-			addMsgToChatLog(boxName, person, msgs[msgID]);
+			addMsgToChatbox(chatBox, gamePlayers[playerName], msg);
+			addMsgToChatLog(boxName, gamePlayers[playerName], msg);
 		}, msgTime);
 
 		setTimeout(function() {
@@ -442,6 +441,5 @@ function simulateGameConversation(chatBox, boxName, msgs) {
 		}, msgTime - resetTime);
 
 		playerToSpeak += 1;
-		msgID += 1;
 	});
 }
