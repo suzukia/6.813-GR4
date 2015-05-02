@@ -4,9 +4,13 @@ var currentAct;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
+var chatName = "User1,User2,User3,User4";
 
 $(document).ready(function() {
-	map = sessionStorage.getItem("map");
+  chatbox = openChat(chatName, gameMsgSentFunc);
+  simulateInitGameConversation(chatbox, chatName);
+
+	map = localStorage.getItem("map");
 	if (map == null) {
 		currentMap = "Space"; // default
 	} else {
@@ -24,7 +28,6 @@ $(document).ready(function() {
     populateData();
 
     console.log(challengesToQuestions.act1[0].title);
-});
 
 function populateData() {
 
@@ -52,11 +55,12 @@ function configNavbar(){
     $('#navbar-title').text(currentMap);
 }
 
-function question(title, description, choices, correctAnswer) {
+function Question(title, description, choices, correctAnswer) {
     this.title = title;
     this.description = description;
     this.choices = choices;
     this.correctAnswer = correctAnswer;
+    return this;
 }
 
 $('#submit').click(function(){
@@ -67,6 +71,11 @@ $('#questionTable input').on('change', function() {
 });
 
 
-var compositionOfMatter = new question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
-var lifeOfPi = new question("Life of Pi", "Rally", [""], "A");
-var famousComposers = new question("Famous Composers", "Which composer was deaf?", ["Mozart", "Beethoven", "Handel", "Bach"], "B");
+var compositionOfMatter = new Question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
+var lifeOfPi = new Question("Life of Pi", "Rally", [""], "A");
+var famousComposers = new Question("Famous Composers", "Which composer was deaf?", ["Mozart", "Beethoven", "Handel", "Bach"], "B");
+
+$(window).unload(function(){
+    console.log("here about to remove chatbox: " + chatName);
+    removeChat(chatName);
+});
