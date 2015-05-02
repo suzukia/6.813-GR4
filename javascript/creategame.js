@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var maxNumberPlayers = 3;
+
   var fadeOutAlert = function() {
     $('#errorDiv').fadeOut(150);
   }
@@ -51,14 +53,12 @@ $(document).ready(function() {
 
   $("button").button();
 
-
   var invitedFriends = [];
   var selectedMap;
   var gameTitle;
 
 
   var disableAllUnselectedCheckboxes = function() {
-    // $('.inviteCheckbox').attr("disabled", true);
     $('.inviteCheckbox').not(':checked').attr("disabled", true);
   }
 
@@ -66,30 +66,33 @@ $(document).ready(function() {
     $('.inviteCheckbox:disabled').removeAttr("disabled");
   }
 
-  // var selectedCheckboxes = [];
-  // var unselectedCheckboxes = [];
-
   // load list of friends
   var loadCreateGameFriendList = function() {
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
 
-      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
-      // $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friends[i].name()+'" >Invite</button></li>');
+      $('#invite-friends').append('<li id="inviteListItem'+friends[i].name()+'" class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
 
-      // $('#inviteButton'+friends[i].name()).click(function() {
+      // if a user clicks the list item (but not the checkbox), make it trigger a click on the checkbox
+      $('#inviteListItem'+friends[i].name()).click(function(e) {
+         if( e.target === this ) {
+          var name = $(this).attr("id").slice(14);
+          $('#inviteCheckbox'+name).trigger("click");
+         }
+      });
+
+      // when checkbox values change, update invited friends list and make sure max 3 can be selected
       $('#inviteCheckbox'+friends[i].name()).change(function() {
         var name = $(this).attr("id").slice(14);
         var invitedIndex = checkIfInObjectArray(name, invitedFriends);
 
         if (invitedIndex === -1) { // this friend was not invited before
-          if (invitedFriends.length === 2) { // adding 3rd friend
+          if (invitedFriends.length === maxNumberPlayers-1) { // adding 3rd friend
             invitedFriends.push(getUserByName(name));
             disableAllUnselectedCheckboxes();
           }
-          else if (invitedFriends.length <2) { // 1st or second friend inviting
+          else if (invitedFriends.length <maxNumberPlayers-1) { // 1st or second friend inviting
             invitedFriends.push(getUserByName(name));
-            // $(this).html("Uninvite");
           }
           else { // more than 3 friends (you should never get here!)
             alert("You can only invite up to three friends");
@@ -98,8 +101,6 @@ $(document).ready(function() {
         else { //this friend was invited before, so uninvite
           invitedFriends.splice(invitedIndex,1);
           enableAllCheckboxes();
-
-          // $(this).html("Invite");
         }
       });
     }
@@ -109,16 +110,12 @@ $(document).ready(function() {
   var loadMapList = function() {
     var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
-      console.log(maps[i].name)
-      var text1 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description description description asdf  asdflkj;l  l;akjsdf ;lkj ;lakjdf ;lakjdf ;lkajd ;lkajdf lksjdf lkjadsf lkjsd lkjasldkfj alskdfj laksdjf lkasdfj lkfj lksjdflk jaslfk jlakdj';
-      var text2 = 'this asdfj lkfj lksjdflk jaslfk jlakdj';
-      var text3 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description descripti';
-      var text;
+      var mapText = maps[i].description;
 
       var image = $('<img />', {
         id : "iconFor" +maps[i].name,
         hspace : 4,
-        src : "../images/chat/avatar5.gif"
+        src : maps[i].icon
       }).css({
         "vertical-align" : "middle",
         "margin" : 0,
@@ -145,7 +142,7 @@ $(document).ready(function() {
 
       var descriptionContent = $('<div />', {
         id : 'descriptionContent'+maps[i].name,
-        text : text1
+        text : mapText
       }).css({
          "display" : "table-cell",
          "vertical-align": "middle"
@@ -305,9 +302,9 @@ $(document).ready(function() {
         privateGame: privateGame
       }
       setStorageItem("gameInfo", gameInfo);
-      console.log(gameInfo)
+      // console.log(gameInfo)
       // redirect to map page
-      // redirectTo("map.html");
+      redirectTo("map.html");
     }
   });
 });
