@@ -5,6 +5,7 @@ var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
 var chatName = "User1,User2,User3,User4";
+// var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
   // setup navigation bar and dictionaries
@@ -15,6 +16,7 @@ $(document).ready(function() {
   // group chat setup
   chatbox = openChat(chatName, gameMsgSentFunc);
   simulateInitGameConversation(chatbox, chatName);
+  //openChat(chatName, gameMsgSentFunc);
 
   // loading data from local storage
   map = localStorage.getItem("map");

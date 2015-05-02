@@ -61,7 +61,7 @@ function addFriendToChat(name, online, avatar) {
 		});
 
 		li.click(function() {
-			openChat(name, basicMsgSentFuncConv);
+			openChat(name, basicMsgSentFunc);
 		});
 
 		var img;
@@ -151,7 +151,7 @@ function openChat(name, msgSentFunc, state) {
 		}
 	}
 
-	return box;
+	// return box;
 
 }
 
@@ -292,10 +292,9 @@ function gameMsgSentFunc(chatBox, name) {
 	    addMsgToChatLog(name, id, msg);
 	    
 	    if (chatSimCount[name] == 0)
-	    	simulateSecondGameConversation(chatBox, name);
-	    	// simulateInitGameConversation(chatBox, name);
-	    // if (chatSimCount[name] == 1)
-	    // 	simulateSecondGameConversation(chatBox, name);
+	    	simulateGameConversation(chatBox, name, firstMsgs);
+	    if (chatSimCount[name] == 1)
+	    	simulateGameConversation(chatBox, name, secondMsgs);
 	    updateChatSimCount(name);
 	    console.log(getStorageItem("chatSimCount"));
 	}
@@ -414,27 +413,33 @@ function simulateSecondConversation(chatBox, name) {
 /******************** Game Chat Simulation ******************/
 /************************************************************/
 //var gamePlayers = ["User1", "User2", "User3", "User4"];
-function simulateInitGameConversation(chatBox, boxName) {
+var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
+var secondMsgs = ["sure let's go!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+
+function simulateGameConversation(chatBox, boxName, msgs) {
 	var gamePlayers = boxName.split(',').sort(function() {return 0.5 - Math.random()}),
 		firstMsgTime = 2500,
-		firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"].sort(function() {return 0.5 - Math.random()}),
-		secondMsgs = ["sure am!", "let's do this!", "my other friends said they learned some really cool things on this map so let's do it"];
+		nmsgs = msgs.slice(0,msgs.length),
+		msgs = msgs.slice(0,msgs.length -1).sort(function() { return 0.5 - Math.random() }).concat([nmsgs[nmsgs.length-1]]),
 		resetTime = 100,
-		playerToSpeak = 0,
-		msgID = 0;
+		playerToSpeak = 0;
 
+	msgs.forEach(function(msg, playerName) {
 
-	setTimeout(function() {
-		chatBox.chatbox("toggleTypingIndicator");
-	}, firstMsgTime - 1500);
+		var msgTime = (firstMsgTime*playerToSpeak + firstMsgTime);
+		setTimeout(function() {
+			chatBox.chatbox("toggleTypingIndicator");
+		}, msgTime - 1500);
 
-	setTimeout(function() {
-		var firstPerson = gamePlayers[playerToSpeak];
-		addMsgToChatbox(chatBox, firstPerson, firstMsgs[msgID]);
-		addMsgToChatLog(boxName, firstPerson, firstMsgs[msgID]);
-	}, firstMsgTime);
+		setTimeout(function() {
+			addMsgToChatbox(chatBox, gamePlayers[playerName], msg);
+			addMsgToChatLog(boxName, gamePlayers[playerName], msg);
+		}, msgTime);
 
-	gamePlayers.forEach(function(playerName) {
+		setTimeout(function() {
+			chatBox.chatbox("toggleTypingIndicator");
+		}, msgTime - resetTime);
 
+		playerToSpeak += 1;
 	});
 }
