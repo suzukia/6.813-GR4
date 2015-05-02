@@ -28,6 +28,7 @@ $(document).ready(function() {
     populateData();
 
     console.log(challengesToQuestions.act1[0].title);
+  });
 
 function populateData() {
 
