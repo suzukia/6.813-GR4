@@ -9,7 +9,7 @@ $(document).ready(function() {
       redirectTo("login.html");
 
     $(window).resize(function() {
-    	$('#friends-chat').slimScroll({destroy: true});	
+    	friendsChat.slimScroll({destroy: true});	
         // $('#friends-list').slimScroll({destroy: true});
         // configFriendsList();
         console.log("window resize");
@@ -19,12 +19,11 @@ $(document).ready(function() {
     kltNavbar  = $('.klt-navbar');
     kltFooter  = $('.klt-footer');
     friendsLst = $('#friends-list');
-    username = sessionStorage.getItem("username");
+    friendsChat = $('#friends-chat');
+    username = localStorage.getItem("username");
 
     // configFriendsList();
     configNavbar();
-    configChat();
-    openExistingChats(openChatsOrder, chatIsOpen);
     refreshFriendList();
 	setupAutocompleteSearch();
 });
@@ -36,13 +35,6 @@ var users = formatUsers(getStorageItem("users")),
 function configNavbar(){
     $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     $('#navbar-title').text(username + "'s Friends");
-}
-
-function configChat() {
-    var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = kltFooter.height();
-
-    setupChatStyle(top, bottom);
 }
 
 function configFriendsList() {

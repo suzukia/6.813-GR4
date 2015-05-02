@@ -1,11 +1,11 @@
 function setStorageItem(name, object) {
 	// console.log(name + " " + JSON.stringify(object))
-	return sessionStorage.setItem(name, JSON.stringify(object));
+	return localStorage.setItem(name, JSON.stringify(object));
 }
 
 function getStorageItem(name) {
 	// console.log(name + " " + sessionStorage.getItem(name));
-	return JSON.parse(sessionStorage.getItem(name));
+	return JSON.parse(localStorage.getItem(name));
 }
 
 function redirectTo(page) {
@@ -31,7 +31,7 @@ function formatUsers(users) {
 }
 
 function getRandomNum(maxNum) {
-	return Math.round( Math.random() * maxNum-1);
+	return Math.round( Math.random() * (maxNum-1));
 }
 
 function getRandomUsers(number) {
