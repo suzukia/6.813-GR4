@@ -61,7 +61,7 @@ function addFriendToChat(name, online, avatar) {
 		});
 
 		li.click(function() {
-			openChat(name, basicMsgSentFuncConv);
+			openChat(name, basicMsgSentFuncu);
 		});
 
 		var img;
