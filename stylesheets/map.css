@@ -14,6 +14,10 @@ body, html {
     font-weight: bold;
 }
 
+.container-fluid  {
+    margin-top: 0px;
+}
+
 .top-buffer { margin-top:5px; }
 
 .extra_game_info {
@@ -28,7 +32,6 @@ body, html {
 
 .map-image {
     overflow: hidden;
-    background-size: cover;
     background-position: center;
 }
 
