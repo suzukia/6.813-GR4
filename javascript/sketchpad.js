@@ -33,17 +33,24 @@ function SketchPad(canvasID) {
 		createjs.Touch.enable(stage);
 		createjs.Ticker.setFPS(24);
 
+		var border = new createjs.Shape();
+		border.graphics.beginStroke("#000");
+		border.graphics.drawRect(0, 0, 850, 300);
+
+		stage.addChild(border);
+		stage.update(); 
+
 		drawingCanvas = new createjs.Shape();
 
 		stage.addEventListener("stagemousedown", handleMouseDown);
 		stage.addEventListener("stagemouseup", handleMouseUp);
 
-		title = new createjs.Text("SketchPad", "36px Arial", "#777777");
+		title = new createjs.Text("Draw Something!", "36px Arial", "#777777");
 		title.x = canvas.width/2 - title.getMeasuredWidth()/2;
 		title.y = canvas.height/2 - yOffset;
 		stage.addChild(title);
-
 		stage.addChild(drawingCanvas);
+		stage.addChild(border);
 		stage.update();
 	}
 
