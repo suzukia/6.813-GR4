@@ -52,6 +52,12 @@ http://gotoanswer.com/?q=jQuery+width%28%29+and+height%28%29+return+0+for+img+el
 http://stackoverflow.com/questions/16084374/jquery-width-and-height-return-0-for-img-element
 
 
+http://stackoverflow.com/questions/1093350/how-to-find-all-unselected-checkboxes
+http://stackoverflow.com/questions/2330209/jquery-checkbox-enable-disable
+http://stackoverflow.com/questions/7031226/jquery-checkbox-change-and-click-event
+http://stackoverflow.com/questions/13471820/get-all-disabled-checkboxes
+
+
 HTML:
 http://www.w3schools.com/html/html_tables.asp
 http://stackoverflow.com/questions/11152327/how-to-make-html-table-vertically-scrollable
@@ -138,6 +144,9 @@ http://tutorialspalace.com/bootstrap-list-group/
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_select&stacked=h
 http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
 
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_checkbox&stacked=h
+http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_checkbox&stacked=h
+http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
 
 
 Grids:

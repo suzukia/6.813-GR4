@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var maxNumberPlayers = 3;
+
   var fadeOutAlert = function() {
     $('#errorDiv').fadeOut(150);
   }
@@ -10,9 +12,7 @@ $(document).ready(function() {
 
 
   $("#createModal").modal('show');
-  // $('#errorDiv').alert("close");
   $('#errorDiv').hide();
-  // $('#errorDiv').addClass("in");
 
   $('#create-game-title').click(function() {
     fadeOutAlert();
@@ -45,8 +45,6 @@ $(document).ready(function() {
 ///////// SET UP /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // $("#createModal").modal('show');
-
   // set up Radio buttons
   setUpRadioButtons("private");
   var checkedButtonId;
@@ -55,34 +53,54 @@ $(document).ready(function() {
 
   $("button").button();
 
-
   var invitedFriends = [];
   var selectedMap;
   var gameTitle;
 
 
+  var disableAllUnselectedCheckboxes = function() {
+    $('.inviteCheckbox').not(':checked').attr("disabled", true);
+  }
+
+  var enableAllCheckboxes = function() { // code snippet from: http://stackoverflow.com/questions/13471820/get-all-disabled-checkboxes
+    $('.inviteCheckbox:disabled').removeAttr("disabled");
+  }
 
   // load list of friends
   var loadCreateGameFriendList = function() {
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
-      $('#invite-friends').append('<li class="list-group-item friend_info clearfix">'+friends[i].name()+'<button class="btn btn-primary btn-xs pull-right" id="inviteButton'+friends[i].name()+'" >Invite</button></li>');
-      $('#inviteButton'+friends[i].name()).click(function() {
-        var name = $(this).attr("id").slice(12);
 
+      $('#invite-friends').append('<li id="inviteListItem'+friends[i].name()+'" class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
+
+      // if a user clicks the list item (but not the checkbox), make it trigger a click on the checkbox
+      $('#inviteListItem'+friends[i].name()).click(function(e) {
+         if( e.target === this ) {
+          var name = $(this).attr("id").slice(14);
+          $('#inviteCheckbox'+name).trigger("click");
+         }
+      });
+
+      // when checkbox values change, update invited friends list and make sure max 3 can be selected
+      $('#inviteCheckbox'+friends[i].name()).change(function() {
+        var name = $(this).attr("id").slice(14);
         var invitedIndex = checkIfInObjectArray(name, invitedFriends);
-        if (invitedIndex === -1) {
-          if (invitedFriends.length >= 3) {
-            alert("You can only invite up to 3 friends");
-          }
-          else {
+
+        if (invitedIndex === -1) { // this friend was not invited before
+          if (invitedFriends.length === maxNumberPlayers-1) { // adding 3rd friend
             invitedFriends.push(getUserByName(name));
-            $(this).html("Uninvite");
+            disableAllUnselectedCheckboxes();
+          }
+          else if (invitedFriends.length <maxNumberPlayers-1) { // 1st or second friend inviting
+            invitedFriends.push(getUserByName(name));
+          }
+          else { // more than 3 friends (you should never get here!)
+            alert("You can only invite up to three friends");
           }
         }
-        else {
+        else { //this friend was invited before, so uninvite
           invitedFriends.splice(invitedIndex,1);
-          $(this).html("Invite");
+          enableAllCheckboxes();
         }
       });
     }
@@ -92,16 +110,12 @@ $(document).ready(function() {
   var loadMapList = function() {
     var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
-      console.log(maps[i].name)
-      var text1 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description description description asdf  asdflkj;l  l;akjsdf ;lkj ;lakjdf ;lakjdf ;lkajd ;lkajdf lksjdf lkjadsf lkjsd lkjasldkfj alskdfj laksdjf lkasdfj lkfj lksjdflk jaslfk jlakdj';
-      var text2 = 'this asdfj lkfj lksjdflk jaslfk jlakdj';
-      var text3 = 'this is the realj lasdkfj laskdfj lasj asldfkj lasdkfj lasdkfj laksdfj lkasdjfl kjadsflription description descripti';
-      var text;
+      var mapText = maps[i].description;
 
       var image = $('<img />', {
         id : "iconFor" +maps[i].name,
         hspace : 4,
-        src : "../images/chat/avatar5.gif"
+        src : maps[i].icon
       }).css({
         "vertical-align" : "middle",
         "margin" : 0,
@@ -128,7 +142,7 @@ $(document).ready(function() {
 
       var descriptionContent = $('<div />', {
         id : 'descriptionContent'+maps[i].name,
-        text : text1
+        text : mapText
       }).css({
          "display" : "table-cell",
          "vertical-align": "middle"
@@ -142,10 +156,6 @@ $(document).ready(function() {
          "vertical-align": "middle",
          "padding": 0
       }).append(descriptionContent);
-
-      // var span = $('<span />', {
-      //   class : "helper"
-      // });
 
       var anchor = $('<a />', {
         href : '#',
@@ -162,11 +172,9 @@ $(document).ready(function() {
         margin : 0
       });
 
-      // mapRowDiv.append(span);
       mapRowDiv.append(divForImage).append(descriptionDiv);
       anchor.append(mapRowDiv);
       $('#map-list').append(anchor);
-
 
       // make all the image and texts the same height, for centering
       setTimeout(function() {
@@ -174,8 +182,6 @@ $(document).ready(function() {
           var maxHeight = Math.max($('#descriptionDiv'+maps[i].name).height(), $('#divForImage'+maps[i].name).height());
           $('#divForImage'+maps[i].name).height(maxHeight);
           $('#descriptionDiv'+maps[i].name).height(maxHeight);
-          // console.log($('#divForImage'+maps[i].name).height());
-          // console.log($('#descriptionDiv'+maps[i].name).height());
         }
       }, 150);
 
@@ -198,15 +204,6 @@ $(document).ready(function() {
     });
   }
 
-  var adjustHeight = function() {
-    var h = $('#descriptionDivSpace').height();
-    // console.log(h);
-    // console.log("here");
-  }
-
-
-
-
 
   $('#invite-friends').slimScroll({
     height: 0.5*$(window).height()
@@ -219,18 +216,17 @@ $(document).ready(function() {
 
   loadCreateGameFriendList();
   loadMapList();
-  adjustHeight();
 
-    $(window).resize(function() {
-      $('#invite-friends').slimScroll({destroy: true});
-      $('#map-list').slimScroll({destroy: true});
-      $('#invite-friends').slimScroll({
-        height: 0.5*$(window).height()
-      });
-      $('#map-list').slimScroll({
-        height: 0.5*$(window).height()
-      });
+  $(window).resize(function() {
+    $('#invite-friends').slimScroll({destroy: true});
+    $('#map-list').slimScroll({destroy: true});
+    $('#invite-friends').slimScroll({
+      height: 0.5*$(window).height()
     });
+    $('#map-list').slimScroll({
+      height: 0.5*$(window).height()
+    });
+  });
 
 
 ////////// EVENT HANDLERS //////////////////////////////////////////////////////////////////////////////////////
@@ -306,12 +302,11 @@ $(document).ready(function() {
         privateGame: privateGame
       }
       setStorageItem("gameInfo", gameInfo);
-      console.log(gameInfo)
+      // console.log(gameInfo)
       // redirect to map page
-      // redirectTo("map.html");
+      redirectTo("map.html");
     }
   });
-
 });
 
 

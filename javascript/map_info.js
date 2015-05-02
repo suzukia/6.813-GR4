@@ -2,10 +2,12 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 
   var maps = [
     {name:"Space",
-    description: "Explore the solar system!"
+    description: "Explore the solar system!",
+    icon: "../images/map/medieval/icon.jpg",
     },
     {name:"Medieval",
-    description: "Journey to your throne"
+    description: "Journey to your throne",
+    icon: "../images/map/space/icon.gif",
     }
   ]
   setStorageItem("maps", maps);
