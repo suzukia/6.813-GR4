@@ -54,7 +54,8 @@ function SketchPad(canvasID) {
 		stage.update();
 	}
 
-	function stop() {
+	this.stop = function(userID) {
+		stage.clear();
 	}
 
 	function handleMouseDown(event) {

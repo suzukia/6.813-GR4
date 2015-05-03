@@ -5,9 +5,44 @@ var currentQuestion;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
+var sp;
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////// Helper functions //////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    var configNavbar = function(){
+        $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    }
+
+    var updatePage = function() {
+        // set nav bar title
+        $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
+
+        // set background
+        document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
+        updateQuestionModal();
+    }
+
+    // Initialize sketchpad and dynamically load all question data.
+    // createTitle, questionHeader, choiceA
+    var updateQuestionModal = function() {
+        currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
+        console.log(currentQuestion);
+        // console.log("sp");
+        // console.log(sp);
+        sp.init(0);
+        $('#createTitle').text(currentQuestion.title);
+        $('#questionHeader').text(currentQuestion.description);
+        $('#Atd').text(currentQuestion.choices[0]);
+        $('#Btd').text(currentQuestion.choices[1]);
+        $('#Ctd').text(currentQuestion.choices[2]);
+        $('#Dtd').text(currentQuestion.choices[3]);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// get current game data /////////////////////////////////////////////////
@@ -32,10 +67,17 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
+    console.log("currentMap")
+    console.log(currentMap);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// set up map page ///////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // sketchpad
+    sp = new SketchPad("canvas-test");
+    // sp.init(0);
+
 
     // set up chat names
     var chatName = username;
@@ -45,7 +87,7 @@ $(document).ready(function() {
 
     // initialize the game
     currentSceneIndex = 0;
-    currentQuestionIndex = 0;
+    currentQuestionIndex = 1;
 
     // setup navigation bar and dictionaries
     kltNavbar = $('.klt-navbar');
@@ -96,55 +138,44 @@ $(document).ready(function() {
     $('#feedback').hide();
     $('#checkA').hide();
     $('#checkB').hide();
-    $('#checkC').hide();
+    // $('#checkC').hide();
     $('#checkD').hide();
 
-    // sketchpad
-    var sp = new SketchPad("canvas-test");
-    sp.init(0);
 
+  // console.log(challengesToQuestions.act1[0].title);
+  $('#submit').click(function(){
+    var value = $("input[name=multipleChoice]:checked").val();
+    console.log("currentQ");
+    console.log(currentQuestion);
+    console.log(value);
+    if (value == currentQuestion.correctAnswer) {
+        console.log("correct");
+      $('#submit').hide();
+      // $('#feedback').show();
+      // $('#feedback').html("&#x2713;");
+      // $('.button'+currentQuestion.correctAnswer).hide();
 
-    // console.log(challengesToQuestions.act1[0].title);
-    $('#submit').click(function(){
-        var value = $("input[name=multipleChoice]:checked").val();
-        if (value == currentQuestion.correctAnswer) {
-          $('#submit').hide();
-          // $('#feedback').show();
-          // $('#feedback').html("&#x2713;");
-          // $('.button'+currentQuestion.correctAnswer).hide();
-          $('#check'+value).show();
-          $('#check'+value).html("  &#x2713;");
+      console.log($('#check'+value));
+      $('#check'+value).html("  &#x2713;");
+      $('#check'+value).show();
+      // $('#check'+value).html("  &#x2713;");
 
-          // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
-        } else {
-          //$('#feedback').text("Incorrect. Try again");
-          $('#check'+value).show();
-          $('#check'+value).html(" &#x2717;");
-        }
-        setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
-    });
+      // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
 
-    function updateQuestionModal(){
-        currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
+    } else {
 
+        console.log($('#check'+value));
+      //$('#feedback').text("Incorrect. Try again");
+      $('#check'+value).show();
+      $('#check'+value).html(" &#x2717;");
     }
+    setTimeout(function(){
+        $('#questionModal').modal('toggle');
+        $('#check'+value).hide();
+        sp.stop();
+    },3000);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////// Helper functions //////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    function configNavbar(){
-        $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
-    }
-
-    function updatePage() {
-        // set nav bar title
-        $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
-
-        // set background
-        document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
-    }
-
+  });
 
 });
 
