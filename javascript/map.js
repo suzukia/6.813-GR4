@@ -10,40 +10,6 @@ var sp;
 
 $(document).ready(function() {
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////// Helper functions //////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    var configNavbar = function(){
-        $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
-    }
-
-    var updatePage = function() {
-        // set nav bar title
-        $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
-
-        // set background
-        document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
-        updateQuestionModal();
-    }
-
-    // Initialize sketchpad and dynamically load all question data.
-    // createTitle, questionHeader, choiceA
-    var updateQuestionModal = function() {
-        currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
-        console.log(currentQuestion);
-        // console.log("sp");
-        // console.log(sp);
-        sp.init(0);
-        $('#createTitle').text(currentQuestion.title);
-        $('#questionHeader').text(currentQuestion.description);
-        $('#Atd').text(currentQuestion.choices[0]);
-        $('#Btd').text(currentQuestion.choices[1]);
-        $('#Ctd').text(currentQuestion.choices[2]);
-        $('#Dtd').text(currentQuestion.choices[3]);
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// get current game data /////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,17 +33,10 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
-    console.log("currentMap")
-    console.log(currentMap);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// set up map page ///////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // sketchpad
-    sp = new SketchPad("canvas-test");
-    // sp.init(0);
-
 
     // set up chat names
     var chatName = username;
@@ -87,7 +46,7 @@ $(document).ready(function() {
 
     // initialize the game
     currentSceneIndex = 0;
-    currentQuestionIndex = 1;
+    currentQuestionIndex = 0;
 
     // setup navigation bar and dictionaries
     kltNavbar = $('.klt-navbar');
@@ -138,44 +97,65 @@ $(document).ready(function() {
     $('#feedback').hide();
     $('#checkA').hide();
     $('#checkB').hide();
-    // $('#checkC').hide();
+    $('#checkC').hide();
     $('#checkD').hide();
+
+    currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
+
+    // sketchpad
+    sp = new SketchPad("canvas-test");
+    
 
 
   // console.log(challengesToQuestions.act1[0].title);
   $('#submit').click(function(){
     var value = $("input[name=multipleChoice]:checked").val();
-    console.log("currentQ");
-    console.log(currentQuestion);
-    console.log(value);
     if (value == currentQuestion.correctAnswer) {
-        console.log("correct");
       $('#submit').hide();
       // $('#feedback').show();
       // $('#feedback').html("&#x2713;");
       // $('.button'+currentQuestion.correctAnswer).hide();
-
-      console.log($('#check'+value));
-      $('#check'+value).html("  &#x2713;");
       $('#check'+value).show();
-      // $('#check'+value).html("  &#x2713;");
+      $('#check'+value).html("  &#x2713;");
 
       // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
-
+    
     } else {
-
-        console.log($('#check'+value));
       //$('#feedback').text("Incorrect. Try again");
       $('#check'+value).show();
       $('#check'+value).html(" &#x2717;");
     }
-    setTimeout(function(){
-        $('#questionModal').modal('toggle');
-        $('#check'+value).hide();
-        sp.stop();
-    },3000);
-
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.;},3000);
   });
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////// Helper functions //////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function configNavbar(){
+        $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
+    }
+
+    function updatePage() {
+        // set nav bar title
+        $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
+
+        // set background
+        document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
+    }
+
+    // Initialize sketchpad and dynamically load all question data.
+    // createTitle, questionHeader, choiceA
+    function updateQuestionModal() {
+        sp.init(0);
+        $('#createTitle').text(currentQuestion.title);
+        $('#questionHeader').text(currentQuestion.description);
+        $('choiceA').text(currentQuestion.choices[0]);
+        $('choiceB').text(currentQuestion.choices[1]);
+        $('choiceC').text(currentQuestion.choices[2]);
+        $('choiceD').text(currentQuestion.choices[3]);
+    }
 
 });
 
