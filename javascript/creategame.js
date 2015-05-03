@@ -308,8 +308,9 @@ var setUpCreateGameModal = function() {
         players: players,
         privateGame: privateGame
       }
+      localStorage.removeItem("gameInfo");
       setStorageItem("gameInfo", gameInfo);
-      // console.log(gameInfo)
+      alert(gameInfo);
 
       // redirect to map page
       redirectTo("map.html");

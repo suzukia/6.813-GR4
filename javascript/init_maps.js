@@ -1,5 +1,7 @@
 $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 
+  localStorage.removeItem("maps");
+
 /////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////  QUESTIONS /////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +32,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 
   var medievalScene1Question1 = new Question("Middle Ages: Time Period", "What time period followed the Middle Ages?", ["Dark Ages", "Renaissance", "Modern", "Prehistoric"], "B");
   var medievalScene1Question2 = new Question("Middle Ages: Institution", "What was the most powere institution during the Middle Ages?", ["the Protestant Church", "the government", "the Catholic Church", "the king and his army"], "C");
-  var spaceScene1Question3 = new Question("Middle Ages: Religion", "What religion was on the rise during the Middle Ages?", ["Islam", "Hinduism", "Judaism", "Bhuddism"], "A");
+  var medievalScene1Question3 = new Question("Middle Ages: Religion", "What religion was on the rise during the Middle Ages?", ["Islam", "Hinduism", "Judaism", "Bhuddism"], "A");
 
   var medievalScene2Question1 = new Question("Crusades: Definition", "What were the Crusades?", ["Pirates", "Group of Ships", "Knights", "Holy Wars"], "D");
   var medievalScene2Question2 = new Question("Crusades: Purpose", "What place were the Crusades fighting for?", ["London", "Paris", "Venice", "Palestine"], "D");
@@ -72,6 +74,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
   var medievalScene3 = {
     image: "../images/map/medieval/act3.jpg",
     questions: [medievalScene3Question1, medievalScene3Question2, medievalScene3Question3]
+  }
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +98,8 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
     scenes: [medievalScene1, medievalScene2, medievalScene3]
     }
   ]
+  console.log("maps");
+  console.log(maps);
   setStorageItem("maps", maps);
 });
 

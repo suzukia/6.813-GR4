@@ -125,7 +125,7 @@ $(document).ready(function() {
       $('#check'+value).show();
       $('#check'+value).html(" &#x2717;");
     }
-    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.stop();},3000);
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.;},3000);
   });
 
 
