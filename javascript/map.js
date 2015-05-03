@@ -5,15 +5,34 @@ var currentQuestion;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
-var chatName = "User1,User2,User3,User4";
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
+
+    // gameInfo format (passed on from previous page):
+    // {"map":{"name":"Medieval","description":"Journey to your throne","icon":"../images/map/space/icon.gif"},
+    //  "players":[{"_id":15,"_name":"Cinderella","_avatar":"../images/chat/avatar1.gif","_friends":[],"_friendReqs":{}}],
+    //  "privateGame":true}
+    var gameInfo = getStorageItem("gameInfo");
+    var players = formatUsers(gameInfo.players);
+    console.log(players);
+    console.log(players);
+    var map = gameInfo.map;
+
+    // set up chat name
+    var chatName = localStorage.getItem("username");
+    for (var i=0; i< players.length; i++) {
+        chatName += ", " + players[i].name();
+    }
+
+
   // setup navigation bar and dictionaries
   kltNavbar = $('.klt-navbar');
   configNavbar();
   setUpDictionaries();
-  
+  console.log("after setup");
+  console.log(mapsToScenes);
+
   // group chat setup
   //chatbox = openChat(chatName, gameMsgSentFunc);
   //simulateInitGameConversation(chatbox, chatName);
@@ -35,6 +54,7 @@ $(document).ready(function() {
   currentChallenge = mapsToScenes[currentMap][currentAct];
   currentQuestion = challengesToQuestions[currentChallenge][currentAct];
   populateData();
+
   
   document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
   $('#instructionModal').modal('show');
@@ -71,12 +91,10 @@ $(document).ready(function() {
 
   });
 
-  $('#multipleChoice input').on('change', function() {
-     alert($('input[name=radioName]:checked', '#questionTable').val()); 
-  });
-
 });
 
+
+// helper functions
 
 function populateData() {
 
@@ -96,7 +114,7 @@ function setUpDictionaries() {
 	challengesToQuestions["act3"] 	 = [compositionOfMatter, lifeOfPi, famousComposers];
 	challengesToQuestions["voyage1"] = [compositionOfMatter, lifeOfPi, famousComposers];
 	challengesToQuestions["voyage2"] = [compositionOfMatter, lifeOfPi, famousComposers];
-	challengesToQuestions["voyage3"] = [compositionOfMatter, lifeOfPi, famousComposers];	
+	challengesToQuestions["voyage3"] = [compositionOfMatter, lifeOfPi, famousComposers];
 }
 
 function configNavbar(){
@@ -111,7 +129,6 @@ function Question(title, description, choices, correctAnswer) {
     this.correctAnswer = correctAnswer;
     return this;
 }
-
 
 var compositionOfMatter = new Question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
 var lifeOfPi = new Question("Life of Pi", "Rally", [""], "A");
