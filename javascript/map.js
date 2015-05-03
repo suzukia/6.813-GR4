@@ -19,7 +19,7 @@ $(document).ready(function() {
         $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     }
 
-    var updatePage = function() {
+    var updateMap = function() {
         // set nav bar title
         $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
 
@@ -31,10 +31,12 @@ $(document).ready(function() {
     // Initialize sketchpad and dynamically load all question data.
     // createTitle, questionHeader, choiceA
     var updateQuestionModal = function() {
+        $('#feedback').hide();
+        $('#checkA').hide();
+        $('#checkB').hide();
+        $('#checkC').hide();
+        $('#checkD').hide();
         currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
-        console.log(currentQuestion);
-        // console.log("sp");
-        // console.log(sp);
         sp.init(0);
         $('#createTitle').text(currentQuestion.title);
         $('#questionHeader').text(currentQuestion.description);
@@ -42,6 +44,51 @@ $(document).ready(function() {
         $('#Btd').text(currentQuestion.choices[1]);
         $('#Ctd').text(currentQuestion.choices[2]);
         $('#Dtd').text(currentQuestion.choices[3]);
+        if (!helping) {
+            $('#submit').show();
+        }
+        else {
+            $('#submit').hide();
+        }
+    }
+
+    //TODO: (called when challenge modal shows up, or data changes have been made)
+    var updateChallengeModal = function() {
+
+    }
+
+    var updateMapChallengeQuestion = function() {
+        updateMap();
+        updateQuestionModal();
+        updateChallengeModal();
+    }
+
+    // called when user completes a question
+    var handleDataChange = function() {
+        // move on to next question, update challenge and question modals
+        if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
+            if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
+                // end game?
+            }
+            else { // move on to next scene!
+                currentSceneIndex ++;
+                currentQuestionIndex = 0;
+                unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
+                for (var i=1; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+                    unansweredQuestionIndices[i] = false;
+                }
+                answeredQuestionResults = {};
+
+                // update map, challenge modal, questions modal
+                updateMapChallengeQuestion();
+            }
+        }
+        else { // still Qs left in scene
+            currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
+            // updateMapChallengeQuestion();
+            updateMap();
+            updateChallengeModal();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +108,7 @@ $(document).ready(function() {
     }
 
     // gameInfo format (passed on from previous page):
-    // {"map":{"name":"Medieval","description":"Journey to your throne","icon":"../images/map/space/icon.gif"},
+    // {"map":{"name":"Medieval","description":"Journey to your throne","icon":"../images/map/space/icon.gif", etc..... },
     //  "players":[{"_id":15,"_name":"Cinderella","_avatar":"../images/chat/avatar1.gif","_friends":[],"_friendReqs":{}}],
     //  "privateGame":true}
     var gameInfo = getStorageItem("gameInfo");
@@ -78,7 +125,6 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-
     // group chat setup
     if (players.length >= 1) {
         var chatName = players[0].name();
@@ -90,17 +136,23 @@ $(document).ready(function() {
         //openChat(chatName, gameMsgSentFunc);
     }
 
-
-
     // initialize the game
-    currentSceneIndex = 0;
-    currentQuestionIndex = 1;
+    var currentSceneIndex = 0;
+    var maxSceneIndex = currentMap.scenes.length-1;
+    var currentQuestionIndex = 0;
+
+    var helping = false; //TODO change with challengemodal
+
+    var answeredQuestionResults = {}; // ex. {1:true, 2:false} true for correct answer
+
+    var unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
+    for (var i=1; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+        unansweredQuestionIndices[i] = false;
+    }
 
     // setup navigation bar and dictionaries
     kltNavbar = $('.klt-navbar');
     configNavbar();
-
-
 
     // pop up instructions
     document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start this challenge.";
@@ -112,7 +164,18 @@ $(document).ready(function() {
     $(".content").css("padding-right",0);
     $(".klt-navbar").css("margin-bottom",0);
 
-    updatePage();
+    updateMapChallengeQuestion();
+
+    // update when hiding
+    $('#questionModal').on('hidden.bs.modal', function() {
+        updateQuestionModal(); //show updated info
+    })
+
+    // update when showing
+    $('#challengeModal').on('shown.bs.modal', function() {
+        updateChallengeModal();
+    })
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// event handlers ///////////////////////////////////////////////////////////////////////////
@@ -139,46 +202,43 @@ $(document).ready(function() {
     //////////////////////////////// QUESTIONS MODAL //////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    $('#feedback').hide();
-    $('#checkA').hide();
-    $('#checkB').hide();
-    // $('#checkC').hide();
-    $('#checkD').hide();
+
 
 
   // console.log(challengesToQuestions.act1[0].title);
   $('#submit').click(function(){
     var value = $("input[name=multipleChoice]:checked").val();
-    console.log("currentQ");
-    console.log(currentQuestion);
-    console.log(value);
-    if (value == currentQuestion.correctAnswer) {
-        console.log("correct");
+    if (value == currentQuestion.correctAnswer) { //correct
       $('#submit').hide();
-      // $('#feedback').show();
-      // $('#feedback').html("&#x2713;");
-      // $('.button'+currentQuestion.correctAnswer).hide();
-
-      console.log($('#check'+value));
-      $('#check'+value).html("  &#x2713;");
-      $('#check'+value).show();
-      // $('#check'+value).html("  &#x2713;");
-
-      // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
-
-    } else {
+        // $('#feedback').show();
+        // $('#feedback').html("&#x2713;");
+        // $('.button'+currentQuestion.correctAnswer).hide();
 
         console.log($('#check'+value));
-      //$('#feedback').text("Incorrect. Try again");
-      $('#check'+value).show();
-      $('#check'+value).html(" &#x2717;");
+        $('#check'+value).html("  &#x2713;");
+        $('#check'+value).show();
+        // $('#check'+value).html("  &#x2713;");
+
+        delete unansweredQuestionIndices[currentQuestionIndex];
+        answeredQuestionResults[currentQuestionIndex] = true;
+
+        // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
+
+    } else { // incorrect
+        //$('#feedback').text("Incorrect. Try again");
+        $('#check'+value).show();
+        $('#check'+value).html(" &#x2717;");
+
+        delete unansweredQuestionIndices[currentQuestionIndex];
+        answeredQuestionResults[currentQuestionIndex] = false;
     }
+
     setTimeout(function(){
         $('#questionModal').modal('toggle');
         $('#check'+value).hide();
         sp.stop();
+        handleDataChange(); // updates map and challenge modals immediately
     },3000);
-
   });
 
 });

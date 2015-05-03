@@ -52,7 +52,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
   }
 
   var spaceScene2 = {
-    image: "../images/map/space/voyage2.jpg",
+    image: "../images/map/space/voyage2.jpeg",
     questions: [spaceScene2Question1, spaceScene2Question2, spaceScene2Question3]
   }
 
@@ -67,12 +67,12 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
   }
 
   var medievalScene2 = {
-    image: "../images/map/medieval/act2.jpg",
+    image: "../images/map/medieval/act2.png",
     questions: [medievalScene2Question1, medievalScene2Question2, medievalScene2Question3]
   }
 
   var medievalScene3 = {
-    image: "../images/map/medieval/act3.jpg",
+    image: "../images/map/medieval/act3.png",
     questions: [medievalScene3Question1, medievalScene3Question2, medievalScene3Question3]
   }
 
