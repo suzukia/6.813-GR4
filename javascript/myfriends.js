@@ -8,8 +8,14 @@ $(document).ready(function() {
     if (getStorageItem("users") == null)
       redirectTo("login.html");
 
+    // // you're still in a game: redirect back to map page
+    // var checkGameInfo = localStorage.getItem("gameInfo");
+    // if (checkGameInfo) {
+    //     redirectTo("map.html");
+    // }
+
     $(window).resize(function() {
-    	friendsChat.slimScroll({destroy: true});	
+    	friendsChat.slimScroll({destroy: true});
         // $('#friends-list').slimScroll({destroy: true});
         // configFriendsList();
         console.log("window resize");
@@ -84,7 +90,7 @@ function addFriendToFriendList(name, pending) {
 			removeFriendReq(name);
 			refreshChatAndFriendList();
 			setupAutocompleteSearch();
-		});		
+		});
 	} else {
 		btn = $('<button />', {
 			type  : 'button',
@@ -114,8 +120,8 @@ function compareUserBy(f) {
 	}
 }
 
-function usersName(user) { 
-	return user.name(); 
+function usersName(user) {
+	return user.name();
 }
 
 function refreshFriendList() {
@@ -171,7 +177,7 @@ function setupAutocompleteSearch() {
         	var li = $('<li />', {
 				class : "list-group-item clearfix",
 				id    : "friend-"+name.toLowerCase(),
-				text  : name 
+				text  : name
 			});
 
 			var btn = $('<button />', {

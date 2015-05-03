@@ -7,7 +7,6 @@ var scenesToImages = {};
 var challengesToQuestions = {};
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
-
 $(document).ready(function() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +40,7 @@ $(document).ready(function() {
     // set up chat names
     var chatName = username;
     for (var i=0; i< players.length; i++) {
-        chatName += ", " + players[i].name();
+        chatName += "," + players[i].name();
     }
 
     // initialize the game
@@ -68,6 +67,20 @@ $(document).ready(function() {
     $(".klt-navbar").css("margin-bottom",0);
 
     updatePage();
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// event handlers ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $('#homeAnchor').click(function() {
+        a = confirm("Are you sure you want to exit this game?");
+        if (a) {
+            removeChat(chatName);
+            // clear gameInfo, because you're leaving the current game
+            localStorage.removeItem("gameInfo");
+            redirectTo("home.html");
+        }
+    });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// CHALLENGE MODAL //////////////////////////////////////////////////////////////////////////
@@ -131,14 +144,14 @@ $(document).ready(function() {
     }
 
 
-
-
 });
 
 
 $(window).unload(function(){
     console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
+    // clear gameInfo, because you're leaving the current game
+    localStorage.removeItem("gameInfo");
 });
 
 

@@ -7,7 +7,7 @@ $(document).ready(function() {
 	usernameText.val("");
 
 	usernameText.focus();
-	
+
 	usernameText.keypress(function(event) {
 		if (event.which == 13) {
 			localStorage.setItem("username", usernameText.val());
@@ -19,6 +19,12 @@ $(document).ready(function() {
 		localStorage.setItem("username", usernameText.val());
 		redirectTo("home.html");
 	});
+
+  // // you're still in a game: redirect back to map
+  // var checkGameInfo = localStorage.getItem("gameInfo");
+  // if (checkGameInfo) {
+  //     redirectTo("map.html");
+  // }
 
 });
 
