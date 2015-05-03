@@ -310,6 +310,7 @@ var setUpCreateGameModal = function() {
       }
       setStorageItem("gameInfo", gameInfo);
       // console.log(gameInfo)
+
       // redirect to map page
       redirectTo("map.html");
     }

@@ -23,6 +23,9 @@ $(document).ready(function() {
         $("#createModal").modal('show');
     });
 
+    // clear gameInfo, because you're not in a current game
+    localStorage.removeItem("gameInfo");
+
 });
 
 function configNavbar(){
