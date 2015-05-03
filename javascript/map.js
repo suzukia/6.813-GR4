@@ -125,7 +125,7 @@ $(document).ready(function() {
       $('#check'+value).show();
       $('#check'+value).html(" &#x2717;");
     }
-    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.;},3000);
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.stop();},3000);
   });
 
 
@@ -145,7 +145,6 @@ $(document).ready(function() {
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
     }
 
-<<<<<<< HEAD
     // Initialize sketchpad and dynamically load all question data.
     // createTitle, questionHeader, choiceA
     function updateQuestionModal() {
@@ -157,9 +156,6 @@ $(document).ready(function() {
         $('choiceC').text(currentQuestion.choices[2]);
         $('choiceD').text(currentQuestion.choices[3]);
     }
-
-=======
->>>>>>> origin/master
 
 });
 
