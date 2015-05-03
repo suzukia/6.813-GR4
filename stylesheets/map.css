@@ -4,6 +4,7 @@ body, html {
 
 .klt-navbar {
     font-size: 24px;
+    
 }
 
 .home_body {
@@ -14,9 +15,10 @@ body, html {
     font-weight: bold;
 }
 
-.container-fluid  {
-    margin-top: 0px;
+.navbar {
+    margin-bottom:0px;
 }
+
 
 .top-buffer { margin-top:5px; }
 
