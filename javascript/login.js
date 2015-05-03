@@ -10,13 +10,13 @@ $(document).ready(function() {
 	
 	usernameText.keypress(function(event) {
 		if (event.which == 13) {
-			sessionStorage.setItem("username", usernameText.val());
+			localStorage.setItem("username", usernameText.val());
 			redirectTo("home.html");
 		}
 	});
 
 	$('#username-btn').click(function() {
-		sessionStorage.setItem("username", usernameText.val());
+		localStorage.setItem("username", usernameText.val());
 		redirectTo("home.html");
 	});
 

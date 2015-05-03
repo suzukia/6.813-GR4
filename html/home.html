@@ -5,7 +5,8 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>SELF</title>
         <link rel="stylesheet" type="text/css" href="../stylesheets/home.css" />
-        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css"><!-- 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/creategame.css" />
+        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css"><!--
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.css">
@@ -25,7 +26,14 @@
         <script type="text/javascript" src="../javascript/user.js"></script>
         <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
         <script type="text/javascript" src="../javascript/chat.js"></script>
+
+        <!-- // <script type="text/javascript" src="../javascript/map_info.js"></script> -->
+        <script type="text/javascript" src="../javascript/creategame.js"></script>
+
         <script type="text/javascript" src="../javascript/home.js"></script>
+        <script type="text/javascript" src="../javascript/home_friends_chat_setup.js"></script>
+
+
     </head>
 
 
@@ -239,7 +247,7 @@
                       <li class="list-group-item">Friend 18</li>
                       <li class="list-group-item">Friend 19</li>
                       <li class="list-group-item">Friend 20</li> -->
-                      
+
                   </ul>
                 </div>
             </div>
@@ -256,5 +264,73 @@
               </div>
           </div>
       </div>
+
+      <!-- code for creategame.html modal -->
+      <div id="createModal" class="modal fade">
+          <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div id="createHeader" class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h2 id="createTitle" class="modal-title">Create a New Game</h2>
+                  </div> <!-- createHeader -->
+
+                  <div id="createBodyTop" class="modal-body">
+                      <div class="container-fluid modalContent">
+
+                          <div id="game-title-row" class="row">
+                              <!-- possible error message -->
+                              <!-- code snippet from http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-alerts.php -->
+                              <div id="errorDiv" class="alert alert-danger">
+                              </div>
+                              <div id="create-game-title-left" class="col-md-6">
+                                  <input id="create-game-title" class="col-md-12"  placeholder="Enter a Game Title">
+                              </div>
+                              <div id="create-game-title-right" class="col-md-6">
+                                  <div id="buttonGroup" class="btn-group btn-toggl" data-toggle="buttons">
+                                      <label id="privateButtonLabel" name="private-public-label" class="btn">
+                                        <input id="privateButton" type="radio" name="private-public" value="Private"> Private
+                                      </label>
+                                      <label id="publicButtonLabel" name="private-public-label" class="btn">
+                                        <input id="publicButton" type="radio" name="private-public" value="Public"> Public
+                                      </label>
+                                      <!-- </form> -->
+                                  </div>
+                              </div>
+                          </div>
+
+
+                          <div id="create-lists" class="row">
+                              <div id="left-list" class="col-md-6">
+                                  <div id="left-panel" class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h3 class="panel-title" id="listing-title">Invite Friends (3 max)</h3>
+                                    </div>
+                                    <ul class="list-group" id="invite-friends">
+                                      <!-- friends get added here -->
+                                    </ul>
+                                  </div>
+                              </div>
+                              <div id="right-list" class="col-md-6">
+                                  <div id="right-panel" class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h3 class="panel-title" id="listing-title">Select a Map</h3>
+                                    </div>
+                                    <ul class="list-group" id="map-list">
+                                      <!-- maps get added here -->
+                                    </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> <!-- continaer fluid -->
+                  </div> <!-- createBodyTop -->
+                  <div id="modalFooter" class="modal-footer">
+                      <button type="button" id="cancelCreateButton" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" id="startCreateButton" class="btn btn-primary">Start</button>
+                  </div>
+              </div> <!-- modal-content -->
+          </div> <!-- modal-dialog -->
+      </div> <!-- createModal -->
+
+
     </body>
 </html>

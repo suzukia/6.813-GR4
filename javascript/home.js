@@ -10,26 +10,27 @@ $(document).ready(function() {
         configChat();
     });
 
-    username = sessionStorage.getItem("username");
+    username = localStorage.getItem("username");
     kltNavbar = $('.klt-navbar');
     kltFooter = $('.klt-footer');
-    
+
     configNavbar();
-    configChat();
-    openExistingChats(openChatsOrder, chatIsOpen);
     configGameListing();
+
+    //event handlers
+    $('#create-new-game').click(function() {
+        setUpCreateGameModal();
+        $("#createModal").modal('show');
+    });
+
+    // clear gameInfo, because you're not in a current game
+    localStorage.removeItem("gameInfo");
+
 });
 
 function configNavbar(){
     $('.content').css('margin-top', kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10));
     $('#navbar-title').text("Welcome, " + username);
-}
-
-function configChat() {
-    var top = kltNavbar.outerHeight() + parseInt(kltNavbar.css('margin-bottom'), 10),
-        bottom = kltFooter.outerHeight();
-
-    setupChatStyle(top, bottom);
 }
 
 function configGameListing() {

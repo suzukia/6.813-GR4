@@ -1,11 +1,11 @@
 function setStorageItem(name, object) {
 	// console.log(name + " " + JSON.stringify(object))
-	return sessionStorage.setItem(name, JSON.stringify(object));
+	return localStorage.setItem(name, JSON.stringify(object));
 }
 
 function getStorageItem(name) {
 	// console.log(name + " " + sessionStorage.getItem(name));
-	return JSON.parse(sessionStorage.getItem(name));
+	return JSON.parse(localStorage.getItem(name));
 }
 
 function redirectTo(page) {
@@ -31,7 +31,7 @@ function formatUsers(users) {
 }
 
 function getRandomNum(maxNum) {
-	return Math.round( Math.random() * maxNum-1);
+	return Math.round( Math.random() * (maxNum-1));
 }
 
 function getRandomUsers(number) {
@@ -58,4 +58,25 @@ function checkIfInObjectArray(name, object) {
     }
   }
   return -1;
+}
+
+// returns map object from list of maps
+function getMapByName(name) {
+  var maps = getStorageItem("maps");
+  for (var i=0; i<maps.length; i++) {
+    if (maps[i].name === name) {
+
+      return maps[i];
+    }
+  }
+}
+
+// returns user object from list of users
+function getUserByName(name) {
+  var users = formatUsers(getStorageItem("users"))
+  for (var i=0; i<users.length; i++) {
+    if (users[i].name() === name) {
+      return users[i];
+    }
+  }
 }

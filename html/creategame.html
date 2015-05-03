@@ -20,14 +20,12 @@
         <script type="text/javascript" src="../javascript/user.js"></script>
         <script type="text/javascript" src="../javascript/map_info.js"></script>
 
-        <!-- // <script type="text/javascript" src="../javascript/chat.js"></script> -->
         <script type="text/javascript" src="../javascript/creategame.js"></script>
     </head>
 
 
     <body>
         <!-- modal html -->
-        <!-- <form id="createForm"> -->
         <div id="createModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -36,20 +34,16 @@
                         <h2 id="createTitle" class="modal-title">Create a New Game</h2>
                     </div>
                     <div id="createBodyTop" class="modal-body">
-                        <div class="container-fluid content">
+                        <div class="container-fluid modalContent">
                             <div id="game-title-row" class="row">
                                 <!-- possible error message -->
                                 <!-- code snippet from http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-alerts.php -->
                                 <div id="errorDiv" class="alert alert-danger">
-<!--                                     <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                    <strong>Error!</strong> A problem has been occurred while submitting your data. -->
                                 </div>
                                 <div id="create-game-title-left" class="col-md-6">
                                     <input id="create-game-title" class="col-md-12"  placeholder="Enter a Game Title">
                                 </div>
                                 <div id="create-game-title-right" class="col-md-6">
-                                    <!-- <button id="choose-for-me" class="btn btn-primary col-md-offset-4 col-md-4" >Choose For Me</button> -->
                                     <div id="buttonGroup" class="btn-group btn-toggl" data-toggle="buttons">
                                         <label id="privateButtonLabel" name="private-public-label" class="btn">
                                           <input id="privateButton" type="radio" name="private-public" value="Private"> Private
@@ -92,7 +86,6 @@
                 </div> <!-- modal-content -->
             </div> <!-- modal-dialog -->
         </div> <!-- createModal -->
-        <!-- </form> -->
     </body>
 
 </html>

@@ -4,6 +4,7 @@ body, html {
 
 .klt-navbar {
     font-size: 24px;
+    
 }
 
 .home_body {
@@ -12,6 +13,14 @@ body, html {
 
 .title {
     font-weight: bold;
+}
+
+.navbar {
+    margin-bottom:0px;
+}
+
+#featureContainers {
+    padding-top:10px;
 }
 
 .top-buffer { margin-top:5px; }
@@ -28,8 +37,11 @@ body, html {
 
 .map-image {
     overflow: hidden;
-    background-size: cover;
     background-position: center;
+}
+
+.featureContainers {
+    
 }
 
 .klt-footer {
