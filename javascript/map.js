@@ -14,9 +14,9 @@ $(document).ready(function() {
   setUpDictionaries();
   
   // group chat setup
-  chatbox = openChat(chatName, gameMsgSentFunc);
-  simulateInitGameConversation(chatbox, chatName);
-  //openChat(chatName, gameMsgSentFunc);
+  //chatbox = openChat(chatName, gameMsgSentFunc);
+  //simulateInitGameConversation(chatbox, chatName);
+  openChat(chatName, gameMsgSentFunc);
 
   // loading data from local storage
   map = localStorage.getItem("map");
@@ -49,10 +49,10 @@ function populateData() {
 function setUpDictionaries() {
 	// We can use currentAct to index into the list of values and get the proper item
     // key (currentMap) -> value (name of scene or image)
-    mapsToScenes["Medieval"] 		= ["act1", "act2", "act3"];
-	mapsToScenes["Space"] 	= ["voyage1", "voyage2", "voyage3"];
-    scenesToImages["Medieval"] 	= ["act1.jpg", "act2.png", "act3.png"];
-	scenesToImages["Space"]  = ["voyage1.jpg", "voyage2.jpeg", "voyage3.jpg"];
+  mapsToScenes["Medieval"] 		= ["act1", "act2", "act3"];
+	mapsToScenes["Space"] 	    = ["voyage1", "voyage2", "voyage3"];
+  scenesToImages["Medieval"] 	= ["act1.jpg", "act2.png", "act3.png"];
+	scenesToImages["Space"]     = ["voyage1.jpg", "voyage2.jpeg", "voyage3.jpg"];
 
 	// key (currentMap, currentAct) -> value (list of the names of questions)
 	challengesToQuestions["act1"]	 = [compositionOfMatter, lifeOfPi, famousComposers];
