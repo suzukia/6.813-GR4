@@ -44,7 +44,7 @@ $(document).ready(function() {
   } else {
   	currentMap = map.name;
   }
-  currentAct = 0;       // default
+  currentAct = 2;       // default
   populateData();
 
   // document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
@@ -52,12 +52,19 @@ $(document).ready(function() {
 
   console.log('../images/'+scenesToImages[currentMap][currentAct]);
   var imageFile = scenesToImages[currentMap][currentAct];
-  document.getElementById("map-image").innerHTML="<img src='../images/map/"+currentMap.toLowerCase()+"/"+imageFile+"' alt='' height='800' width='1336'>";
+  document.getElementById("map-image").innerHTML="<img src='../images/map/"+currentMap.toLowerCase()+"/"+imageFile+"' alt='' height='800' width='1400'>";
+  
+  // to make image fill the entire body of the website
   $(".content").css("margin-top",0);
+  $(".content").css("padding-left",0);
+  $(".content").css("padding-right",0);
+  $(".klt-navbar").css("margin-bottom",0);
+
+  // sketchpad
   var sp = new SketchPad("canvas-test");
   sp.init(0);
 
-  console.log(challengesToQuestions.act1[0].title);
+  // console.log(challengesToQuestions.act1[0].title);
 });
 
 
