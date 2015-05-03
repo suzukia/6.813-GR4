@@ -5,6 +5,7 @@ var currentQuestion;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
+var sp;
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 
@@ -89,8 +90,8 @@ $(document).ready(function() {
     currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
 
     // sketchpad
-    var sp = new SketchPad("canvas-test");
-    sp.init(0);
+    sp = new SketchPad("canvas-test");
+    
 
 
   // console.log(challengesToQuestions.act1[0].title);
@@ -105,12 +106,13 @@ $(document).ready(function() {
       $('#check'+value).html("  &#x2713;");
 
       // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
+    
     } else {
       //$('#feedback').text("Incorrect. Try again");
       $('#check'+value).show();
       $('#check'+value).html(" &#x2717;");
     }
-    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide(); sp.;},3000);
   });
 
 
@@ -130,7 +132,17 @@ $(document).ready(function() {
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
     }
 
-
+    // Initialize sketchpad and dynamically load all question data.
+    // createTitle, questionHeader, choiceA
+    function updateQuestionModal() {
+        sp.init(0);
+        $('#createTitle').text(currentQuestion.title);
+        $('#questionHeader').text(currentQuestion.description);
+        $('choiceA').text(currentQuestion.choices[0]);
+        $('choiceB').text(currentQuestion.choices[1]);
+        $('choiceC').text(currentQuestion.choices[2]);
+        $('choiceD').text(currentQuestion.choices[3]);
+    }
 
 
 });
