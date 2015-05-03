@@ -1,4 +1,5 @@
-$(document).ready(function() {
+var setUpCreateGameModal = function() {
+
 
   var maxNumberPlayers = 3;
 
@@ -51,7 +52,8 @@ $(document).ready(function() {
   var uncheckedButtonId;
   var privateGame;
 
-  $("button").button();
+  $("#privateButton").button();
+  $("#publicButton").button();
 
   var invitedFriends = [];
   var selectedMap;
@@ -66,8 +68,17 @@ $(document).ready(function() {
     $('.inviteCheckbox:disabled').removeAttr("disabled");
   }
 
+  var clearInviteFriendsList = function() {
+    $('#invite-friends').html("");
+  }
+
+  var clearMapsList = function() {
+    $('#map-list').html("");
+  }
+
   // load list of friends
   var loadCreateGameFriendList = function() {
+    clearInviteFriendsList();
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
 
@@ -106,8 +117,8 @@ $(document).ready(function() {
     }
   }
 
-
   var loadMapList = function() {
+    clearMapsList();
     var maps = getStorageItem("maps");
     for (var i=0; i<maps.length; i++) {
       var mapText = maps[i].description;
@@ -184,9 +195,6 @@ $(document).ready(function() {
           $('#descriptionDiv'+maps[i].name).height(maxHeight);
         }
       }, 150);
-
-
-
     }
 
     // this is to make the bottom margin visible
@@ -203,7 +211,6 @@ $(document).ready(function() {
       selectedMap = $(this);
     });
   }
-
 
   $('#invite-friends').slimScroll({
     height: 0.5*$(window).height()
@@ -307,7 +314,7 @@ $(document).ready(function() {
       redirectTo("map.html");
     }
   });
-});
+}
 
 
 

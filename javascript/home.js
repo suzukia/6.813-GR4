@@ -13,9 +13,16 @@ $(document).ready(function() {
     username = localStorage.getItem("username");
     kltNavbar = $('.klt-navbar');
     kltFooter = $('.klt-footer');
-    
+
     configNavbar();
     configGameListing();
+
+    //event handlers
+    $('#create-new-game').click(function() {
+        setUpCreateGameModal();
+        $("#createModal").modal('show');
+    });
+
 });
 
 function configNavbar(){
