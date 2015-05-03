@@ -1,6 +1,7 @@
 var kltNavbar;
 var currentMap;
 var currentAct;
+var currentQuestion;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
@@ -28,11 +29,19 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
-    // console.log("currentMap");
-    // console.log(currentMap);
 
     // set up chat name
     var chatName = username;
+    for (var i=0; i< players.length; i++) {
+        chatName += ", " + players[i].name();
+    }
+    var gameInfo = getStorageItem("gameInfo");
+    var players = formatUsers(gameInfo.players);
+    console.log(players);
+    var map = gameInfo.map;
+
+    // set up chat name
+    var chatName = localStorage.getItem("username");
     for (var i=0; i< players.length; i++) {
         chatName += ", " + players[i].name();
     }
@@ -50,9 +59,10 @@ $(document).ready(function() {
   // group chat setup
   //chatbox = openChat(chatName, gameMsgSentFunc);
   //simulateInitGameConversation(chatbox, chatName);
-  openChat(chatName, gameMsgSentFunc);
+  //openChat(chatName, gameMsgSentFunc);
 
   // loading data from local storage
+// <<<<<<< HEAD
   // map = localStorage.getItem("map");
   // if (map == null) {
   // 	currentMap = "Space"; // default
@@ -60,10 +70,29 @@ $(document).ready(function() {
   // 	currentMap = map.name;
   // }
   // currentAct = 2;       // default
+// =======
+//   map = localStorage.getItem("map");
+//   if (map == null) {
+//   	currentMap = "Space"; // default
+//   } else {
+//   	currentMap = map.name;
+//   }
+
+  $('#feedback').hide();
+  $('#checkA').hide();
+  $('#checkB').hide();
+  $('#checkC').hide();
+  $('#checkD').hide();
+  // currentAct = 0;       // default
+  // currentChallenge = mapsToScenes[currentMap][currentAct];
+  // currentQuestion = challengesToQuestions[currentChallenge][currentAct];
+  currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
+// >>>>>>> 0d27d55ebc7aca05a80994de4bd35d2023a8cd5b
   populateData();
 
-  // document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
-  // $('#instructionModal').modal('show');
+
+  document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start this challenge.";
+  $('#instructionModal').modal('show');
 
   // console.log('../images/'+scenesToImages[currentMap][currentAct]);
   // var imageFile = scenesToImages[currentMap][currentAct];
@@ -88,6 +117,25 @@ $(document).ready(function() {
 
 
   // console.log(challengesToQuestions.act1[0].title);
+  $('#submit').click(function(){
+    var value = $("input[name=multipleChoice]:checked").val();
+    if (value == currentQuestion.correctAnswer) {
+      $('#submit').hide();
+      // $('#feedback').show();
+      // $('#feedback').html("&#x2713;");
+      // $('.button'+currentQuestion.correctAnswer).hide();
+      $('#check'+value).show();
+      $('#check'+value).html("  &#x2713;");
+
+      // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
+    } else {
+      //$('#feedback').text("Incorrect. Try again");
+      $('#check'+value).show();
+      $('#check'+value).html(" &#x2717;");
+    }
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
+  });
+
 });
 
 
@@ -123,14 +171,6 @@ function Question(title, description, choices, correctAnswer) {
     this.correctAnswer = correctAnswer;
     return this;
 }
-
-$('#submit').click(function(){
-});
-
-$('#questionContainer input').on('change', function() {
-   alert($('input[name=radioName]:checked', '#questionTable').val());
-});
-
 
 var compositionOfMatter = new Question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
 var lifeOfPi = new Question("Life of Pi", "Rally", [""], "A");
