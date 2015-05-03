@@ -13,17 +13,16 @@ $(document).ready(function() {
     // {"map":{"name":"Medieval","description":"Journey to your throne","icon":"../images/map/space/icon.gif"},
     //  "players":[{"_id":15,"_name":"Cinderella","_avatar":"../images/chat/avatar1.gif","_friends":[],"_friendReqs":{}}],
     //  "privateGame":true}
-    var gameInfo = getStorageItem("gameInfo");
-    var players = formatUsers(gameInfo.players);
-    console.log(players);
-    console.log(players);
-    var map = gameInfo.map;
+    // var gameInfo = getStorageItem("gameInfo");
+    // var players = formatUsers(gameInfo.players);
+    // console.log(players);
+    // var map = gameInfo.map;
 
-    // set up chat name
-    var chatName = localStorage.getItem("username");
-    for (var i=0; i< players.length; i++) {
-        chatName += ", " + players[i].name();
-    }
+    // // set up chat name
+    // var chatName = localStorage.getItem("username");
+    // for (var i=0; i< players.length; i++) {
+    //     chatName += ", " + players[i].name();
+    // }
 
 
   // setup navigation bar and dictionaries
@@ -36,7 +35,7 @@ $(document).ready(function() {
   // group chat setup
   //chatbox = openChat(chatName, gameMsgSentFunc);
   //simulateInitGameConversation(chatbox, chatName);
-  openChat(chatName, gameMsgSentFunc);
+  //openChat(chatName, gameMsgSentFunc);
 
   // loading data from local storage
   map = localStorage.getItem("map");
@@ -75,20 +74,22 @@ $(document).ready(function() {
 
   // console.log(challengesToQuestions.act1[0].title);
   $('#submit').click(function(){
-    console.log(currentQuestion.correctAnswer);
-    if (document.getElementById(currentQuestion.correctAnswer).checked) {
+    var value = $("input[name=multipleChoice]:checked").val();
+    if (value == currentQuestion.correctAnswer) {
       $('#submit').hide();
       // $('#feedback').show();
       // $('#feedback').html("&#x2713;");
       // $('.button'+currentQuestion.correctAnswer).hide();
-      $('#check'+currentQuestion.correctAnswer).show();
-      $('#check'+currentQuestion.correctAnswer).html(" &#x2713;");
+      $('#check'+value).show();
+      $('#check'+value).html("  &#x2713;");
       
       // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
     } else {
-      $('#feedback').text("Incorrect. Try again");
+      //$('#feedback').text("Incorrect. Try again");
+      $('#check'+value).show();
+      $('#check'+value).html(" &#x2717;");
     }
-
+    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
   });
 
 });
