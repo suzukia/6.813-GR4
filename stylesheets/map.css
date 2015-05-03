@@ -19,6 +19,9 @@ body, html {
     margin-bottom:0px;
 }
 
+#featureContainers {
+    padding-top:10px;
+}
 
 .top-buffer { margin-top:5px; }
 

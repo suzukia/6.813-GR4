@@ -1,6 +1,7 @@
 var kltNavbar;
 var currentMap;		
-var currentAct;			
+var currentAct;	
+var currentQuestion;		
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
@@ -25,11 +26,18 @@ $(document).ready(function() {
   } else {
   	currentMap = map.name;
   }
-  currentAct = 2;       // default
+  $('#feedback').hide();
+  $('#checkA').hide();
+  $('#checkB').hide();
+  $('#checkC').hide();
+  $('#checkD').hide();
+  currentAct = 0;       // default
+  currentChallenge = mapsToScenes[currentMap][currentAct];
+  currentQuestion = challengesToQuestions[currentChallenge][currentAct];
   populateData();
   
-  // document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
-  // $('#instructionModal').modal('show');
+  document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
+  $('#instructionModal').modal('show');
 
   console.log('../images/'+scenesToImages[currentMap][currentAct]);
   var imageFile = scenesToImages[currentMap][currentAct];
@@ -46,6 +54,27 @@ $(document).ready(function() {
   sp.init(0);
 
   // console.log(challengesToQuestions.act1[0].title);
+  $('#submit').click(function(){
+    console.log(currentQuestion.correctAnswer);
+    if (document.getElementById(currentQuestion.correctAnswer).checked) {
+      $('#submit').hide();
+      // $('#feedback').show();
+      // $('#feedback').html("&#x2713;");
+      // $('.button'+currentQuestion.correctAnswer).hide();
+      $('#check'+currentQuestion.correctAnswer).show();
+      $('#check'+currentQuestion.correctAnswer).html(" &#x2713;");
+      
+      // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
+    } else {
+      $('#feedback').text("Incorrect. Try again");
+    }
+
+  });
+
+  $('#multipleChoice input').on('change', function() {
+     alert($('input[name=radioName]:checked', '#questionTable').val()); 
+  });
+
 });
 
 
@@ -82,13 +111,6 @@ function Question(title, description, choices, correctAnswer) {
     this.correctAnswer = correctAnswer;
     return this;
 }
-
-$('#submit').click(function(){
-});
-
-$('#questionContainer input').on('change', function() {
-   alert($('input[name=radioName]:checked', '#questionTable').val()); 
-});
 
 
 var compositionOfMatter = new Question("Composition of Matter", "Which is the first element in the periodic table?", ["Li", "He", "H", "Ne"], "C");
