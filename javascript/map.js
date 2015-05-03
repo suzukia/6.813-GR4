@@ -79,11 +79,18 @@ $(document).ready(function() {
     // sp.init(0);
 
 
-    // set up chat names
-    var chatName = username;
-    for (var i=0; i< players.length; i++) {
-        chatName += "," + players[i].name();
+    // group chat setup
+    if (players.length >= 1) {
+        var chatName = players[0].name();
+        for (var i=1; i< players.length; i++) {
+            chatName += "," + players[i].name();
+        }
+        chatbox = openChat(chatName, gameMsgSentFunc);
+        //simulateInitGameConversation(chatbox, chatName);
+        //openChat(chatName, gameMsgSentFunc);
     }
+
+
 
     // initialize the game
     currentSceneIndex = 0;
@@ -93,10 +100,7 @@ $(document).ready(function() {
     kltNavbar = $('.klt-navbar');
     configNavbar();
 
-    // group chat setup
-    chatbox = openChat(chatName, gameMsgSentFunc);
-    //simulateInitGameConversation(chatbox, chatName);
-    //openChat(chatName, gameMsgSentFunc);
+
 
     // pop up instructions
     document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start this challenge.";
