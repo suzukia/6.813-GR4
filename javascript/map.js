@@ -99,33 +99,35 @@ $(document).ready(function() {
     $('#checkC').hide();
     $('#checkD').hide();
 
-    currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
-
     // sketchpad
     var sp = new SketchPad("canvas-test");
     sp.init(0);
 
 
-  // console.log(challengesToQuestions.act1[0].title);
-  $('#submit').click(function(){
-    var value = $("input[name=multipleChoice]:checked").val();
-    if (value == currentQuestion.correctAnswer) {
-      $('#submit').hide();
-      // $('#feedback').show();
-      // $('#feedback').html("&#x2713;");
-      // $('.button'+currentQuestion.correctAnswer).hide();
-      $('#check'+value).show();
-      $('#check'+value).html("  &#x2713;");
+    // console.log(challengesToQuestions.act1[0].title);
+    $('#submit').click(function(){
+        var value = $("input[name=multipleChoice]:checked").val();
+        if (value == currentQuestion.correctAnswer) {
+          $('#submit').hide();
+          // $('#feedback').show();
+          // $('#feedback').html("&#x2713;");
+          // $('.button'+currentQuestion.correctAnswer).hide();
+          $('#check'+value).show();
+          $('#check'+value).html("  &#x2713;");
 
-      // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
-    } else {
-      //$('#feedback').text("Incorrect. Try again");
-      $('#check'+value).show();
-      $('#check'+value).html(" &#x2717;");
+          // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
+        } else {
+          //$('#feedback').text("Incorrect. Try again");
+          $('#check'+value).show();
+          $('#check'+value).html(" &#x2717;");
+        }
+        setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
+    });
+
+    function updateQuestionModal(){
+        currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
+
     }
-    setTimeout(function(){$('#questionModal').modal('toggle'); $('#check'+value).hide();},3000);
-  });
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// Helper functions //////////////////////////////////////////////////////
