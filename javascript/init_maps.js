@@ -92,7 +92,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 
     {
     name:"Medieval",
-    description: "Journey to your throne",
+    description: "Journey to your throne.",
     icon: "../images/map/medieval/icon.jpg",
     sceneUnit: "Act",
     scenes: [medievalScene1, medievalScene2, medievalScene3]

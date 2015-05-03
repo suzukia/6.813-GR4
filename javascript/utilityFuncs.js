@@ -80,3 +80,14 @@ function getUserByName(name) {
     }
   }
 }
+
+function getRandomMap() {
+  var maps = getStorageItem("maps");
+  var randomNumber = getRandomNum(maps.length);
+  return maps[randomNumber];
+}
+
+function getUserTotal() {
+  var users = formatUsers(getStorageItem("users"));
+  return users.length;
+}

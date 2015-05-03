@@ -292,6 +292,7 @@ var setUpCreateGameModal = function() {
       var map = getMapByName(mapTitle);
       players = [];
 
+      var gameTitle = $('#create-game-title').val().trim();
 
       if (!privateGame) { //add random users for public games; max number of other players is 3
         var players = getRandomUsers(3 - invitedFriends.length);
@@ -303,14 +304,13 @@ var setUpCreateGameModal = function() {
       }
 
       var gameInfo = {
-        // gameTitle
+        title: gameTitle,
         map: map,
         players: players,
         privateGame: privateGame
       }
       localStorage.removeItem("gameInfo");
       setStorageItem("gameInfo", gameInfo);
-      alert(gameInfo);
 
       // redirect to map page
       redirectTo("map.html");
