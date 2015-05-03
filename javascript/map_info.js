@@ -11,7 +11,6 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
     }
   ]
   setStorageItem("maps", maps);
-
 });
 
 

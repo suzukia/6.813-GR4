@@ -1,18 +1,37 @@
 var kltNavbar;
-var currentMap;		
-var currentAct;			
+var currentMap;
+var currentAct;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
-var chatName = "User1,User2,User3,User4";
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
+
+    // gameInfo format (passed on from previous page):
+    // {"map":{"name":"Medieval","description":"Journey to your throne","icon":"../images/map/space/icon.gif"},
+    //  "players":[{"_id":15,"_name":"Cinderella","_avatar":"../images/chat/avatar1.gif","_friends":[],"_friendReqs":{}}],
+    //  "privateGame":true}
+    var gameInfo = getStorageItem("gameInfo");
+    var players = formatUsers(gameInfo.players);
+    console.log(players);
+    console.log(players);
+    var map = gameInfo.map;
+
+    // set up chat name
+    var chatName = localStorage.getItem("username");
+    for (var i=0; i< players.length; i++) {
+        chatName += ", " + players[i].name();
+    }
+
+
   // setup navigation bar and dictionaries
   kltNavbar = $('.klt-navbar');
   configNavbar();
   setUpDictionaries();
-  
+  console.log("after setup");
+  console.log(mapsToScenes);
+
   // group chat setup
   //chatbox = openChat(chatName, gameMsgSentFunc);
   //simulateInitGameConversation(chatbox, chatName);
@@ -27,7 +46,7 @@ $(document).ready(function() {
   }
   currentAct = 0;       // default
   populateData();
-  
+
   // document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap + " map! Click anywhere on the map to start this challenge.";
   // $('#instructionModal').modal('show');
 
@@ -41,6 +60,8 @@ $(document).ready(function() {
   console.log(challengesToQuestions.act1[0].title);
 });
 
+
+// helper functions
 
 function populateData() {
 
@@ -60,7 +81,7 @@ function setUpDictionaries() {
 	challengesToQuestions["act3"] 	 = [compositionOfMatter, lifeOfPi, famousComposers];
 	challengesToQuestions["voyage1"] = [compositionOfMatter, lifeOfPi, famousComposers];
 	challengesToQuestions["voyage2"] = [compositionOfMatter, lifeOfPi, famousComposers];
-	challengesToQuestions["voyage3"] = [compositionOfMatter, lifeOfPi, famousComposers];	
+	challengesToQuestions["voyage3"] = [compositionOfMatter, lifeOfPi, famousComposers];
 }
 
 function configNavbar(){
@@ -80,7 +101,7 @@ $('#submit').click(function(){
 });
 
 $('#questionContainer input').on('change', function() {
-   alert($('input[name=radioName]:checked', '#questionTable').val()); 
+   alert($('input[name=radioName]:checked', '#questionTable').val());
 });
 
 

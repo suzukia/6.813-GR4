@@ -30,6 +30,10 @@ function formatUsers(users) {
 	return users;
 }
 
+function formatMaps(maps) {
+
+}
+
 function getRandomNum(maxNum) {
 	return Math.round( Math.random() * (maxNum-1));
 }
