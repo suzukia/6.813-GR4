@@ -21,19 +21,35 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 /////////////////////////////////////////////////////////////////////////////////
 
   var spaceScene1 = {
-    image: "../images/map/medieval/icon.jpg",
+    image: "../images/map/space/voyage1.jpg",
     questions: [compositionOfMatter, lifeOfPi, famousComposers]
   }
 
   var spaceScene2 = {
-    image: "../images/map/medieval/icon.jpg",
+    image: "../images/map/space/voyage2.jpg",
     questions: [compositionOfMatter, lifeOfPi, famousComposers]
   }
 
   var spaceScene3 = {
-    image: "../images/map/medieval/icon.jpg",
+    image: "../images/map/space/voyage3.jpg",
     questions: [compositionOfMatter, lifeOfPi, famousComposers]
   }
+
+  var medievalScene1 = {
+    image: "../images/map/medieval/act1.jpg",
+    questions: [compositionOfMatter, lifeOfPi, famousComposers]
+  }
+
+  var medievalScene2 = {
+    image: "../images/map/medieval/act2.jpg",
+    questions: [compositionOfMatter, lifeOfPi, famousComposers]
+  }
+
+  var medievalScene3 = {
+    image: "../images/map/medieval/act3.jpg",
+    questions: [compositionOfMatter, lifeOfPi, famousComposers]
+  }
+
 
 /////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////  MAPS //////////////////////////////////////////////
@@ -43,7 +59,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
     {
     name:"Space",
     description: "Explore the solar system!",
-    icon: "../images/map/medieval/icon.jpg",
+    icon: "../images/map/space/icon.gif",
     sceneUnit: "Voyage",
     scenes: [spaceScene1, spaceScene2, spaceScene3]
     },
@@ -51,9 +67,9 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
     {
     name:"Medieval",
     description: "Journey to your throne",
-    icon: "../images/map/space/icon.gif",
+    icon: "../images/map/medieval/icon.jpg",
     sceneUnit: "Act",
-    scenes: [spaceScene1, spaceScene2, spaceScene3]
+    scenes: [medievalScene1, medievalScene2, medievalScene3]
     }
   ]
   setStorageItem("maps", maps);

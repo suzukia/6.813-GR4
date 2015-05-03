@@ -57,7 +57,7 @@ $(document).ready(function() {
   // setUpDictionaries();
 
   // group chat setup
-  //chatbox = openChat(chatName, gameMsgSentFunc);
+  chatbox = openChat(chatName, gameMsgSentFunc);
   //simulateInitGameConversation(chatbox, chatName);
   //openChat(chatName, gameMsgSentFunc);
 
