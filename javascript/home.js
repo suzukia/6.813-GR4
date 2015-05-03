@@ -5,6 +5,12 @@ var kltNavbar, kltFooter, username;
 
 $(document).ready(function() {
 
+    // // you're still in a game: redirect back to map page
+    // var checkGameInfo = localStorage.getItem("gameInfo");
+    // if (checkGameInfo) {
+    //     redirectTo("map.html");
+    // }
+
     $(window).resize(function() {
         friendsChat.slimScroll({destroy: true});
         configChat();
@@ -23,9 +29,12 @@ $(document).ready(function() {
         $("#createModal").modal('show');
     });
 
-    // clear gameInfo, because you're not in a current game
-    localStorage.removeItem("gameInfo");
 
+  // // you're still in a game: redirect back to map
+  // var checkGameInfo = localStorage.getItem("gameInfo");
+  // if (checkGameInfo) {
+  //     redirectTo("map.html");
+  // }
 });
 
 function configNavbar(){

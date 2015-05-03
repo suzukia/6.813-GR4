@@ -8,7 +8,6 @@ var challengesToQuestions = {};
 var sp;
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
-
 $(document).ready(function() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +41,7 @@ $(document).ready(function() {
     // set up chat names
     var chatName = username;
     for (var i=0; i< players.length; i++) {
-        chatName += ", " + players[i].name();
+        chatName += "," + players[i].name();
     }
 
     // initialize the game
@@ -69,6 +68,20 @@ $(document).ready(function() {
     $(".klt-navbar").css("margin-bottom",0);
 
     updatePage();
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// event handlers ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $('#homeAnchor').click(function() {
+        a = confirm("Are you sure you want to exit this game?");
+        if (a) {
+            removeChat(chatName);
+            // clear gameInfo, because you're leaving the current game
+            localStorage.removeItem("gameInfo");
+            redirectTo("home.html");
+        }
+    });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// CHALLENGE MODAL //////////////////////////////////////////////////////////////////////////
@@ -132,6 +145,7 @@ $(document).ready(function() {
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='800' width='1400'>";
     }
 
+<<<<<<< HEAD
     // Initialize sketchpad and dynamically load all question data.
     // createTitle, questionHeader, choiceA
     function updateQuestionModal() {
@@ -144,6 +158,8 @@ $(document).ready(function() {
         $('choiceD').text(currentQuestion.choices[3]);
     }
 
+=======
+>>>>>>> origin/master
 
 });
 
@@ -151,6 +167,8 @@ $(document).ready(function() {
 $(window).unload(function(){
     console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
+    // clear gameInfo, because you're leaving the current game
+    localStorage.removeItem("gameInfo");
 });
 
 
