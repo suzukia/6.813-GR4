@@ -31,14 +31,14 @@ $(document).ready(function() {
     // Initialize sketchpad and dynamically load all question data.
     // createTitle, questionHeader, choiceA
     var updateQuestionModal = function() {
-        $('#feedback').hide();
+        //$('#feedback').hide();
         $('#checkA').hide();
         $('#checkB').hide();
         $('#checkC').hide();
         $('#checkD').hide();
         currentQuestion = currentMap.scenes[currentSceneIndex].questions[currentQuestionIndex];
         sp.init(0);
-        $('#createTitle').text(currentQuestion.title);
+        $('#createQuestionTitle').text(currentQuestion.title);
         $('#questionHeader').text(currentQuestion.description);
         $('#Atd').text(currentQuestion.choices[0]);
         $('#Btd').text(currentQuestion.choices[1]);
@@ -54,6 +54,8 @@ $(document).ready(function() {
 
     //TODO: (called when challenge modal shows up, or data changes have been made)
     var updateChallengeModal = function() {
+        var numberOfQuestionsLeft = currentMap.scenes[currentSceneIndex].questions.length;
+        $('#createChallengeTitle').text(numberOfQuestionsLeft+"/")
 
     }
 
