@@ -58,6 +58,8 @@ $(document).ready(function() {
         console.log(numberOfQuestionsLeft);
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
+        $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
+        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title);
         // TODO: fill out the rest of the questions
         
     }
