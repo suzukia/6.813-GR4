@@ -97,37 +97,53 @@
         </div> <!-- createModal -->
 
 
-        <!-- Challenge Modal html -->
+
+
         <div id="challengeModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div id="createHeader" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h2 id="createTitle" class="modal-title">5/10 Questions Completed</h2>
+                        <h2 id="createTitle" class="modal-title">3/10 Questions Completed</h2>
                     </div>
-                    <div id="createBody" class="modal-body">
+                    <div id="createBodyTop" class="modal-body">
+                            <div id="create-lists" class="row">
+                                <div id="left-list" class="col-md-6">
+                                    <div id="left-panel" class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h3 class="panel-title" id="listing-title">Your Questions</h3>
+                                      </div>
+                                      <ul class="list-group" id="games">
+                                           <table id="friendsTable" class="table table-condensed">
+                                            <tr><td><a data-toggle="modal" data-target="#questionModal">Question 1</a></td></tr>
+                                            <tr><td>Question 2</td></tr>
+                                            <tr><td>Question 3</td></tr>
+                                           </table>
 
-                        <div id="middleContainers">
-                            <div id="leftContainer">
-                                <div id="yourFriendsHeader">Questions</div>
-                                <div id="yourFriendsHeaderAssigned"><font size="3" color="red">Assigned</font></div>
-                                <table id="friendsTable" class="table table-condensed">
-                                    <tr><td><a data-toggle="modal" data-target="#questionModal">Composition of Matter</a></td></tr>
-                                    <tr><td>Life of Pi</td></tr>
-                                    <tr><td>Beyond the Limits</td></tr>
-                                </table>
-                                <div id="yourFriendsHeaderAssigned"><font size="3" color="red">Completed</font></div>
-                                <table id="friendsTable" class="table table-condensed">
-                                    <tr><td width = "15%">Jane</td><td width = "85%">Circuit Lab</td></tr>
-                                    <tr><td width = "15%">Jane</td><td width = "85%">Acidic Lemon</td></tr>
-                                    <tr><td width = "15%">Jane</td><td width = "85%">Ultimate Acid Base</td></tr>
-                                    <tr><td width = "15%">Jane</td><td width = "85%">Algebra Fun</td></tr>
-                                    <tr><td width = "15%">Jane</td><td width = "85%">Basic Solutions</td></tr>
-                                    <tr><td width = "15%">Elizabeth</td><td width = "85%">Chemistry of Matter</td></tr>
-                                    <tr><td width = "15%">Frank</td><td width = "85%">MultiFLY and DIVEision</td></tr>
-                                </table>
+                                      </ul>
+                                    </div>
                                 </div>
+                                <div id="right-list" class="col-md-6">
+                                    <div id="right-panel" class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h3 class="panel-title" id="listing-title">Questions Your Friends Need Help With</h3>
+                                      </div>
+                                      <ul class="list-group" id="games">
+                                          <li class="list-group-item game_info">Question Name 1
+                                            <div class="extra_game_info"> Actual Question 1 </div>
+                                          </li>
+
+                                          <li class="list-group-item game_info">Question Name 2
+                                            <div class="extra_game_info"> Actual Question 2 </div>
+                                          </li>
+
+                                          <li class="list-group-item game_info">Question Name 3
+                                            <div class="extra_game_info"> Actual Question 3 </div>
+                                          </li>
+                                      </ul>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- modal-content -->
@@ -199,6 +215,8 @@
                 </div> <!-- modal-content -->
             </div> <!-- modal-dialog -->
         </div> <!-- createModal -->
+
+
 
     </body>
 </html>
