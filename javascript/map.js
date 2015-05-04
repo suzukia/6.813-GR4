@@ -4,7 +4,7 @@ var currentAct;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
-var chatName = "User1,User2,User3,User4";
+var chatName = "User1,User2,User3,User4,User5,User6,User7";
 // var firstMsgs = ["hey guys!","wassup", "heyy", "everyone ready, right?!"];
 
 $(document).ready(function() {
@@ -77,6 +77,11 @@ var lifeOfPi = new Question("Life of Pi", "Rally", [""], "A");
 var famousComposers = new Question("Famous Composers", "Which composer was deaf?", ["Mozart", "Beethoven", "Handel", "Bach"], "B");
 
 $(window).unload(function(){
+    console.log("here about to remove chatbox: " + chatName);
+    removeChat(chatName);
+});
+
+$(window).on("hashchange", function(){
     console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
 });

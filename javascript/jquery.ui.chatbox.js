@@ -133,8 +133,9 @@
                     self.uiChatboxTitlebar.removeClass('ui-state-focus');
                 }),
             // titlebar
-            uiChatboxTitlebar = (self.uiChatboxTitlebar = $('<div></div>'))
-                .addClass('ui-widget-header ' +
+            uiChatboxTitlebar = (self.uiChatboxTitlebar = $('<div></div>', {
+                title : options.chatboxID
+            })).addClass('ui-widget-header ' +
                           'ui-corner-top ' +
                           'ui-chatbox-titlebar ' +
                           'ui-dialog-header' // take advantage of dialog header style
@@ -142,7 +143,8 @@
                 .click(function(event) {
                     self.toggleContent(event);
                 })
-                .appendTo(uiChatbox),
+                .appendTo(uiChatbox)
+                .tooltip({position: { my: "bottom", at: "center top"} }),
             uiChatboxTitle = (self.uiChatboxTitle = $('<span></span>'))
                 .html(title)
                 .appendTo(uiChatboxTitlebar),

@@ -44,3 +44,8 @@
 .lbr {
     line-height: 3px;
 }
+
+div.ui-tooltip {
+    word-wrap: break-word;
+    max-width:250px;
+}

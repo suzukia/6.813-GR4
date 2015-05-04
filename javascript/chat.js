@@ -231,6 +231,12 @@ function updateChatInfo() {
 function createChatBox(chatBox, name, msgSentFunc) {
 	console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
 	chatIsOpen[name] = true;
+	var maxNameLength = parseInt(localStorage.maxNameLength);
+	var chatboxTitle = name.length > maxNameLength ? name.substring(0,maxNameLength-3)+"..." : name;
+	console.log(name.length > maxNameLength);
+	console.log(maxNameLength-3);
+	console.log(maxNameLength);
+	console.log(chatboxTitle);
 	return chatBox.chatbox(
     {
         id:username,
@@ -239,7 +245,7 @@ function createChatBox(chatBox, name, msgSentFunc) {
         {
             key : "value"
         },
-        title : name,
+        title : chatboxTitle,
         offset: chatBoxOffset(Object.keys(openChats).length),
         width: chatWidth,
         /*

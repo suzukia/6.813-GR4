@@ -13,11 +13,9 @@ function populateUsers(names) {
 		lst = [],
 		numOfAvatars = 13;
 	names.forEach(function(name) {
-		if (name.length <= 25) {
-			var avatar = "../images/chat/avatar" + Math.round(Math.random()*numOfAvatars) + ".gif";
-			lst.push(new User(id, name, avatar));
-			id += 1;
-		};
+		var avatar = "../images/chat/avatar" + Math.round(Math.random()*numOfAvatars) + ".gif";
+		lst.push(new User(id, name, avatar));
+		id += 1;
 	});
 	return lst;
 }
@@ -47,6 +45,8 @@ function populateFriendReqs(users, friends, numOfReqs) {
 }
 
 /********** Populate Data **********/
+localStorage.maxNameLength = 25;
+
 var users = populateUsers(names);
 // console.log("Users: " + users);
 setStorageItem("users", users);
