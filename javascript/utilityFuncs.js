@@ -59,3 +59,35 @@ function checkIfInObjectArray(name, object) {
   }
   return -1;
 }
+
+// returns map object from list of maps
+function getMapByName(name) {
+  var maps = getStorageItem("maps");
+  for (var i=0; i<maps.length; i++) {
+    if (maps[i].name === name) {
+
+      return maps[i];
+    }
+  }
+}
+
+// returns user object from list of users
+function getUserByName(name) {
+  var users = formatUsers(getStorageItem("users"))
+  for (var i=0; i<users.length; i++) {
+    if (users[i].name() === name) {
+      return users[i];
+    }
+  }
+}
+
+function getRandomMap() {
+  var maps = getStorageItem("maps");
+  var randomNumber = getRandomNum(maps.length);
+  return maps[randomNumber];
+}
+
+function getUserTotal() {
+  var users = formatUsers(getStorageItem("users"));
+  return users.length;
+}
