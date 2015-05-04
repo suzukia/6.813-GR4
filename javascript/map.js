@@ -54,9 +54,12 @@ $(document).ready(function() {
 
     //TODO: (called when challenge modal shows up, or data changes have been made)
     var updateChallengeModal = function() {
-        var numberOfQuestionsLeft = currentMap.scenes[currentSceneIndex].questions.length;
-        $('#createChallengeTitle').text(numberOfQuestionsLeft+"/")
-
+        var numberOfQuestionsLeft = Object.keys(unansweredQuestionIndices).length+1 ;
+        console.log(numberOfQuestionsLeft);
+        $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
+        $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
+        // TODO: fill out the rest of the questions
+        
     }
 
     var updateMapChallengeQuestion = function() {
