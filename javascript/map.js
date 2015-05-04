@@ -54,8 +54,8 @@ $(document).ready(function() {
 
     //TODO: (called when challenge modal shows up, or data changes have been made)
     var updateChallengeModal = function() {
-        var numberOfQuestionsLeft = Object.keys(unansweredQuestionIndices).length+1 ;
-        console.log(numberOfQuestionsLeft);
+        var numberOfQuestionsLeft = Object.keys(unansweredQuestionIndices).length;
+        //console.log(numberOfQuestionsLeft);
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         // TODO: fill out the rest of the questions
@@ -79,7 +79,7 @@ $(document).ready(function() {
                 currentSceneIndex ++;
                 currentQuestionIndex = 0;
                 unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
-                for (var i=1; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+                for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
                     unansweredQuestionIndices[i] = false;
                 }
                 answeredQuestionResults = {};
@@ -151,7 +151,7 @@ $(document).ready(function() {
     var answeredQuestionResults = {}; // ex. {1:true, 2:false} true for correct answer
 
     var unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
-    for (var i=1; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+    for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
         unansweredQuestionIndices[i] = false;
     }
 
@@ -206,8 +206,19 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// QUESTIONS MODAL //////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $('#question1').click(function() {
+      currentQuestionIndex = 0;
+      $('#questionModal').modal('show');
+    })
 
-
+    $('#question2').click(function() {
+      currentQuestionIndex = 1;
+      $('#questionModal').modal('show');
+    })
+    $('#question3').click(function() {
+      currentQuestionIndex = 2;
+      $('#questionModal').modal('show');
+    })
 
 
   // console.log(challengesToQuestions.act1[0].title);
@@ -223,7 +234,6 @@ $(document).ready(function() {
         $('#check'+value).html("  &#x2713;");
         $('#check'+value).show();
         // $('#check'+value).html("  &#x2713;");
-
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
 
@@ -234,7 +244,6 @@ $(document).ready(function() {
         $('#check'+value).show();
         $('#check'+value).html(" &#x2717;");
 
-        delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = false;
     }
 
