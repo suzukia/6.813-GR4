@@ -40,10 +40,10 @@ $(document).ready(function() {
         sp.init(0);
         $('#createQuestionTitle').text(currentQuestion.title);
         $('#questionHeader').text(currentQuestion.description);
-        $('#Atd').text(currentQuestion.choices[0]);
-        $('#Btd').text(currentQuestion.choices[1]);
-        $('#Ctd').text(currentQuestion.choices[2]);
-        $('#Dtd').text(currentQuestion.choices[3]);
+        $('#Atd').text('(A) ' + currentQuestion.choices[0]);
+        $('#Btd').text('(B) ' + currentQuestion.choices[1]);
+        $('#Ctd').text('(C) ' + currentQuestion.choices[2]);
+        $('#Dtd').text('(D) ' + currentQuestion.choices[3]);
         if (!helping) {
             $('#submit').show();
         }
@@ -59,14 +59,6 @@ $(document).ready(function() {
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
         $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
-
-        // why is this not working
-        for (var i in answeredQuestionResults) {
-          var questionNumberIndex = parseInt(i)+1;
-          console.log('#question'+questionNumberIndex);
-          $('#question'+questionNumberIndex).removeAttr('data-toggle');  
-          $('#question'+questionNumberIndex).css("text-decoration", "line-through");
-        }
         
     }
 
@@ -76,12 +68,34 @@ $(document).ready(function() {
         updateChallengeModal();
     }
 
+    var strikeThroughCompletedQuestions = function() {
+        for (var i in answeredQuestionResults) {
+          if (answeredQuestionResults[i] == true) {
+            var questionNumberIndex = parseInt(i)+1;
+            console.log('#question'+questionNumberIndex);
+            $('#question'+questionNumberIndex).removeAttr('data-toggle');  
+            $('#question'+questionNumberIndex).css('text-decoration', 'line-through');
+          }
+        }
+    }
+
+    var clearStrikeThrough = function() {
+      for (var i=1; i<4; i++) {
+        $('#question'+i).css('text-decoration', 'none');
+      }
+    }
+
+
     // called when user completes a question
     var handleDataChange = function() {
         // move on to next question, update challenge and question modals
         if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
             if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
-                // end game?
+                updateChallengeModal();
+                strikeThroughCompletedQuestions();
+                $('#finishedMapModal').modal('show');
+                setTimeout("leave()", 5000);
+
             }
             else { // move on to next scene!
                 currentSceneIndex ++;
@@ -94,6 +108,8 @@ $(document).ready(function() {
 
                 // update map, challenge modal, questions modal
                 updateMapChallengeQuestion();
+                clearStrikeThrough();
+                
             }
         }
         else { // still Qs left in scene
@@ -101,6 +117,7 @@ $(document).ready(function() {
             // updateMapChallengeQuestion();
             updateMap();
             updateChallengeModal();
+            strikeThroughCompletedQuestions();
         }
     }
 
@@ -133,7 +150,7 @@ $(document).ready(function() {
     // sp.init(0);
 
     if (players.length != 4)
-        alert("need exactly 4 people to join");
+        alert("You need at least 4 people to play.");
 
     openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
 
@@ -156,9 +173,12 @@ $(document).ready(function() {
     configNavbar();
 
     // pop up instructions
-    document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start this challenge.";
+    document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start.";
     $('#instructionModal').modal('show');
 
+    // finished game text
+    document.getElementById('finishedMapContent').innerHTML = "Congratulations! You finished the " + currentMap.name + " map!";
+    
     // to make image fill the entire body of the website
     $(".content").css("margin-top",0);
     $(".content").css("padding-left",0);
@@ -193,10 +213,8 @@ $(document).ready(function() {
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////// CHALLENGE MODAL //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// CHALLENGE MODAL EVENT HANDLERS//////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,6 +250,7 @@ $(document).ready(function() {
         // $('#check'+value).html("  &#x2713;");
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
+        console.log(answeredQuestionResults);
         var questionNumber = currentQuestionIndex+1;
         
 
@@ -254,6 +273,13 @@ $(document).ready(function() {
   });
 
 });
+
+// used for automatic redirect 
+var leave = function() {
+  $('#finishedMapModal').modal('toggle');
+  $('#challengeModal').modal('toggle');
+  window.location.replace("home.html");
+}
 
 
 $(window).unload(function(){
