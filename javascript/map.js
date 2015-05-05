@@ -46,16 +46,18 @@ $(document).ready(function() {
         $('#Dtd').text('(D) ' + currentQuestion.choices[3]);
         if (!helping) {
             $('#submit').show();
+            $('#helpYourFriend').hide();
         }
         else {
             $('#submit').hide();
+            $('#helpYourFriend').show();
         }
     }
 
     var updateChallengeModal = function() {
         var numberOfQuestionsLeft = Object.keys(unansweredQuestionIndices).length;
         //console.log(numberOfQuestionsLeft);
-        $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
+        $('#createChallengeTitle').text(numberOfQuestionsLeft+"/5 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
         console.log(currentMap.scenes[currentSceneIndex].questions);
@@ -148,7 +150,7 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-    if (players.length != 4)
+    if (players.length != 3)
         alert("You need at least 4 people to play.");
 
     openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
@@ -232,24 +234,29 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $('#question1').click(function() {
         currentQuestionIndex = 0;
+        helping = false;
         $('#questionModal').modal('show');
     })
 
     $('#question2').click(function() {
       currentQuestionIndex = 1;
+      helping = false;
       $('#questionModal').modal('show');
     })
     $('#question3').click(function() {
       currentQuestionIndex = 2;
+      helping = false;
       $('#questionModal').modal('show');
     })
     $('#question4').click(function() {
       currentQuestionIndex = 3;
+      helping = true;
       $('#questionModal').modal('show');
     })
 
     $('#question5').click(function() {
       currentQuestionIndex = 4;
+      helping = true;
       $('#questionModal').modal('show');
     })
 
