@@ -122,7 +122,7 @@
                                         <h3 class="panel-title" id="listing-title">Your Questions</h3>
                                       </div>
                                       <ul class="list-group" id="games">
-                                           <table id="friendsTable" class="table table-condensed">
+                                           <table id="yourQuestionsTable" class="table table-condensed">
                                             <tr><td><a data-toggle="modal" id="question1">Question 1</a></td></tr>
                                             <tr><td><a data-toggle="modal" id="question2">Question 2</a></td></tr>
                                             <tr><td><a data-toggle="modal" id="question3">Question 3</a></td></tr>
@@ -137,10 +137,9 @@
                                         <h3 class="panel-title" id="listing-title">Questions Your Friends Need Help With</h3>
                                       </div>
                                       <ul class="list-group" id="games">
-                                          <table id="friendsTable" class="table table-condensed">
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question1">Question 1</a></td></tr>
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question2">Question 2</a></td></tr>
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question3">Question 3</a></td></tr>
+                                          <table id="yourFriendsQuestionsTable" class="table table-condensed">
+                                            <tr><td><a data-toggle="modal" id="question4">Question 4</a></td></tr>
+                                            <tr><td><a data-toggle="modal" id="question5">Question 5</a></td></tr>
                                            </table>
                                       </ul>
                                     </div>
@@ -227,6 +226,21 @@
 <!--                         <h2 id="createTitle" class="modal-title">5/10 Questions Completed</h2> -->
                     </div>
                     <div id="finishedMapContent" class="modal-body">
+                    </div>
+                </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+        </div> <!-- createModal -->
+
+
+        <!-- Game Over Modal html -->
+        <div id="gameOverModal" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div id="createHeader" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!--                         <h2 id="createTitle" class="modal-title">5/10 Questions Completed</h2> -->
+                    </div>
+                    <div id="gameOverContent" class="modal-body">
                     </div>
                 </div> <!-- modal-content -->
             </div> <!-- modal-dialog -->

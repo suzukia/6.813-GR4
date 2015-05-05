@@ -58,8 +58,10 @@ $(document).ready(function() {
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
+        console.log(currentMap.scenes[currentSceneIndex].questions);
         $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
-        
+        $('#question4').text(currentMap.scenes[currentSceneIndex].questions[3].title);
+        $('#question5').text(currentMap.scenes[currentSceneIndex].questions[4].title); 
     }
 
     var updateMapChallengeQuestion = function() {
@@ -80,11 +82,10 @@ $(document).ready(function() {
     }
 
     var clearStrikeThrough = function() {
-      for (var i=1; i<4; i++) {
+      for (var i=1; i<6; i++) {
         $('#question'+i).css('text-decoration', 'none');
       }
     }
-
 
     // called when user completes a question
     var handleDataChange = function() {
@@ -138,8 +139,6 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
-    console.log("currentMap")
-    console.log(currentMap);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// set up map page ///////////////////////////////////////////////////////
@@ -173,12 +172,23 @@ $(document).ready(function() {
     configNavbar();
 
     // pop up instructions
-    document.getElementById('instructionContent').innerHTML = "Welcome to the " + currentMap.name + " map! Click anywhere on the map to start.";
+    var instructionText = "";
+    if (currentMap.name == "Medieval") {
+      instructionText = "Lords and Ladies of SELF and Most Honored and Distinguished Guests! Pray, follow me on my castle tour! My lady, the Countess of Warwick, says I am doing very well with my lessons, but there is so much to learn! Come along, if you wish to learn too! Click anywhere on the map to start.";
+    } else { // space
+      instructionText = "Space Welcome";
+    }
+    document.getElementById('instructionContent').innerHTML = instructionText;
     $('#instructionModal').modal('show');
 
     // finished game text
+
+    var gameText = 
     document.getElementById('finishedMapContent').innerHTML = "Congratulations! You finished the " + currentMap.name + " map!";
     
+    // game over text
+    document.getElementById('gameOverContent').innerHTML = "Oh no, looks like you ran out of time! Try again another time.";
+
     // to make image fill the entire body of the website
     $(".content").css("margin-top",0);
     $(".content").css("padding-left",0);
@@ -233,6 +243,16 @@ $(document).ready(function() {
       currentQuestionIndex = 2;
       $('#questionModal').modal('show');
     })
+    $('#question4').click(function() {
+      currentQuestionIndex = 3;
+      $('#questionModal').modal('show');
+    })
+
+    $('#question5').click(function() {
+      currentQuestionIndex = 4;
+      $('#questionModal').modal('show');
+    })
+
 
 
   // console.log(challengesToQuestions.act1[0].title);
