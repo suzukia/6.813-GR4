@@ -2,11 +2,12 @@
 
 var maxNumPlayers = 4;
 var publicGames = [];
-var numGames = 15;
 var gameTitles = ["we rock", "I <3 space", "Awesomest game ever", "bestestest game", "best 5th graders",
 "the cool game", "we love math group", "Happiest 6th graders", "math masters", "scientists",
 "blueberries", "computer wizards", "chocolate pretzels", "rock stars", "caramel ice cream",
 "musicians", "high score", "red apples", "jungle wilderness", "Course 6 rocks"];
+var numGames = gameTitles.length;
+
 
 totalUsers = getUserTotal();
 
@@ -75,10 +76,38 @@ function displayPublicGames() {
             id : "dropdown-helper"
         });
 
-        var extraInfoDiv = $('<div />', {
-            class : "extra_game_info",
+        var extraInfoDescription = $('<div />', {
+            id: 'publicGameDescription'+i,
+            class : "col-md-11",
             text: publicGames[i].map.description + " Players: " +playerString
+        }).css({
+            // "display": "block",
+            "padding-left": 0
         });
+
+        var joinButton = $('<button />', {
+            id: 'joinPublicGameButton'+i,
+            class : "btn btn-primary btn-small col-md-1",
+            text: "Join"
+        });
+
+        // var extraInfoDiv = $('<div />', {
+        //     class : "row"
+        // }).css({
+        //     // "height": "100%"
+        // }).append(extraInfoDescription).append(joinButton);
+
+
+
+        var extraInfoDiv = $('<div />', {
+            class : "row"
+        }).css({
+            // "height": "100%"
+        }).append(extraInfoDescription).append(joinButton);
+
+        var extraInfoContainer = $('<div />', {
+            class : " container-fluid extra_game_info"
+        }).append(extraInfoDiv);
 
         var li = $('<li />', {
             id : "li" +"publicGame"+i,
@@ -86,7 +115,13 @@ function displayPublicGames() {
             text: publicGames[i].title + " ("+ publicGames[i].map.name + ") "
         });
 
-        li.append(span).append(dropDownDiv).append(extraInfoDiv);
+        li.append(span).append(dropDownDiv).append(extraInfoContainer);
         $('#games').append(li);
+
+        $('#joinPublicGameButton'+i).click(function() {
+            var gameId = $(this).attr("id").slice(20);
+            setNewGame(publicGames[gameId]);
+            redirectTo("map.html");
+        });
     }
 };
