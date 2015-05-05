@@ -52,15 +52,21 @@ $(document).ready(function() {
         }
     }
 
-    //TODO: (called when challenge modal shows up, or data changes have been made)
     var updateChallengeModal = function() {
         var numberOfQuestionsLeft = Object.keys(unansweredQuestionIndices).length;
         //console.log(numberOfQuestionsLeft);
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/3 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
-        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title);
-        // TODO: fill out the rest of the questions
+        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
+
+        // why is this not working
+        for (var i in answeredQuestionResults) {
+          var questionNumberIndex = parseInt(i)+1;
+          console.log('#question'+questionNumberIndex);
+          $('#question'+questionNumberIndex).removeAttr('data-toggle');  
+          $('#question'+questionNumberIndex).css("text-decoration", "line-through");
+        }
         
     }
 
@@ -197,8 +203,8 @@ $(document).ready(function() {
     //////////////////////////////// QUESTIONS MODAL //////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $('#question1').click(function() {
-      currentQuestionIndex = 0;
-      $('#questionModal').modal('show');
+        currentQuestionIndex = 0;
+        $('#questionModal').modal('show');
     })
 
     $('#question2').click(function() {
@@ -226,6 +232,8 @@ $(document).ready(function() {
         // $('#check'+value).html("  &#x2713;");
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
+        var questionNumber = currentQuestionIndex+1;
+        
 
         // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
 
