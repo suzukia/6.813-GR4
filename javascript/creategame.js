@@ -1,7 +1,7 @@
 var setUpCreateGameModal = function() {
 
 
-  var maxNumberPlayers = 3;
+  var maxNumberOtherPlayers = 4;
 
   var fadeOutAlert = function() {
     $('#errorDiv').fadeOut(150);
@@ -81,7 +81,7 @@ var setUpCreateGameModal = function() {
     clearInviteFriendsList();
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
-      
+
       $('#invite-friends').append('<li id="inviteListItem'+friends[i].name()+'" class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
 
       // if a user clicks the list item (but not the checkbox), make it trigger a click on the checkbox
@@ -98,11 +98,11 @@ var setUpCreateGameModal = function() {
         var invitedIndex = checkIfInObjectArray(name, invitedFriends);
 
         if (invitedIndex === -1) { // this friend was not invited before
-          if (invitedFriends.length === maxNumberPlayers-1) { // adding 3rd friend
+          if (invitedFriends.length === maxNumberOtherPlayers-1) { // adding 3rd friend
             invitedFriends.push(getUserByName(name));
             disableAllUnselectedCheckboxes();
           }
-          else if (invitedFriends.length <maxNumberPlayers-1) { // 1st or second friend inviting
+          else if (invitedFriends.length <maxNumberOtherPlayers-1) { // 1st or second friend inviting
             invitedFriends.push(getUserByName(name));
           }
           else { // more than 3 friends (you should never get here!)
@@ -290,7 +290,8 @@ var setUpCreateGameModal = function() {
       // store in local storage the invitedFriends, selectedMap, gameTitle, public/private information
       var mapTitle = selectedMap.attr("id").slice(6);
       var map = getMapByName(mapTitle);
-      var requiredNumPlayers = 4;
+      // var requiredNumPlayers = 4;
+      var requiredNumPlayers = maxNumberOtherPlayers;
       players = [];
 
       var gameTitle = $('#create-game-title').val().trim();
