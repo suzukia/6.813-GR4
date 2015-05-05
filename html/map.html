@@ -106,13 +106,69 @@
 
 
 
-
+        <!-- Challenge Modal html -->
         <div id="challengeModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div id="createHeader" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h2 id="createChallengeTitle" class="modal-title">3/10 Questions Completed</h2>
+                    </div>
+                    <div id='timer' />
+                        <script type="text/javascript">window.onload = CreateTimer("timer", 180);
+                            var Timer;
+                            var TotalSeconds;
+
+
+                            function CreateTimer(TimerID, Time) {
+                                Timer = document.getElementById(TimerID);
+                                TotalSeconds = Time;
+
+                                UpdateTimer()
+                                window.setTimeout("Tick()", 1000);
+                            }
+
+                            function Tick() {
+                                if (TotalSeconds <= 0) {
+                                    alert("Time's up!")
+                                    return;
+                                }
+
+                                TotalSeconds -= 1;
+                                UpdateTimer()
+                                window.setTimeout("Tick()", 1000);
+                            }
+ 
+
+                            function UpdateTimer() {
+                                var Seconds = TotalSeconds;
+
+                                var Days = Math.floor(Seconds / 86400);
+                                Seconds -= Days * 86400;
+
+                                var Hours = Math.floor(Seconds / 3600);
+                                Seconds -= Hours * (3600);
+
+                                var Minutes = Math.floor(Seconds / 60);
+                                Seconds -= Minutes * (60);
+
+
+                                var TimeStr = ((Days > 0) ? Days + " days " : "") + LeadingZero(Hours) + ":" + LeadingZero(Minutes) + ":" + LeadingZero(Seconds)
+
+
+                                Timer.innerHTML = "      Time Left: " + TimeStr;
+                            }
+
+
+                            function LeadingZero(Time) {
+
+                                return (Time < 10) ? "0" + Time : + Time;
+
+                            }
+                        //-->
+                        </script>
+
+
                     </div>
                     <div id="createBodyTop" class="modal-body">
                             <div id="create-lists" class="row">
@@ -122,7 +178,7 @@
                                         <h3 class="panel-title" id="listing-title">Your Questions</h3>
                                       </div>
                                       <ul class="list-group" id="games">
-                                           <table id="friendsTable" class="table table-condensed">
+                                           <table id="yourQuestionsTable" class="table table-condensed">
                                             <tr><td><a data-toggle="modal" id="question1">Question 1</a></td></tr>
                                             <tr><td><a data-toggle="modal" id="question2">Question 2</a></td></tr>
                                             <tr><td><a data-toggle="modal" id="question3">Question 3</a></td></tr>
@@ -137,10 +193,9 @@
                                         <h3 class="panel-title" id="listing-title">Questions Your Friends Need Help With</h3>
                                       </div>
                                       <ul class="list-group" id="games">
-                                          <table id="friendsTable" class="table table-condensed">
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question1">Question 1</a></td></tr>
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question2">Question 2</a></td></tr>
-                                            <tr><td><a data-toggle="modal" data-target="#questionModal" id="question3">Question 3</a></td></tr>
+                                          <table id="yourFriendsQuestionsTable" class="table table-condensed">
+                                            <tr><td><a data-toggle="modal" id="question4">Question 4</a></td></tr>
+                                            <tr><td><a data-toggle="modal" id="question5">Question 5</a></td></tr>
                                            </table>
                                       </ul>
                                     </div>
@@ -168,43 +223,44 @@
                             <table id="questionTable" class="table table-striped table-condensed">
                                 <!-- A -->
                                 <tr>
-                                    <td width = "5%">
+                                    <td width = "4%">
                                         <label class="btn btn-info btn-xs buttonA">
                                             <input type="radio" name="multipleChoice" id="A" value="A">
                                         </label>
                                     </td>
-                                    <td width = "95%"><span id="Atd"></span><span id="checkA">text here</span></td>
+                                    <td width = "96%"><span id="Atd"></span><span id="checkA">text here</span></td>
                                 </tr>
                                 <!-- B -->
                                 <tr>
-                                    <td width = "5%">
+                                    <td width = "4%">
                                         <label class="btn btn-info btn-xs buttonB">
                                             <input type="radio" name="multipleChoice" id="B" value="B">
                                         </label>
                                     </td>
-                                    <td width = "95%"><span id="Btd"></span><span id="checkB">text here</span></td>
+                                    <td width = "96%"><span id="Btd"></span><span id="checkB">text here</span></td>
                                 </tr>
                                 <!-- C -->
                                 <tr>
-                                    <td width = "5%">
+                                    <td width = "4%">
                                         <label class="btn btn-info btn-xs buttonC">
                                             <input type="radio" name="multipleChoice" id="C" value="C">
                                         </label>
                                     </td>
-                                    <td width = "95%"><span id="Ctd"></span><span id="checkC">text here</span></td>
+                                    <td width = "96%"><span id="Ctd"></span><span id="checkC">text here</span></td>
                                 </tr>
                                 <!-- D -->
                                 <tr>
-                                    <td width = "5%">
+                                    <td width = "4%">
                                         <label class="btn btn-info btn-xs buttonD">
                                             <input type="radio" name="multipleChoice" id="D" value="D">
                                         </label>
                                     </td>
-                                    <td width = "95%"><span id="Dtd"></span><span id="checkD">text here</span></td>
+                                    <td width = "96%"><span id="Dtd"></span><span id="checkD">text here</span></td>
                                 </tr>
                             </table>
                             <!--button class="btn btn-info btn-s" id="getHelp">Get Help</button-->
                             <button class="btn btn-info btn-s" id="submit">Submit</button>
+                            <span id="helpYourFriend">Give your friend a hint by drawing in the sketchpad below!</span>
                             <!--button class="btn btn-info btn-s" id="feedback"></button-->
                         </div>
                         <div id="featureContainers">
@@ -218,7 +274,34 @@
             </div> <!-- modal-dialog -->
         </div> <!-- createModal -->
 
+        <!-- Finished Map Modal html -->
+        <div id="finishedMapModal" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div id="createHeader" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!--                         <h2 id="createTitle" class="modal-title">5/10 Questions Completed</h2> -->
+                    </div>
+                    <div id="finishedMapContent" class="modal-body">
+                    </div>
+                </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+        </div> <!-- createModal -->
 
+
+        <!-- Game Over Modal html -->
+        <div id="gameOverModal" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div id="createHeader" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!--                         <h2 id="createTitle" class="modal-title">5/10 Questions Completed</h2> -->
+                    </div>
+                    <div id="gameOverContent" class="modal-body">
+                    </div>
+                </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+        </div> <!-- createModal -->
 
     </body>
 </html>
