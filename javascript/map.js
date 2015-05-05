@@ -83,10 +83,9 @@ $(document).ready(function() {
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
         console.log(currentMap.scenes[currentSceneIndex].questions);
-        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
+        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title);
         $('#question4').text(currentMap.scenes[currentSceneIndex].questions[3].title);
         $('#question5').text(currentMap.scenes[currentSceneIndex].questions[4].title); 
-        
     }
 
     var updateMapChallengeQuestion = function() {
@@ -101,7 +100,7 @@ $(document).ready(function() {
           if (answeredQuestionResults[i] == true) {
             var questionNumberIndex = parseInt(i)+1;
             console.log('#question'+questionNumberIndex);
-            $('#question'+questionNumberIndex).removeAttr('data-toggle');  
+            $('#question'+questionNumberIndex).removeAttr('data-toggle');
             $('#question'+questionNumberIndex).css('text-decoration', 'line-through');
           }
         }
@@ -138,7 +137,6 @@ $(document).ready(function() {
                 updateMapChallengeQuestion();
                 clearStrikeThrough();
                 CreateTimer("timer", 180);
-                
             }
         }
         else { // still Qs left in scene
@@ -176,10 +174,9 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-    // if (players.length != 3)
-    //     alert("You need at least 4 people to play.");
-
-    openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
+    if (players.length >= 1) { // only open chat box if there are other players
+        openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
+    }
 
     // initialize the game
     var currentSceneIndex = 0;
@@ -211,7 +208,7 @@ $(document).ready(function() {
 
     // finished game text
     document.getElementById('finishedMapContent').innerHTML = "Congratulations! You finished the " + currentMap.name + " map!";
-    
+
     // game over text
     document.getElementById('gameOverContent').innerHTML = "Oh no, looks like you ran out of time! Try again another time.";
 
@@ -362,8 +359,7 @@ $(document).ready(function() {
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
         console.log(answeredQuestionResults);
-        // var questionNumber = currentQuestionIndex+1;
-        
+        var questionNumber = currentQuestionIndex+1;
 
         // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
 
@@ -385,7 +381,7 @@ $(document).ready(function() {
 
 });
 
-// used for automatic redirect 
+// used for automatic redirect
 var leave = function() {
   $('#finishedMapModal').modal('toggle');
   $('#challengeModal').modal('toggle');

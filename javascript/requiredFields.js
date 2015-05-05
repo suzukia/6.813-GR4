@@ -15,6 +15,7 @@ if (localStorage.getItem("username") == null ||
 	getStorageItem("openChatsOrder") == null ||
 	getStorageItem("queuedChats") == null ||
 	getStorageItem("chatLogs") == null ||
-	localStorage.getItem("maxNameLength") == null) {
+	localStorage.getItem("maxNameLength") == null ||
+	getStorageItem("notifications") == null) {
 	redirectTo("login.html");
 }

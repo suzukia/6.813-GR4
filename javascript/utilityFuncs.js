@@ -91,3 +91,8 @@ function getUserTotal() {
   var users = formatUsers(getStorageItem("users"));
   return users.length;
 }
+
+function setNewGame(game) {
+	localStorage.removeItem("gameInfo");
+    setStorageItem("gameInfo", game);
+}

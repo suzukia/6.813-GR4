@@ -56,6 +56,10 @@ http://stackoverflow.com/questions/1093350/how-to-find-all-unselected-checkboxes
 http://stackoverflow.com/questions/2330209/jquery-checkbox-enable-disable
 http://stackoverflow.com/questions/7031226/jquery-checkbox-change-and-click-event
 http://stackoverflow.com/questions/13471820/get-all-disabled-checkboxes
+http://stackoverflow.com/questions/11205957/jquery-difference-between-change-and-click-event-of-checkbox
+https://api.jquery.com/focus/
+http://stackoverflow.com/questions/17353421/jquery-button-method-does-nothing
+http://stackoverflow.com/questions/6156470/jquery-setting-an-elements-text-only-without-removing-other-element-anchor
 
 
 HTML:
@@ -65,6 +69,12 @@ http://stackoverflow.com/questions/18479570/how-to-center-a-set-of-html-radio-bu
 http://stackoverflow.com/questions/11404545/adding-background-image-to-button-using-css-jsfiddle
 http://stackoverflow.com/questions/9507774/how-to-make-background-image-shrink-proportionally-to-fit-button-size-in-javascr
 http://stackoverflow.com/questions/7260490/image-and-text-inside-of-a-tag
+http://www.w3schools.com/tags/tag_input.asp
+
+http://stackoverflow.com/questions/2010892/storing-objects-in-html5-localstorage
+http://stackoverflow.com/questions/23221642/unexpected-token-u-json-parse-issue
+http://stackoverflow.com/questions/9943220/how-to-delete-a-localstorage-item-when-the-browser-window-tab-is-closed
+http://stackoverflow.com/questions/7667958/clear-localstorage
 
 
 http://www.w3schools.com/tags/att_td_width.asp
@@ -112,6 +122,10 @@ http://www.w3schools.com/jsref/jsref_min.asp
 http://www.w3schools.com/jsref/jsref_splice.asp
 http://bytes.com/topic/javascript/answers/788432-determining-height-width-div-dynamically
 http://stackoverflow.com/questions/4057236/how-to-add-onload-event-to-a-div-element
+http://stackoverflow.com/questions/4780912/how-to-trigger-checkbox-click-event-even-if-its-checked-through-javascript-code
+http://www.w3schools.com/js/js_popup.asp
+http://www.w3schools.com/js/tryit.asp?filename=tryjs_confirm
+http://stackoverflow.com/questions/10462839/javascript-confirmation-dialog-on-href-link
 
 
 Bootstrap:
@@ -147,6 +161,11 @@ http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_checkbox&stacked=h
 http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_form_checkbox&stacked=h
 http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
+
+Modals:
+http://stackoverflow.com/questions/16493280/close-bootstrap-modal
+http://stackoverflow.com/questions/12190119/bootstrap-modal-show-event
+http://stackoverflow.com/questions/12319171/how-to-handle-the-modal-closing-event-in-twitter-bootstrap
 
 
 Grids:

@@ -23,7 +23,7 @@ function populateUsers(names) {
 function populateFriends(users) {
 	var friends = [];
 	users.forEach(function(user) {
-		if (Math.random() < .5 || user.name() == 'Amy' || user.name() == 'Bob') {
+		if ((Math.random() < .5 && user.name() != 'Amy' && user.name() != 'Bob') || user.name() == 'Elizabeth') {
 			friends.push(user);
 		}
 	});
@@ -73,3 +73,25 @@ setStorageItem("chatLogs", chatLogs);
 var chatSimCount = {};
 setStorageItem("chatSimCount", chatSimCount);
 
+var requiredNumPlayers = 4;
+var notifications = {
+	0 : {
+		'type' : 'FR',
+		'name' : 'Amy'
+	},
+	1 : {
+		'type' : 'GI',
+		'name' : 'Elizabeth',
+		'game' : {
+		    title: 'Space Eploration',
+		    map: getMapByName('Space'),
+		    players: getRandomUsers(requiredNumPlayers),
+		    privateGame: true
+		  }
+	},
+	2 : {
+		'type' : 'FR',
+		'name' : 'Bob'
+	}
+}
+setStorageItem("notifications", notifications);
