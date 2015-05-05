@@ -290,12 +290,13 @@ var setUpCreateGameModal = function() {
       // store in local storage the invitedFriends, selectedMap, gameTitle, public/private information
       var mapTitle = selectedMap.attr("id").slice(6);
       var map = getMapByName(mapTitle);
+      var requiredNumPlayers = 4;
       players = [];
 
       var gameTitle = $('#create-game-title').val().trim();
 
       if (!privateGame) { //add random users for public games; max number of other players is 3
-        var players = getRandomUsers(3 - invitedFriends.length);
+        var players = getRandomUsers(requiredNumPlayers - invitedFriends.length);
       }
       for (var i=0; i<invitedFriends.length; i++) {
         if (checkIfInObjectArray(invitedFriends[i].name, players) === -1) {
