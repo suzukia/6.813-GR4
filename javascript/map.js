@@ -25,7 +25,7 @@ $(document).ready(function() {
 
         // set background
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='100%' width='100%'>";
-        updateQuestionModal();
+        // updateQuestionModal();
     }
 
     // Initialize sketchpad and dynamically load all question data.
@@ -54,26 +54,62 @@ $(document).ready(function() {
             var userHelping = sp.help();
             if (userHelping == true) {
               myVar = setTimeout(friendAnswersQuestion, 10000);
-              delete unansweredQuestionIndices[currentQuestionIndex];
-              answeredQuestionResults[currentQuestionIndex] = true;
-              var questionNumber = currentQuestionIndex+1;
-              updateChallengeModal();
-              strikeThroughCompletedQuestions();
-              setTimeout(function(){
-                  $('#questionModal').modal('toggle');
-                  $('#check'+value).hide();
+              
+
+              thisVar = setTimeout(function(){
+                  $('#questionModal').modal('hide');
+                  $('#check'+currentQuestion.correctAnswer).hide();
                   sp.stop();
-                  handleDataChange(); // updates map and challenge modals immediately
+                  // handleDataChange(); // updates map and challenge modals immediately
+                                if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
+                if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
+                    updateChallengeModal();
+                    strikeThroughCompletedQuestions();
+                    $('#finishedMapModal').modal('show');
+                    setTimeout("leave()", 5000);
+
+                }
+                else { // move on to next scene!
+                    currentSceneIndex ++;
+                    // currentQuestionIndex = 0;
+                    unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
+                    for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+                        unansweredQuestionIndices[i] = false;
+                    }
+                    answeredQuestionResults = {};
+
+                    // update map, challenge modal, questions modal
+                    updateMap();
+                    updateChallengeModal();
+                    clearStrikeThrough();
+                    TotalSeconds = 180;
+                    // UpdateTimer();
+                }
+              }
+              else { // still Qs left in scene
+                  // currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
+                  // updateMapChallengeQuestion();
+                  updateMap();
+                  updateChallengeModal();
+                  strikeThroughCompletedQuestions();
+              } 
               },13000);
             }
+            helping = false;
 
         }
     }
 
-    function friendAnswersQuestion() {
+    var friendAnswersQuestion = function() {
       $("#"+currentQuestion.correctAnswer).prop("checked", true);
       $("#check"+currentQuestion.correctAnswer).show();
       $("#check"+currentQuestion.correctAnswer).html("  &#x2713;");
+      delete unansweredQuestionIndices[currentQuestionIndex];
+      answeredQuestionResults[currentQuestionIndex] = true;
+      var questionNumber = currentQuestionIndex+1;
+      //strikeThroughCompletedQuestions();
+
+      console.log('unanswered questions' + Object.keys(unansweredQuestionIndices));
     }
 
     var updateChallengeModal = function() {
@@ -82,7 +118,7 @@ $(document).ready(function() {
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/5 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
-        console.log(currentMap.scenes[currentSceneIndex].questions);
+        // console.log(currentMap.scenes[currentSceneIndex].questions);
         $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title);
         $('#question4').text(currentMap.scenes[currentSceneIndex].questions[3].title);
         $('#question5').text(currentMap.scenes[currentSceneIndex].questions[4].title); 
@@ -99,7 +135,7 @@ $(document).ready(function() {
         for (var i in answeredQuestionResults) {
           if (answeredQuestionResults[i] == true) {
             var questionNumberIndex = parseInt(i)+1;
-            console.log('#question'+questionNumberIndex);
+            //console.log("strikethrough #question" +questionNumberIndex);
             $('#question'+questionNumberIndex).removeAttr('data-toggle');
             $('#question'+questionNumberIndex).css('text-decoration', 'line-through');
           }
@@ -115,7 +151,7 @@ $(document).ready(function() {
     // called when user completes a question
     var handleDataChange = function() {
         // move on to next question, update challenge and question modals
-        console.log(Object.keys(unansweredQuestionIndices));
+        // console.log('handleDataChange' + Object.keys(unansweredQuestionIndices));
         if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
             if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
                 updateChallengeModal();
@@ -126,7 +162,7 @@ $(document).ready(function() {
             }
             else { // move on to next scene!
                 currentSceneIndex ++;
-                currentQuestionIndex = 0;
+                // currentQuestionIndex = 0;
                 unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
                 for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
                     unansweredQuestionIndices[i] = false;
@@ -140,7 +176,7 @@ $(document).ready(function() {
             }
         }
         else { // still Qs left in scene
-            currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
+            // currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
             // updateMapChallengeQuestion();
             updateMap();
             updateChallengeModal();
@@ -352,13 +388,11 @@ $(document).ready(function() {
         // $('#feedback').html("&#x2713;");
         // $('.button'+currentQuestion.correctAnswer).hide();
 
-        console.log($('#check'+value));
         $('#check'+value).html("  &#x2713;");
         $('#check'+value).show();
         // $('#check'+value).html("  &#x2713;");
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
-        console.log(answeredQuestionResults);
         var questionNumber = currentQuestionIndex+1;
 
         // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
@@ -390,12 +424,12 @@ var leave = function() {
 
 
 $(window).unload(function(){
-    console.log("here about to remove chatbox: " + chatName);
+    // console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
 });
 
 $(window).on("hashchange", function(){
-    console.log("here about to remove chatbox: " + chatName);
+    // console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
     // clear gameInfo, because you're leaving the current game
     localStorage.removeItem("gameInfo");
