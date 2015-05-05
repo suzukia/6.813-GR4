@@ -150,8 +150,8 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-    if (players.length != 3)
-        alert("You need at least 4 people to play.");
+    // if (players.length != 3)
+    //     alert("You need at least 4 people to play.");
 
     openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
 
@@ -202,6 +202,12 @@ $(document).ready(function() {
     // update when hiding
     $('#questionModal').on('hidden.bs.modal', function() {
         updateQuestionModal(); //show updated info
+        sp.stop();
+    })
+
+    // update sketchpad on show
+    $('#questionModal').on('shown.bs.modal', function() {
+        sp.init();
     })
 
     // update when showing
