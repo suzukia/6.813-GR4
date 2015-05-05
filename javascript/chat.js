@@ -4,7 +4,6 @@
 /***************************************/
 
 var username = localStorage.getItem("username");
-var friends = formatUsers(getStorageItem("friends"));
 var chatSimCount = getStorageItem("chatSimCount");
 var friendsChat;
 
@@ -31,12 +30,12 @@ function setupChatStyle(top, bottom, filter) {
 	chat.css('max-height', $(window).height()-top-bottom);
 
 	$('#friends-chat.list-group').css('margin-bottom', 0);
-	// console.log("friends-chat: " + friendsChat.height());
-	// console.log("window: " + (windowSize-top-bottom));
+	console.log(Math.min(friendsChat.height(), $(window).height()-top-bottom));
 	console.log("friendsChat height: " + friendsChat.height());
 	friendsChat.slimScroll({
         height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
     });
+    friendsChat.slimScroll({ scrollTo: '0px' });
 }
 
 /*
@@ -80,16 +79,24 @@ function addFriendToChat(name, online, avatar) {
 			});
 		}
 
-		friendsChat.append(li.append(img).append(name));
+		var nameDisplay = $('<div />', { 
+			class: 'noIBar',
+			text: name })
+			.css("display", "inline");
+
+		friendsChat.append(li.append(img).append(nameDisplay));
 	}
 }
 
 function refreshChatList(filter) {
+	var friends = formatUsers(getStorageItem("friends"));
 	console.log("inside refreshChatList");
 	friendsChat.empty();
 	friendsChat.css('height', "");
 
 	friends.forEach(function(user) {
+		if (user.name() == "Amy")
+			console.log("amy becomes on chat");
 		if ((filter == undefined) || (filter != undefined && filter(user.name())) )
 			addFriendToChat(user.name(), true, user.avatar());
 	});
@@ -430,7 +437,7 @@ function simulateGameConversation(chatBox, boxName, msgs) {
 		resetTime = 100,
 		playerToSpeak = 0;
 
-	msgs.forEach(function(msg, playerName) {
+	gamePlayers.forEach(function(playerName, msgID) {
 
 		var msgTime = (firstMsgTime*playerToSpeak + firstMsgTime);
 		setTimeout(function() {
@@ -438,8 +445,10 @@ function simulateGameConversation(chatBox, boxName, msgs) {
 		}, msgTime - 1500);
 
 		setTimeout(function() {
-			addMsgToChatbox(chatBox, gamePlayers[playerName], msg);
-			addMsgToChatLog(boxName, gamePlayers[playerName], msg);
+			if (msgID < msgs.length) {
+				addMsgToChatbox(chatBox, playerName, msgs[msgID]);
+				addMsgToChatLog(boxName, playerName, msgs[msgID]);
+			}
 		}, msgTime);
 
 		setTimeout(function() {

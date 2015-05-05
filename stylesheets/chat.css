@@ -49,3 +49,7 @@ div.ui-tooltip {
     word-wrap: break-word;
     max-width:250px;
 }
+
+.noIBar {
+    cursor:default;
+}

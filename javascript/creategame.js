@@ -81,7 +81,7 @@ var setUpCreateGameModal = function() {
     clearInviteFriendsList();
     var friends = formatUsers(getStorageItem("friends"));
     for (var i=0; i<friends.length; i++) {
-
+      
       $('#invite-friends').append('<li id="inviteListItem'+friends[i].name()+'" class="list-group-item friend_info clearfix">'+friends[i].name()+'<label class="pull-right" ><input type="checkbox" class="inviteCheckbox" value="" id="inviteCheckbox'+friends[i].name()+'"></label></li>');
 
       // if a user clicks the list item (but not the checkbox), make it trigger a click on the checkbox
