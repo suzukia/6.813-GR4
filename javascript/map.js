@@ -5,7 +5,7 @@ var currentQuestion;
 var mapsToScenes = {};
 var scenesToImages = {};
 var challengesToQuestions = {};
-var chatName = "User1,User2,User3,User4,User5,User6,User7";
+var chatName = "";
 var sp;
 
 $(document).ready(function() {
@@ -97,12 +97,6 @@ $(document).ready(function() {
     //////////////////////////////////////// get current game data /////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // if not logged in, redirect to login
-    var username = localStorage.getItem("username");
-    if (!username) {
-        redirectTo("login.html");
-    }
-
     // if there's no gameInfo, you shouldn't be on this page!
     var checkGameInfo = localStorage.getItem("gameInfo");
     if (!checkGameInfo) {
@@ -127,16 +121,10 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-    // group chat setup
-    if (players.length >= 1) {
-        var chatName = players[0].name();
-        for (var i=1; i< players.length; i++) {
-            chatName += "," + players[i].name();
-        }
-        chatbox = openChat(chatName, gameMsgSentFunc);
-        //simulateInitGameConversation(chatbox, chatName);
-        //openChat(chatName, gameMsgSentFunc);
-    }
+    if (players.length != 4)
+        alert("need exactly 4 people to join");
+
+    openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
 
     // initialize the game
     var currentSceneIndex = 0;

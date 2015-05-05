@@ -1,4 +1,4 @@
-$(document).ready(function() { // must be loaded AFTER utilityFuncs.js
+// $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
 
   localStorage.removeItem("maps");
 
@@ -101,7 +101,7 @@ $(document).ready(function() { // must be loaded AFTER utilityFuncs.js
   console.log("maps");
   console.log(maps);
   setStorageItem("maps", maps);
-});
+// });
 
 
 // map structure:

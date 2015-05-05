@@ -83,7 +83,7 @@ $(document).ready(function() {
         var randomGame = publicGames[ getRandomNum(publicGames.length) ];
         localStorage.removeItem("gameInfo");
         setStorageItem("gameInfo", randomGame);
-
+        
         // redirect to map page
         redirectTo("map.html");
     });
