@@ -51,7 +51,29 @@ $(document).ready(function() {
         else {
             $('#submit').hide();
             $('#helpYourFriend').show();
+            var userHelping = sp.help();
+            if (userHelping == true) {
+              myVar = setTimeout(friendAnswersQuestion, 10000);
+              delete unansweredQuestionIndices[currentQuestionIndex];
+              answeredQuestionResults[currentQuestionIndex] = true;
+              var questionNumber = currentQuestionIndex+1;
+              updateChallengeModal();
+              strikeThroughCompletedQuestions();
+              setTimeout(function(){
+                  $('#questionModal').modal('toggle');
+                  $('#check'+value).hide();
+                  sp.stop();
+                  handleDataChange(); // updates map and challenge modals immediately
+              },13000);
+            }
+
         }
+    }
+
+    function friendAnswersQuestion() {
+      $("#"+currentQuestion.correctAnswer).prop("checked", true);
+      $("#check"+currentQuestion.correctAnswer).show();
+      $("#check"+currentQuestion.correctAnswer).html("  &#x2713;");
     }
 
     var updateChallengeModal = function() {
@@ -64,12 +86,14 @@ $(document).ready(function() {
         $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
         $('#question4').text(currentMap.scenes[currentSceneIndex].questions[3].title);
         $('#question5').text(currentMap.scenes[currentSceneIndex].questions[4].title); 
+        
     }
 
     var updateMapChallengeQuestion = function() {
         updateMap();
         updateQuestionModal();
         updateChallengeModal();
+        strikeThroughCompletedQuestions();
     }
 
     var strikeThroughCompletedQuestions = function() {
@@ -92,6 +116,7 @@ $(document).ready(function() {
     // called when user completes a question
     var handleDataChange = function() {
         // move on to next question, update challenge and question modals
+        console.log(Object.keys(unansweredQuestionIndices));
         if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
             if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
                 updateChallengeModal();
@@ -112,6 +137,7 @@ $(document).ready(function() {
                 // update map, challenge modal, questions modal
                 updateMapChallengeQuestion();
                 clearStrikeThrough();
+                CreateTimer("timer", 180);
                 
             }
         }
@@ -184,8 +210,6 @@ $(document).ready(function() {
     $('#instructionModal').modal('show');
 
     // finished game text
-
-    var gameText = 
     document.getElementById('finishedMapContent').innerHTML = "Congratulations! You finished the " + currentMap.name + " map!";
     
     // game over text
@@ -207,13 +231,66 @@ $(document).ready(function() {
 
     // update sketchpad on show
     $('#questionModal').on('shown.bs.modal', function() {
-        sp.init();
+        // sp.init();
+        updateQuestionModal();
     })
 
     // update when showing
     $('#challengeModal').on('shown.bs.modal', function() {
         updateChallengeModal();
+        CreateTimer("timer", 180);
+        
     })
+
+    var Timer;
+    var TotalSeconds;
+
+
+    function CreateTimer(TimerID, Time) {
+        Timer = document.getElementById(TimerID);
+        TotalSeconds = Time;
+
+        UpdateTimer()
+        setTimeout(Tick, 1000);
+    }
+
+    function Tick() {
+        if (TotalSeconds <= 0) {
+            $('#gameOverModal').modal('show');
+            setTimeout("leave()", 5000);
+        }
+
+        TotalSeconds -= 1;
+        UpdateTimer()
+        setTimeout(Tick, 1000);
+    }
+
+
+    function UpdateTimer() {
+        var Seconds = TotalSeconds;
+
+        var Days = Math.floor(Seconds / 86400);
+        Seconds -= Days * 86400;
+
+        var Hours = Math.floor(Seconds / 3600);
+        Seconds -= Hours * (3600);
+
+        var Minutes = Math.floor(Seconds / 60);
+        Seconds -= Minutes * (60);
+
+
+        var TimeStr = ((Days > 0) ? Days + " days " : "") + LeadingZero(Hours) + ":" + LeadingZero(Minutes) + ":" + LeadingZero(Seconds)
+
+
+        Timer.innerHTML = "      Time Left: " + TimeStr;
+    }
+
+
+    function LeadingZero(Time) {
+
+        return (Time < 10) ? "0" + Time : + Time;
+
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -229,6 +306,7 @@ $(document).ready(function() {
             redirectTo("home.html");
         }
     });
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// CHALLENGE MODAL EVENT HANDLERS//////////////////////////////////////////////////////////////////////////
@@ -284,7 +362,7 @@ $(document).ready(function() {
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
         console.log(answeredQuestionResults);
-        var questionNumber = currentQuestionIndex+1;
+        // var questionNumber = currentQuestionIndex+1;
         
 
         // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
