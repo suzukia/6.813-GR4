@@ -215,6 +215,7 @@ function updateChatState(name, state) {
 }
 
 function addMsgToChatLog(boxName, sender, msg) {
+	refreshFields();
 	chatLogs[boxName].push([sender, msg]);
 	updateChatInfo();
 	// console.log(chatLogs);
@@ -236,6 +237,7 @@ function addQueuedChat() {
 }
 
 function updateChatSimCount(name) {
+	refreshFields();
 	chatSimCount[name] = parseInt(chatSimCount[name]) + 1;
 	setStorageItem("chatSimCount", chatSimCount);
 }
