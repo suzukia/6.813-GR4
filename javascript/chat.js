@@ -433,7 +433,7 @@ function addGameInvitation(name) {
 		'name' : name,
 		'game' : {
 		    title: 'Learning Fast',
-		    map: map.name,
+		    map: getMapByName(map.name),
 		    players: getRandomUsers(requiredNumPlayers),
 		    privateGame: true
 		  }
