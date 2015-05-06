@@ -62,14 +62,6 @@ function init_public_games() {
                 playerString += publicGames[i].players[j].name();
 
             }
-            var iconImage = $('<img />', {
-                id : "image-icon",
-                hspace : 0,
-                src : "../images/subjectss/history.png"
-            });
-            var iconImageDiv = $('<div />', {
-                id : "image-icon-container"
-            }).append(iconImage);
 
             var dropDownImage = $('<img />', {
                 id : "dropdown-icon",

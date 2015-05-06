@@ -97,7 +97,7 @@ function init_map() {
     var maps = [
       {
       name:"Space",
-      description: "Explore the solar system!",
+      description: "Space Expedition",
       icon: "../images/map/space/icon.gif",
       sceneUnit: "Voyage",
       scenes: [spaceScene1, spaceScene2, spaceScene3]
@@ -105,7 +105,7 @@ function init_map() {
 
       {
       name:"Medieval",
-      description: "Journey to your throne.",
+      description: "Medieval Adventure",
       icon: "../images/map/medieval/icon.jpg",
       sceneUnit: "Act",
       scenes: [medievalScene1, medievalScene2, medievalScene3]
