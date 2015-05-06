@@ -10,9 +10,10 @@ function getStorageItem(name) {
 
 function clearStorage() {
 	var requiredFields = getStorageItem("requiredFields");
-	for (field in requiredFields) {
-		localStorage.removeItem(field)
-	}
+
+	requiredFields.forEach(function(field) {
+		localStorage.removeItem(field);
+	});
 }
 
 function redirectTo(page) {

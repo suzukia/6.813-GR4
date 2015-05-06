@@ -89,11 +89,6 @@ function ignoreInviteBtn(notifications, notifID) {
 			});
 }
 
-// <ul class="dropdown-menu" id="notifications" role="menu">
-//                             <!-- <li><a href="#">Notification 1</a></li>
-//                             <li><a href="#">Notification 2</a></li>
-//                             <li><a href="#">Notification 3</a></li> -->
-//                         </ul>
 function setupNotifications() {
 	notifications = getStorageItem("notifications");
 

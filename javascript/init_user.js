@@ -50,6 +50,7 @@ localStorage.maxNameLength = 25;
 var users = populateUsers(names);
 // console.log("Users: " + users);
 setStorageItem("users", users);
+// console.log(getStorageItem("users"));
 
 var friends = populateFriends(users);
 setStorageItem("friends", friends);

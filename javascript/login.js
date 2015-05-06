@@ -11,13 +11,13 @@ $(document).ready(function() {
 	usernameText.keypress(function(event) {
 		if (event.which == 13) {
 			localStorage.setItem("username", usernameText.val());
-			redirectTo("home.html");
+			redirectTo("initialize.html");
 		}
 	});
 
 	$('#username-btn').click(function() {
 		localStorage.setItem("username", usernameText.val());
-		redirectTo("home.html");
+		redirectTo("initialize.html");
 	});
 
 	var requiredFields = ["username", "users", "friends", "friendReqs",

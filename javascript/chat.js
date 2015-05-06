@@ -417,9 +417,38 @@ function simulateSecondConversation(chatBox, name) {
 
 	setTimeout(function() {
 		chatBox.chatbox("toggleTypingIndicator");
+		addGameInvitation(name);
 	}, firstMsgTime - resetTime);
+
 }
 
+function addGameInvitation(name) {
+	var maps = getStorageItem("maps"),
+		notifications = getStorageItem("notifications");
+	var map = Math.random() > .5 ? maps[0] : map[1];
+
+	var gi = {
+		'type' : 'GI',
+		'name' : name,
+		'game' : {
+		    title: 'Learning Fast',
+		    map: map.name,
+		    players: getRandomUsers(requiredNumPlayers),
+		    privateGame: true
+		  }
+	}
+
+	var i = 0;
+	for (var key in notifications) {
+		if (notifications.hasOwnProperty(key)) {
+			if (key > i)
+				i = key
+		}
+	}
+
+	notifications[i+1] = gi;
+	setStorageItem("notifications", notifications);
+}
 /************************************************************/
 /******************** Game Chat Simulation ******************/
 /************************************************************/
