@@ -8,6 +8,14 @@ function getStorageItem(name) {
 	return JSON.parse(localStorage.getItem(name));
 }
 
+function clearStorage() {
+	var requiredFields = getStorageItem("requiredFields");
+
+	requiredFields.forEach(function(field) {
+		localStorage.removeItem(field);
+	});
+}
+
 function redirectTo(page) {
 	window.location.href = page;
 }
@@ -95,4 +103,18 @@ function getUserTotal() {
 function setNewGame(game) {
 	localStorage.removeItem("gameInfo");
     setStorageItem("gameInfo", game);
+}
+
+function compareUserBy(f) {
+	return function(a,b) {
+		return f(a).localeCompare(f(b));
+	}
+}
+
+function usersName(user) {
+	return user.name();
+}
+
+function sortUsersByName(users) {
+	return users.sort(compareUserBy(usersName));
 }

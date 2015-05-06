@@ -1,8 +1,31 @@
-input[type=text], input[type=submit] {
+input[type=text], input[type=password], input[type=submit] {
 	margin: auto;
 	display: block;
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+
+.redBorder {
+  border-color:red;
+}
+
+#error {
+  margin: auto;
+  display: block;
+  margin-top: 0px;
+  margin-bottom: 3px;
+  text-align: center;
+  color: red;
 }
 
 .carousel-inner > .item > img {
     margin: 0 auto;
+}
+
+.carousel-indicators > li {
+	border-color: black;
+}
+
+.carousel-indicators > .active {
+	background-color: black;
 }

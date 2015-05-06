@@ -1,11 +1,11 @@
 //http://www.freemake.com/blog/best-funny-nicknames-for-chatting-online-gaming-and-other-occasions/
-var names = ['Awesomeusername','Beef_sister','Pork_brother','CltrAltDelicious','Broseidon_Ruler_of_the_Brocean',
- 			 'Willy_ Foo_Foo','Rumpelstiltskin','Optimus Prime','Autobot','PrettyPotato','HandsomeBanana','Pringles',
- 			 'Keish-Keish','Breadquanda','LittleMermaid','Cinderella','SleуpingBeauty','CaptainAwesome',
- 			 'Baron_Von_Awesome','Mr.Magnificent','Mr.Fabulous','Mr.Wonderful','Mr.Sir','PrinceCharming',
- 			 'Floyd_Pincus','Lovemakingfriend','QueenKong','MrGooglehead','Blue_Skype','Asleep','Kiss-my-Axe',
- 			 'Chief-Choke-a-ho','About_30_ninjas','Toastoftheundead','Yourself','Gigantic_Wang','Potato_Ghost',
- 			 'Bad_Karma','Angry_Groceries','Brosef_Stalin Game_over','Amy','Bob','Frank','Elizabeth']
+var names = ['Awesomeusername','Beef_steak','Popcorn','CltrAltDelicious','Seashells','Pineapple', 'Dancing_King',
+ 			 'Rumpelstiltskin','Optimus Prime','Autobot','PrettyPotato','HandsomeBanana','Pringles','French_Fries',
+ 			 'Kat','Breadquanda','LittleMermaid','Cinderella','SleуpingBeauty','CaptainAwesome','Chocolate_pudding',
+ 			 'CoolKid','Mr.Magnificent','Mr.Fabulous','Mr.Wonderful','Mr.Sir','PrinceCharming','Banana_cake', 'Gorilla',
+ 			 'Mr.Incredibly_Incredible','','QueenKong','MrS','Blue_Skype','Asleep','Basketball', 'MVP', 'Potato_chips',
+ 			 'Happy_Math','About_30_ninjas','Spicy_Pizza','Hello_World','Carbon_Dioxide','Potato_Ghost', 'Delicious_mango',
+ 			 'Bad_Karma','Angry_Groceries','Apple_Pie','Amy','Bob','Frank','Elizabeth']
 names.sort();
 
 function populateUsers(names) {
@@ -13,6 +13,7 @@ function populateUsers(names) {
 		lst = [],
 		numOfAvatars = 13;
 	names.forEach(function(name) {
+		if ()
 		var avatar = "../images/chat/avatar" + Math.round(Math.random()*numOfAvatars) + ".gif";
 		lst.push(new User(id, name, avatar));
 		id += 1;
@@ -50,6 +51,7 @@ localStorage.maxNameLength = 25;
 var users = populateUsers(names);
 // console.log("Users: " + users);
 setStorageItem("users", users);
+// console.log(getStorageItem("users"));
 
 var friends = populateFriends(users);
 setStorageItem("friends", friends);

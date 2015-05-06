@@ -5,13 +5,15 @@
 
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <title>Map Title</title>
+        <title id = "title">Map Title</title>
 
         <link rel="stylesheet" type="text/css" href="../stylesheets/map.css" />
         <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css">
+        <link rel="stylesheet" type="text/css" href="../stylesheets/notification.css">
         <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../external_js/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css">
         <link type="text/css" href="../stylesheets/jquery.ui.chatbox.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../stylesheets/theme.min.css">
 
         <!-- Load any supplemental Javascript libraries here -->
         <script type="text/javascript" src="../external_js/jquery-2.1.3.min.js"></script>
@@ -28,6 +30,7 @@
         <script type="text/javascript" src="../javascript/chat.js"></script>
         <script type="text/javascript" src="../javascript/map.js"></script>
         <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
+        <script type="text/javascript" src="../javascript/notification.js"></script>
 
     </head>
 
@@ -51,16 +54,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a aria-label="home" href="#" id="homeAnchor"><img src="../images/glyphicons_free/glyphicons/png/glyphicons-21-home.png"></a></li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="notifications">
                         <!-- <a href="#" class="icon dropdown-toggle glyphicon glyphicon-globe" id="notifs" aria-label="notifications" data-toggle="dropdown" role="button" aria-expanded="false"></a> -->
                         <a href="#" class="icon dropdown-toggle" id="notifs" aria-label="notifications" data-toggle="dropdown" role="button" aria-expanded="false">
                           <img src="../images/glyphicons_free/glyphicons/png/glyphicons-341-globe.png">
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Notification 1</a></li>
-                            <li><a href="#">Notification 2</a></li>
-                            <li><a href="#">Notification 3</a></li>
-                        </ul>
+
                     </li>
 
                     <li class="dropdown">

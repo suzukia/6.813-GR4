@@ -94,9 +94,7 @@ function refreshChatList(filter) {
 	friendsChat.empty();
 	friendsChat.css('height', "");
 
-	friends.forEach(function(user) {
-		if (user.name() == "Amy")
-			console.log("amy becomes on chat");
+	sortUsersByName(friends).forEach(function(user) {
 		if ((filter == undefined) || (filter != undefined && filter(user.name())) )
 			addFriendToChat(user.name(), true, user.avatar());
 	});
@@ -382,6 +380,8 @@ function simulateInitConversation(chatBox, name) {
 	setTimeout(function() {
 		addMsgToChatbox(chatBox, name, secondMsg);
 		addMsgToChatLog(name, name, secondMsg);
+		addGameInvitation(name);
+		setupNotifications();
 	}, secondMsgTime);
 
 	setTimeout(function() {
@@ -420,8 +420,41 @@ function simulateSecondConversation(chatBox, name) {
 	setTimeout(function() {
 		chatBox.chatbox("toggleTypingIndicator");
 	}, firstMsgTime - resetTime);
+
 }
 
+function addGameInvitation(name) {
+	console.log("adding game invitation");
+	var maps = getStorageItem("maps"),
+		notifications = getStorageItem("notifications");
+		
+	var map = Math.random() > .5 ? maps[0] : map[1],
+		requiredNumPlayers = 4;
+
+	var gi = {
+		'type' : 'GI',
+		'name' : name,
+		'game' : {
+		    title: 'Learning Fast',
+		    map: map.name,
+		    players: getRandomUsers(requiredNumPlayers),
+		    privateGame: true
+		  }
+	}
+
+	var i = 0;
+	for (var key in notifications) {
+		if (notifications.hasOwnProperty(key)) {
+			if (key > i)
+				i = key
+		}
+	}
+
+	notifications[i+1] = gi;
+	console.log(notifications);
+	setStorageItem("notifications", notifications);
+	console.log(getStorageItem("notifications"));
+}
 /************************************************************/
 /******************** Game Chat Simulation ******************/
 /************************************************************/
