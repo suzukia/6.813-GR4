@@ -5,8 +5,7 @@
 
 $(document).ready(function() {
 
-    if (getStorageItem("users") == null)
-      redirectTo("login.html");
+    checkRequiredFields();
 
     // // you're still in a game: redirect back to map page
     // var checkGameInfo = localStorage.getItem("gameInfo");

@@ -5,6 +5,15 @@ var kltNavbar, kltFooter, username;
 
 $(document).ready(function() {
 
+    if (localStorage.getItem("username") == null)
+        redirectTo("login.html")
+    else {
+        init_user();
+        init_map();
+    }
+
+    checkRequiredFields();
+    
     // // you're still in a game: redirect back to map page
     // var checkGameInfo = localStorage.getItem("gameInfo");
     // if (checkGameInfo) {

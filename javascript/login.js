@@ -12,7 +12,6 @@ $(document).ready(function() {
 
 	function handleSubmit() {
 		if (passwordText.val() === "" || usernameText.val() === "") {
-			console.log('hi')
 			$('#error').text("Please enter a username and a password");
 			passwordText.addClass("redBorder");
 		}
@@ -22,7 +21,7 @@ $(document).ready(function() {
 		}
 		else {
 			localStorage.setItem("username", usernameText.val());
-			redirectTo("initialize.html");
+			redirectTo("home.html");
 		}
 	}
 
@@ -39,8 +38,8 @@ $(document).ready(function() {
 	});
 
 	$('#username-btn').click(function() {
-		localStorage.setItem("username", usernameText.val());
-		redirectTo("initialize.html");
+		// localStorage.setItem("username", usernameText.val());
+		// redirectTo("initialize.html");
 		handleSubmit();
 	});
 

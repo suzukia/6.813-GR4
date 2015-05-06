@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function checkRequiredFields() {
 	var requiredFields = getStorageItem("requiredFields");
 	console.log("requiredFields");
 	console.log(requiredFields);
@@ -7,4 +7,4 @@ $(document).ready(function() {
 		if (localStorage.getItem(field) == null)
 			redirectTo("login.html");
 	});
-});
+}
