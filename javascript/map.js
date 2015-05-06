@@ -25,7 +25,7 @@ $(document).ready(function() {
 
         // set background
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='100%' width='100%'>";
-        updateQuestionModal();
+        // updateQuestionModal();
     }
 
     // Initialize sketchpad and dynamically load all question data.
@@ -51,7 +51,65 @@ $(document).ready(function() {
         else {
             $('#submit').hide();
             $('#helpYourFriend').show();
+            var userHelping = sp.help();
+            if (userHelping == true) {
+              myVar = setTimeout(friendAnswersQuestion, 10000);
+              
+
+              thisVar = setTimeout(function(){
+                  $('#questionModal').modal('hide');
+                  $('#check'+currentQuestion.correctAnswer).hide();
+                  sp.stop();
+                  // handleDataChange(); // updates map and challenge modals immediately
+                                if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
+                if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
+                    updateChallengeModal();
+                    strikeThroughCompletedQuestions();
+                    $('#finishedMapModal').modal('show');
+                    setTimeout("leave()", 5000);
+
+                }
+                else { // move on to next scene!
+                    currentSceneIndex ++;
+                    // currentQuestionIndex = 0;
+                    unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
+                    for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
+                        unansweredQuestionIndices[i] = false;
+                    }
+                    answeredQuestionResults = {};
+
+                    // update map, challenge modal, questions modal
+                    updateMap();
+                    updateChallengeModal();
+                    clearStrikeThrough();
+                    TotalSeconds = 180;
+                    // UpdateTimer();
+                }
+              }
+              else { // still Qs left in scene
+                  // currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
+                  // updateMapChallengeQuestion();
+                  updateMap();
+                  updateChallengeModal();
+                  strikeThroughCompletedQuestions();
+              } 
+              },13000);
+            }
+            helping = false;
+
         }
+    }
+
+    var friendAnswersQuestion = function() {
+      $("#"+currentQuestion.correctAnswer).prop("checked", true);
+      $("#check"+currentQuestion.correctAnswer).show();
+      $("#check"+currentQuestion.correctAnswer).html("  &#x2713;");
+      delete unansweredQuestionIndices[currentQuestionIndex];
+      answeredQuestionResults[currentQuestionIndex] = true;
+      var questionNumber = currentQuestionIndex+1;
+      //strikeThroughCompletedQuestions();
+
+      console.log('unanswered questions' + Object.keys(unansweredQuestionIndices));
     }
 
     var updateChallengeModal = function() {
@@ -60,8 +118,8 @@ $(document).ready(function() {
         $('#createChallengeTitle').text(numberOfQuestionsLeft+"/5 Questions Left");
         $('#question1').text(currentMap.scenes[currentSceneIndex].questions[0].title);
         $('#question2').text(currentMap.scenes[currentSceneIndex].questions[1].title);
-        console.log(currentMap.scenes[currentSceneIndex].questions);
-        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title); 
+        // console.log(currentMap.scenes[currentSceneIndex].questions);
+        $('#question3').text(currentMap.scenes[currentSceneIndex].questions[2].title);
         $('#question4').text(currentMap.scenes[currentSceneIndex].questions[3].title);
         $('#question5').text(currentMap.scenes[currentSceneIndex].questions[4].title); 
     }
@@ -70,14 +128,15 @@ $(document).ready(function() {
         updateMap();
         updateQuestionModal();
         updateChallengeModal();
+        strikeThroughCompletedQuestions();
     }
 
     var strikeThroughCompletedQuestions = function() {
         for (var i in answeredQuestionResults) {
           if (answeredQuestionResults[i] == true) {
             var questionNumberIndex = parseInt(i)+1;
-            console.log('#question'+questionNumberIndex);
-            $('#question'+questionNumberIndex).removeAttr('data-toggle');  
+            //console.log("strikethrough #question" +questionNumberIndex);
+            $('#question'+questionNumberIndex).removeAttr('data-toggle');
             $('#question'+questionNumberIndex).css('text-decoration', 'line-through');
           }
         }
@@ -92,6 +151,7 @@ $(document).ready(function() {
     // called when user completes a question
     var handleDataChange = function() {
         // move on to next question, update challenge and question modals
+        // console.log('handleDataChange' + Object.keys(unansweredQuestionIndices));
         if (Object.keys(unansweredQuestionIndices).length === 0) { // all Qs done for this scene
             if (currentSceneIndex === maxSceneIndex) { // you finished the last question on the last scene!
                 updateChallengeModal();
@@ -102,7 +162,7 @@ $(document).ready(function() {
             }
             else { // move on to next scene!
                 currentSceneIndex ++;
-                currentQuestionIndex = 0;
+                // currentQuestionIndex = 0;
                 unansweredQuestionIndices = {}; // keep track of unanswered question indices. Use an Object so you can easily get Object.keys(unansweredQuestionIndices)
                 for (var i=0; i< currentMap.scenes[currentSceneIndex].questions.length; i++) {
                     unansweredQuestionIndices[i] = false;
@@ -112,11 +172,11 @@ $(document).ready(function() {
                 // update map, challenge modal, questions modal
                 updateMapChallengeQuestion();
                 clearStrikeThrough();
-                
+                CreateTimer("timer", 180);
             }
         }
         else { // still Qs left in scene
-            currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
+            // currentQuestionIndex = Object.keys(unansweredQuestionIndices)[0]; // get next smallest unanswered question
             // updateMapChallengeQuestion();
             updateMap();
             updateChallengeModal();
@@ -150,10 +210,9 @@ $(document).ready(function() {
     sp = new SketchPad("canvas-test");
     // sp.init(0);
 
-    // if (players.length != 3)
-    //     alert("You need at least 4 people to play.");
-
-    openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
+    if (players.length >= 1) { // only open chat box if there are other players
+        openChat(players.map(function(user) { return user.name(); }).join(','), gameMsgSentFunc);
+    }
 
     // initialize the game
     var currentSceneIndex = 0;
@@ -184,10 +243,8 @@ $(document).ready(function() {
     $('#instructionModal').modal('show');
 
     // finished game text
-
-    var gameText = 
     document.getElementById('finishedMapContent').innerHTML = "Congratulations! You finished the " + currentMap.name + " map!";
-    
+
     // game over text
     document.getElementById('gameOverContent').innerHTML = "Oh no, looks like you ran out of time! Try again another time.";
 
@@ -207,13 +264,66 @@ $(document).ready(function() {
 
     // update sketchpad on show
     $('#questionModal').on('shown.bs.modal', function() {
-        sp.init();
+        // sp.init();
+        updateQuestionModal();
     })
 
     // update when showing
     $('#challengeModal').on('shown.bs.modal', function() {
         updateChallengeModal();
+        CreateTimer("timer", 180);
+        
     })
+
+    var Timer;
+    var TotalSeconds;
+
+
+    function CreateTimer(TimerID, Time) {
+        Timer = document.getElementById(TimerID);
+        TotalSeconds = Time;
+
+        UpdateTimer()
+        setTimeout(Tick, 1000);
+    }
+
+    function Tick() {
+        if (TotalSeconds <= 0) {
+            $('#gameOverModal').modal('show');
+            setTimeout("leave()", 5000);
+        }
+
+        TotalSeconds -= 1;
+        UpdateTimer()
+        setTimeout(Tick, 1000);
+    }
+
+
+    function UpdateTimer() {
+        var Seconds = TotalSeconds;
+
+        var Days = Math.floor(Seconds / 86400);
+        Seconds -= Days * 86400;
+
+        var Hours = Math.floor(Seconds / 3600);
+        Seconds -= Hours * (3600);
+
+        var Minutes = Math.floor(Seconds / 60);
+        Seconds -= Minutes * (60);
+
+
+        var TimeStr = ((Days > 0) ? Days + " days " : "") + LeadingZero(Hours) + ":" + LeadingZero(Minutes) + ":" + LeadingZero(Seconds)
+
+
+        Timer.innerHTML = "      Time Left: " + TimeStr;
+    }
+
+
+    function LeadingZero(Time) {
+
+        return (Time < 10) ? "0" + Time : + Time;
+
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -229,6 +339,7 @@ $(document).ready(function() {
             redirectTo("home.html");
         }
     });
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// CHALLENGE MODAL EVENT HANDLERS//////////////////////////////////////////////////////////////////////////
@@ -277,15 +388,12 @@ $(document).ready(function() {
         // $('#feedback').html("&#x2713;");
         // $('.button'+currentQuestion.correctAnswer).hide();
 
-        console.log($('#check'+value));
         $('#check'+value).html("  &#x2713;");
         $('#check'+value).show();
         // $('#check'+value).html("  &#x2713;");
         delete unansweredQuestionIndices[currentQuestionIndex];
         answeredQuestionResults[currentQuestionIndex] = true;
-        console.log(answeredQuestionResults);
         var questionNumber = currentQuestionIndex+1;
-        
 
         // insert logic to update challenge modal the number of correct questions and that this question has been completed   } else {
 
@@ -307,7 +415,7 @@ $(document).ready(function() {
 
 });
 
-// used for automatic redirect 
+// used for automatic redirect
 var leave = function() {
   $('#finishedMapModal').modal('toggle');
   $('#challengeModal').modal('toggle');
@@ -316,12 +424,12 @@ var leave = function() {
 
 
 $(window).unload(function(){
-    console.log("here about to remove chatbox: " + chatName);
+    // console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
 });
 
 $(window).on("hashchange", function(){
-    console.log("here about to remove chatbox: " + chatName);
+    // console.log("here about to remove chatbox: " + chatName);
     removeChat(chatName);
     // clear gameInfo, because you're leaving the current game
     localStorage.removeItem("gameInfo");

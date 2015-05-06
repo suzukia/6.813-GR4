@@ -58,7 +58,13 @@ function SketchPad(canvasID) {
 		stage.clear();
 	}
 
-	function handleMouseDown(event) {
+	this.help = function() {
+		if (handleMouseDown) {
+			return true;
+		}
+	}
+
+	var handleMouseDown = function (event) {
 		if (stage.contains(title)) {
 			stage.clear();
 			stage.removeChild(title);
@@ -70,6 +76,7 @@ function SketchPad(canvasID) {
 		oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
 		oldMidPt = oldPt.clone();
 		stage.addEventListener("stagemousemove", handleMouseMove);
+		return true;
 	}
 
 	function handleMouseMove(event) {
