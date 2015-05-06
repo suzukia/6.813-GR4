@@ -15,11 +15,23 @@ var username = localStorage.getItem("username"),
 	openChats = {},
 	friendsChat = undefined;
 
+function refreshFields() {
+	username = localStorage.getItem("username"),
+	chatSimCount = getStorageItem("chatSimCount"),
+	openChatsOrder = getStorageItem("openChatsOrder"),
+	chatIsOpen = getStorageItem("chatIsOpen"),
+	queuedChats = getStorageItem("queuedChats"),
+	chatLogs = getStorageItem("chatLogs"),
+	maps = getStorageItem("maps"),
+	notifications = getStorageItem("notifications");
+}
+
 $(document).ready(function() {
 	friendsChat = $('#friends-chat');
 });
 
 function setupChatStyle(top, bottom, filter) {
+	refreshFields();
 	// console.log(top);
 	// console.log(bottom);
 	refreshChatList(filter);
@@ -97,6 +109,7 @@ function addFriendToChat(name, online, avatar) {
 }
 
 function refreshChatList(filter) {
+	refreshFields();
 	var friends = formatUsers(getStorageItem("friends"));
 	console.log("inside refreshChatList");
 	friendsChat.empty();
@@ -109,6 +122,7 @@ function refreshChatList(filter) {
 }
 
 function openChat(name, msgSentFunc, state) {
+	refreshFields();
 	/*
 	    now if box is not null,
 	    we are toggling chat box.
@@ -195,6 +209,7 @@ function dequeChat() {
 }
 
 function updateChatState(name, state) {
+	refreshFields();
 	chatIsOpen[name] = state;
 	updateChatInfo();
 }
@@ -226,6 +241,7 @@ function updateChatSimCount(name) {
 }
 
 function updateChatInfo() {
+	refreshFields();
 	setStorageItem("chatIsOpen", chatIsOpen);
 	setStorageItem("openChatsOrder", openChatsOrder);
 	setStorageItem("queuedChats", queuedChats);
@@ -233,6 +249,7 @@ function updateChatInfo() {
 }
 
 function createChatBox(chatBox, name, msgSentFunc) {
+	refreshFields();
 	// console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
 	chatIsOpen[name] = true;
 	var maxNameLength = parseInt(localStorage.maxNameLength);
