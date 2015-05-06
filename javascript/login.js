@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
-	var h = $(window).height();
+	$(window).resize(function() {
+		setImages();
+	});
 
-	$('img').css('height', parseInt(h)-120);
-
+	setImages();
+	
 	var usernameText = $('#username-input');
 	var passwordText = $('#password-input');
 	usernameText.val("");
@@ -60,4 +62,9 @@ $(document).ready(function() {
   // }
 
 });
+
+function setImages() {
+	var h = $(window).height();
+	$('img').css('height', parseInt(h)-120);
+}
 
