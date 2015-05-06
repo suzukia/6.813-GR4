@@ -380,6 +380,8 @@ function simulateInitConversation(chatBox, name) {
 	setTimeout(function() {
 		addMsgToChatbox(chatBox, name, secondMsg);
 		addMsgToChatLog(name, name, secondMsg);
+		addGameInvitation(name);
+		setupNotifications();
 	}, secondMsgTime);
 
 	setTimeout(function() {
@@ -417,15 +419,17 @@ function simulateSecondConversation(chatBox, name) {
 
 	setTimeout(function() {
 		chatBox.chatbox("toggleTypingIndicator");
-		addGameInvitation(name);
 	}, firstMsgTime - resetTime);
 
 }
 
 function addGameInvitation(name) {
+	console.log("adding game invitation");
 	var maps = getStorageItem("maps"),
 		notifications = getStorageItem("notifications");
-	var map = Math.random() > .5 ? maps[0] : map[1];
+		
+	var map = Math.random() > .5 ? maps[0] : map[1],
+		requiredNumPlayers = 4;
 
 	var gi = {
 		'type' : 'GI',
@@ -447,7 +451,9 @@ function addGameInvitation(name) {
 	}
 
 	notifications[i+1] = gi;
+	console.log(notifications);
 	setStorageItem("notifications", notifications);
+	console.log(getStorageItem("notifications"));
 }
 /************************************************************/
 /******************** Game Chat Simulation ******************/
