@@ -33,7 +33,9 @@ $(document).ready(function() {
     kltFooter = $('.klt-footer');
 
     configNavbar();
-    configGameListing();
+
+    setTimeout(configGameListing, 150);
+    // configGameListing();
 
     //event handlers
     $('#create-new-game').click(function() {

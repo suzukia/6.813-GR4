@@ -1,7 +1,8 @@
 // must be called AFTER utilityFuncs.js
+var publicGames = [];
+
 function init_public_games() {
     var maxNumTotalPlayers = 5;
-    var publicGames = [];
     var gameTitles = ["we rock", "I <3 space", "Awesomest game ever", "bestestest game", "best 5th graders",
     "the cool game", "we love math group", "Happiest 6th graders", "math masters", "scientists",
     "blueberries", "computer wizards", "chocolate pretzels", "rock stars", "caramel ice cream",
@@ -133,4 +134,5 @@ function init_public_games() {
             });
         }
     };
+
 }
