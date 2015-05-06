@@ -6,7 +6,8 @@
         <title>Friends</title>
 
         <link rel="stylesheet" type="text/css" href="../stylesheets/myfriends.css" />
-        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css"><!-- 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/chat.css">
+        <link rel="stylesheet" type="text/css" href="../stylesheets/notification.css"><!-- 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../external_js/bootstrap-3.3.4-dist/css/bootstrap.css">
@@ -26,6 +27,7 @@
         <script type="text/javascript" src="../javascript/home_friends_chat_setup.js"></script>
         <script type="text/javascript" src="../javascript/myfriends.js"></script>
         <script type="text/javascript" src="../javascript/jquery.ui.chatbox.js"></script>
+        <script type="text/javascript" src="../javascript/notification.js"></script>
 
     </head>
 
@@ -50,16 +52,12 @@
 
                     <li><a aria-label="home" href="home.html"><img src="../images/glyphicons_free/glyphicons/png/glyphicons-21-home.png"></a></li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="notifications">
                         <!-- <a href="#" class="icon dropdown-toggle glyphicon glyphicon-globe" id="notifs" aria-label="notifications" data-toggle="dropdown" role="button" aria-expanded="false"></a> -->
                         <a href="#" class="icon dropdown-toggle" id="notifs" aria-label="notifications" data-toggle="dropdown" role="button" aria-expanded="false">
                           <img src="../images/glyphicons_free/glyphicons/png/glyphicons-341-globe.png">
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Notification 1</a></li>
-                            <li><a href="#">Notification 2</a></li>
-                            <li><a href="#">Notification 3</a></li>
-                        </ul>
+                        
                     </li>
                     
                     <li class="dropdown">

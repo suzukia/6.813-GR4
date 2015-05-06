@@ -1,21 +1,10 @@
-console.log(localStorage.getItem("username"));
-console.log(getStorageItem("users"));
-console.log(getStorageItem("friends")); 
-console.log(getStorageItem("friendReqs"));
-console.log(getStorageItem("chatIsOpen"));
-console.log(getStorageItem("openChatsOrder"));
-console.log(getStorageItem("queuedChats"));
-console.log(getStorageItem("chatLogs"));
+$(document).ready(function() {
+	var requiredFields = getStorageItem("requiredFields");
+	console.log("requiredFields");
+	console.log(requiredFields);
 
-if (localStorage.getItem("username") == null || 
-	getStorageItem("users") == null || 
-	getStorageItem("friends") == null || 
-	getStorageItem("friendReqs") == null ||
-	getStorageItem("chatIsOpen") == null || 
-	getStorageItem("openChatsOrder") == null ||
-	getStorageItem("queuedChats") == null ||
-	getStorageItem("chatLogs") == null ||
-	localStorage.getItem("maxNameLength") == null ||
-	getStorageItem("notifications") == null) {
-	redirectTo("login.html");
-}
+	requiredFields.forEach(function(field) {
+		if (localStorage.getItem(field) == null)
+			redirectTo("login.html");
+	});
+});

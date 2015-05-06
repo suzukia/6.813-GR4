@@ -6,3 +6,11 @@ input[type=text], input[type=submit] {
 .carousel-inner > .item > img {
     margin: 0 auto;
 }
+
+.carousel-indicators > li {
+	border-color: black;
+}
+
+.carousel-indicators > .active {
+	background-color: black;
+}

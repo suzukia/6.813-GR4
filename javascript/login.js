@@ -20,6 +20,12 @@ $(document).ready(function() {
 		redirectTo("home.html");
 	});
 
+	var requiredFields = ["username", "users", "friends", "friendReqs",
+					  "chatIsOpen", "openChatsOrder", "queuedChats",
+					  "chatLogs", "maxNameLength", "notifications"];
+
+	setStorageItem("requiredFields", requiredFields);
+	
   // // you're still in a game: redirect back to map
   // var checkGameInfo = localStorage.getItem("gameInfo");
   // if (checkGameInfo) {

@@ -114,24 +114,14 @@ function refreshChatAndFriendList() {
 	refreshChatList();
 }
 
-function compareUserBy(f) {
-	return function(a,b) {
-		return f(a).localeCompare(f(b));
-	}
-}
-
-function usersName(user) {
-	return user.name();
-}
-
 function refreshFriendList() {
 	friendsLst.empty();
 
-	friends.sort(compareUserBy(usersName)).forEach(function(user) {
+	sortUsersByName(friends).forEach(function(user) {
 		addFriendToFriendList(user.name(), false);
 	});
 
-	pendingFriendReqs.sort(compareUserBy(usersName)).forEach(function(user) {
+	sortUsersByName(pendingFriendReqs).forEach(function(user) {
 		addFriendToFriendList(user.name(), true);
 	});
 }

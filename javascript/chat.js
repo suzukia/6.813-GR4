@@ -94,9 +94,7 @@ function refreshChatList(filter) {
 	friendsChat.empty();
 	friendsChat.css('height', "");
 
-	friends.forEach(function(user) {
-		if (user.name() == "Amy")
-			console.log("amy becomes on chat");
+	sortUsersByName(friends).forEach(function(user) {
 		if ((filter == undefined) || (filter != undefined && filter(user.name())) )
 			addFriendToChat(user.name(), true, user.avatar());
 	});
