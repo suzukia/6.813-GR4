@@ -65,6 +65,7 @@ function init_user() {
 
 	var chatIsOpen = {};
 	setStorageItem("chatIsOpen", chatIsOpen);
+	console.log(getStorageItem("chatIsOpen"));
 
 	var openChatsOrder = [];
 	setStorageItem("openChatsOrder", openChatsOrder);
