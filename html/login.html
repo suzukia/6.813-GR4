@@ -19,6 +19,13 @@
         <script type="text/javascript" src="../javascript/utilityFuncs.js"></script>
         <script type="text/javascript" src="../javascript/user.js"></script>
         <script type="text/javascript" src="../javascript/login.js"></script>
+        <script type="text/javascript">
+          // prevent directing back to login page 
+          // without appropriate logout
+          if (localStorage.getItem("username") != null)
+            redirectTo("home.html");
+
+        </script>
     </head>
 
 

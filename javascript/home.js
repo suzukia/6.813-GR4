@@ -7,10 +7,11 @@ $(document).ready(function() {
 
     if (localStorage.getItem("username") == null)
         redirectTo("login.html")
-    else {
+    if (localStorage.getItem("loggedIn") == 0) {
         init_user();
         init_map();
-    }
+        localStorage.setItem("loggedIn", 1);
+    } 
 
     checkRequiredFields();
     

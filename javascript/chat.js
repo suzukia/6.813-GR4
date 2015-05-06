@@ -3,17 +3,25 @@
 /******* with friends var defined ******/
 /***************************************/
 
-var username = localStorage.getItem("username");
-var chatSimCount = getStorageItem("chatSimCount");
-var friendsChat;
+var username = localStorage.getItem("username"),
+	chatSimCount = getStorageItem("chatSimCount"),
+	openChatsOrder = getStorageItem("openChatsOrder"),
+	chatIsOpen = getStorageItem("chatIsOpen"),
+	queuedChats = getStorageItem("queuedChats"),
+	chatLogs = getStorageItem("chatLogs"),
+	maps = getStorageItem("maps"),
+	notifications = getStorageItem("notifications"),
+	chatWidth = 250,
+	openChats = {},
+	friendsChat = undefined;
 
 $(document).ready(function() {
 	friendsChat = $('#friends-chat');
 });
 
 function setupChatStyle(top, bottom, filter) {
-	console.log(top);
-	console.log(bottom);
+	// console.log(top);
+	// console.log(bottom);
 	refreshChatList(filter);
 
 	var chat = $('#chat-bar');
@@ -30,8 +38,8 @@ function setupChatStyle(top, bottom, filter) {
 	chat.css('max-height', $(window).height()-top-bottom);
 
 	$('#friends-chat.list-group').css('margin-bottom', 0);
-	console.log(Math.min(friendsChat.height(), $(window).height()-top-bottom));
-	console.log("friendsChat height: " + friendsChat.height());
+	// console.log(Math.min(friendsChat.height(), $(window).height()-top-bottom));
+	// console.log("friendsChat height: " + friendsChat.height());
 	friendsChat.slimScroll({
         height: Math.min(friendsChat.height(), $(window).height()-top-bottom)
     });
@@ -100,15 +108,6 @@ function refreshChatList(filter) {
 	});
 }
 
-
-var	openChatsOrder = getStorageItem("openChatsOrder"),
-	chatIsOpen = getStorageItem("chatIsOpen"),
-	queuedChats = getStorageItem("queuedChats"),
-	chatLogs = getStorageItem("chatLogs");
-	chatWidth = 250;
-
-var openChats = {};
-
 function openChat(name, msgSentFunc, state) {
 	/*
 	    now if box is not null,
@@ -147,7 +146,7 @@ function openChat(name, msgSentFunc, state) {
 
 		    if (state == undefined) {	// adding new chatbox
 		    	chatSimCount[name] = 0;
-		    	console.log("chat sim count: " + chatSimCount[name]);
+		    	// console.log("chat sim count: " + chatSimCount[name]);
 		    	chatLogs[name] = [];
 		    	addChat(name, box);
 		    }
@@ -171,7 +170,7 @@ function openExistingChats(chats, chatStates) {
 }
 
 function addChat(name, box) {
-	console.log("adding chatbox: " + name);
+	// console.log("adding chatbox: " + name);
 	openChats[name] = box;
 	openChatsOrder.push(name);
 	updateChatInfo();
@@ -179,9 +178,9 @@ function addChat(name, box) {
 
 function removeChat(name) {
 	delete openChats[name]
-	console.log(openChatsOrder);
+	// console.log(openChatsOrder);
     openChatsOrder.splice(openChatsOrder.indexOf(name), 1);
-    console.log(openChatsOrder);
+    // console.log(openChatsOrder);
     updateChatInfo();
 }
 
@@ -203,16 +202,16 @@ function updateChatState(name, state) {
 function addMsgToChatLog(boxName, sender, msg) {
 	chatLogs[boxName].push([sender, msg]);
 	updateChatInfo();
-	console.log(chatLogs);
+	// console.log(chatLogs);
 }
 
-function addMsgToChatbox(chatBox, name, msg) {
-	chatBox.chatbox("option", "boxManager").addMsg(name, msg);
+function addMsgToChatbox(chatBox, name, msg, previousMsg) {
+	chatBox.chatbox("option", "boxManager").addMsg(name, msg, previousMsg);
 }
 
 function populateChatWithPreviousMsgs(chatBox, msgs) {
 	msgs.forEach(function(msg) {
-		addMsgToChatbox(chatBox, msg[0], msg[1]);
+		addMsgToChatbox(chatBox, msg[0], msg[1], true);
 	});
 }
 
@@ -234,14 +233,14 @@ function updateChatInfo() {
 }
 
 function createChatBox(chatBox, name, msgSentFunc) {
-	console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
+	// console.log("chatbox offset: " + chatBoxOffset(Object.keys(openChats).length));
 	chatIsOpen[name] = true;
 	var maxNameLength = parseInt(localStorage.maxNameLength);
 	var chatboxTitle = name.length > maxNameLength ? name.substring(0,maxNameLength-3)+"..." : name;
-	console.log(name.length > maxNameLength);
-	console.log(maxNameLength-3);
-	console.log(maxNameLength);
-	console.log(chatboxTitle);
+	// console.log(name.length > maxNameLength);
+	// console.log(maxNameLength-3);
+	// console.log(maxNameLength);
+	// console.log(chatboxTitle);
 	return chatBox.chatbox(
     {
         id:username,
@@ -271,7 +270,7 @@ function createChatBox(chatBox, name, msgSentFunc) {
         	// reset positions
         	var i = 0;
         	openChatsOrder.forEach(function(chatName) {
-        		console.log(chatName);
+        		// console.log(chatName);
         		openChats[chatName].chatbox('widget').css("right", chatBoxOffset(i));
         		i += 1;
         	});
@@ -292,7 +291,7 @@ function basicMsgSentFunc(chatBox, name) {
 	    if (chatSimCount[name] == 1)
 	    	simulateSecondConversation(chatBox, name);
 	    updateChatSimCount(name);
-	    console.log(getStorageItem("chatSimCount"));
+	    // console.log(getStorageItem("chatSimCount"));
 	}
 }
 
@@ -307,7 +306,7 @@ function gameMsgSentFunc(chatBox, name) {
 	    if (chatSimCount[name] == 1)
 	    	simulateGameConversation(chatBox, name, secondMsgs);
 	    updateChatSimCount(name);
-	    console.log(getStorageItem("chatSimCount"));
+	    // console.log(getStorageItem("chatSimCount"));
 	}
 }
 
@@ -425,10 +424,8 @@ function simulateSecondConversation(chatBox, name) {
 
 function addGameInvitation(name) {
 	console.log("adding game invitation");
-	var maps = getStorageItem("maps"),
-		notifications = getStorageItem("notifications");
-		
-	var map = Math.random() > .5 ? maps[0] : map[1],
+	
+	var map = Math.random() > .5 ? maps[0] : maps[1],
 		requiredNumPlayers = 4;
 
 	var gi = {
@@ -445,8 +442,8 @@ function addGameInvitation(name) {
 	var i = 0;
 	for (var key in notifications) {
 		if (notifications.hasOwnProperty(key)) {
-			if (key > i)
-				i = key
+			if (parseInt(key) > i)
+				i = parseInt(key)
 		}
 	}
 
