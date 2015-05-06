@@ -22,8 +22,14 @@ $(document).ready(function() {
 
     var updateMap = function() {
         // set nav bar title
-        $('#navbar-title').text(currentMap.name+": "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
+        if (currentMap.name == "Medieval") {
+          $('#navbar-title').text(currentMap.name+" Adventure: "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
 
+        } else {
+          $('#navbar-title').text(currentMap.name+" Expedition: "+currentMap.sceneUnit+" "+(currentSceneIndex+1));
+
+        }
+        
         // set background
         document.getElementById("map-image").innerHTML="<img src='"+currentMap.scenes[currentSceneIndex].image+"' alt='' height='100%' width='100%'>";
         // updateQuestionModal();
@@ -202,7 +208,13 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
-    //$("#title").text(currentMap.name);
+    if (currentMap.name == "Medieval") {
+      $("#title").text(currentMap.name + " Adventure");
+    } else {
+      $("#title").text(currentMap.name + " Expedition");
+    }
+    
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// set up map page ///////////////////////////////////////////////////////
