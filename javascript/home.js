@@ -14,6 +14,8 @@ $(document).ready(function() {
     } 
 
     checkRequiredFields();
+
+    init_public_games();
     
     // // you're still in a game: redirect back to map page
     // var checkGameInfo = localStorage.getItem("gameInfo");
