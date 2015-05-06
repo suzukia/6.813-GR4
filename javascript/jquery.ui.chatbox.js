@@ -40,7 +40,7 @@
                     this.elem = elem;
                     this.open = true;
                 },
-                addMsg: function(peer, msg) {
+                addMsg: function(peer, msg, previousMsg) {
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var e = document.createElement('div');
@@ -69,16 +69,18 @@
                     if (!self.elem.uiChatboxTitlebar.hasClass("ui-state-focus")
                         && !self.highlightLock) {
                         self.highlightLock = true;
-                        self.highlightBox();
+                        self.highlightBox(previousMsg);
                     }
                 },
-                highlightBox: function() {
+                highlightBox: function(previousMsg) {
                     var self = this;
-                    self.elem.uiChatboxTitlebar.effect("highlight", {}, 300);
-                    self.elem.uiChatbox.effect("bounce", {times: 3}, 300, function() {
-                        self.highlightLock = false;
-                        self._scrollToBottom();
-                    });
+                    if (!previousMsg) {
+                        self.elem.uiChatboxTitlebar.effect("highlight", {}, 300);
+                        self.elem.uiChatbox.effect("bounce", {times: 3}, 300, function() {
+                            self.highlightLock = false;
+                            self._scrollToBottom();
+                        });
+                    }
                 },
                 toggleBox: function() {
                     this.elem.uiChatbox.toggle();

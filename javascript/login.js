@@ -1,12 +1,18 @@
 $(document).ready(function() {
-	var h = $(window).height();
 
-	$('img').css('height', parseInt(h)-120);
+	$(window).resize(function() {
+		setImages();
+	});
 
+	setImages();
+	
 	var usernameText = $('#username-input');
 	var passwordText = $('#password-input');
 	usernameText.val("");
 	passwordText.val("");
+
+	// set the user as not being logged in
+	localStorage.setItem("loggedIn", 0);
 
 	usernameText.focus();
 
@@ -56,4 +62,9 @@ $(document).ready(function() {
   // }
 
 });
+
+function setImages() {
+	var h = $(window).height();
+	$('img').css('height', parseInt(h)-120);
+}
 

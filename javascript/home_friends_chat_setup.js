@@ -3,6 +3,9 @@ $(document).ready(function() {
     kltNavbar  = $('.klt-navbar');
     kltFooter  = $('.klt-footer');
 
+    var openChatsOrder = getStorageItem("openChatsOrder"),
+    chatIsOpen = getStorageItem("chatIsOpen");
+
     configChat();
     configChatSearch();
     openExistingChats(openChatsOrder, chatIsOpen);
