@@ -1,23 +1,45 @@
 $(document).ready(function() {
 	var h = $(window).height();
 
-	$('img').css('height', parseInt(h)-60);
+	$('img').css('height', parseInt(h)-120);
 
 	var usernameText = $('#username-input');
+	var passwordText = $('#password-input');
 	usernameText.val("");
+	passwordText.val("");
 
 	usernameText.focus();
 
-	usernameText.keypress(function(event) {
-		if (event.which == 13) {
+	function handleSubmit() {
+		if (passwordText.val() === "" || usernameText.val() === "") {
+			console.log('hi')
+			$('#error').text("Please enter a username and a password");
+			passwordText.addClass("redBorder");
+		}
+		else if (passwordText.val() !== "learning") {
+			$('#error').text("Incorrect username or password");
+			passwordText.addClass("redBorder");
+		}
+		else {
 			localStorage.setItem("username", usernameText.val());
 			redirectTo("home.html");
+		}
+	}
+
+	usernameText.keypress(function(event) {
+		if (event.which == 13) {
+			handleSubmit();
+		}
+	});
+
+	passwordText.keypress(function(event) {
+		if (event.which == 13) {
+			handleSubmit();
 		}
 	});
 
 	$('#username-btn').click(function() {
-		localStorage.setItem("username", usernameText.val());
-		redirectTo("home.html");
+		handleSubmit();
 	});
 
 	var requiredFields = ["username", "users", "friends", "friendReqs",
@@ -25,7 +47,7 @@ $(document).ready(function() {
 					  "chatLogs", "maxNameLength", "notifications"];
 
 	setStorageItem("requiredFields", requiredFields);
-	
+
   // // you're still in a game: redirect back to map
   // var checkGameInfo = localStorage.getItem("gameInfo");
   // if (checkGameInfo) {
