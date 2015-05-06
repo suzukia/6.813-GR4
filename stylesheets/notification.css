@@ -6,3 +6,7 @@
 	padding: 2px;
 	display: inline;
 }
+
+.notif-badge {
+	background-color : red;
+}

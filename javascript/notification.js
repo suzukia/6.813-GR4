@@ -120,4 +120,20 @@ function setupNotifications() {
 
 	if (Object.keys(notifications).length > 0)
 		notifsIcon.append(notifsLst);
+
+	setNotifAlert(Object.keys(notifications).length)
+	
+}
+
+function setNotifAlert(num_of_icons) {
+
+	var notifImg = $('#notifs-img');
+	notifImg.find('span').remove();
+	
+	if (num_of_icons > 0) {
+		notifImg.append($('<span />', {
+			class :"badge notif-badge",
+			text  : num_of_icons
+		}));
+	}
 }
