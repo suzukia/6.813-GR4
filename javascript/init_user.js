@@ -4,7 +4,7 @@ function init_user() {
 	 			 'Rumpelstiltskin','Optimus Prime','Autobot','PrettyPotato','HandsomeBanana','Pringles','French_Fries',
 	 			 'Kat','Breadquanda','LittleMermaid','Cinderella','SleуpingBeauty','CaptainAwesome','Chocolate_pudding',
 	 			 'CoolKid','Mr.Magnificent','Mr.Fabulous','Mr.Wonderful','Mr.Sir','PrinceCharming','Banana_cake', 'Gorilla',
-	 			 'Mr.Incredibly_Incredible','','QueenKong','MrS','Blue_Skype','Asleep','Basketball', 'MVP', 'Potato_chips',
+	 			 'Mr.Incredibly_Incredible','QueenKong','MrS','Blue_Skype','Asleep','Basketball', 'MVP', 'Potato_chips',
 	 			 'Happy_Math','About_30_ninjas','Spicy_Pizza','Hello_World','Carbon_Dioxide','Potato_Ghost', 'Delicious_mango',
 	 			 'Bad_Karma','Angry_Groceries','Apple_Pie','Amy','Bob','Frank','Elizabeth', 'Olive_garden', 'PineapplesnJalepenos', 
 	 			 'Big_sunglasses', 'Uma', 'Flora', 'Ami', 'smarty_pants', 'crazy_chris', 'misty_shine', 'sunny_city', 'grapefruitface', 
