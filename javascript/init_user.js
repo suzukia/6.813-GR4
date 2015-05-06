@@ -6,7 +6,10 @@ function init_user() {
 	 			 'CoolKid','Mr.Magnificent','Mr.Fabulous','Mr.Wonderful','Mr.Sir','PrinceCharming','Banana_cake', 'Gorilla',
 	 			 'Mr.Incredibly_Incredible','','QueenKong','MrS','Blue_Skype','Asleep','Basketball', 'MVP', 'Potato_chips',
 	 			 'Happy_Math','About_30_ninjas','Spicy_Pizza','Hello_World','Carbon_Dioxide','Potato_Ghost', 'Delicious_mango',
-	 			 'Bad_Karma','Angry_Groceries','Apple_Pie','Amy','Bob','Frank','Elizabeth']
+	 			 'Bad_Karma','Angry_Groceries','Apple_Pie','Amy','Bob','Frank','Elizabeth', 'Olive_garden', 'PineapplesnJalepenos', 
+	 			 'Big_sunglasses', 'Uma', 'Flora', 'Ami', 'smarty_pants', 'crazy_chris', 'misty_shine', 'sunny_city', 'grapefruitface', 
+	 			 'queen_mommy', 'knockout', 'bbq_grill', 'Mr.Nerd', 'musical_man', 'pumkin_chunkin', 'bestmen', 'Mumbai4lyfe', 
+	 			 'karachi_weddings', 'London_my_heart']
 	names.sort();
 
 	function populateUsers(names) {
