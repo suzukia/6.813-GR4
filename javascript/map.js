@@ -201,6 +201,7 @@ $(document).ready(function() {
     var gameInfo = getStorageItem("gameInfo");
     var players = formatUsers(gameInfo.players);
     var currentMap = gameInfo.map;
+    //$("#title").text(currentMap.name);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////// set up map page ///////////////////////////////////////////////////////
@@ -410,7 +411,7 @@ $(document).ready(function() {
         $('#check'+value).hide();
         sp.stop();
         handleDataChange(); // updates map and challenge modals immediately
-    },3000);
+    },1500);
   });
 
 });
