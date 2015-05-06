@@ -236,11 +236,15 @@ $(document).ready(function() {
     // pop up instructions
     var instructionText = "";
     if (currentMap.name == "Medieval") {
-      instructionText = "Lords and Ladies of SELF and Most Honored and Distinguished Guests! Pray, follow me on my castle tour! My lady, the Countess of Warwick, says I am doing very well with my lessons, but there is so much to learn! Come along, if you wish to learn too! Click anywhere on the map to start.";
+      instructionText = "Lords and Ladies of SELF and Most Honored and Distinguished Guests! Pray, follow me on my castle tour! My lady, the Countess of Warwick, says I am doing very well with my lessons, but there is so much to learn - come along, if you wish to learn too! Click anywhere on the map to start.";
+      document.getElementById('instructionContent').style.fontFamily = "lucida calligraphy";
+
     } else { // space
-      instructionText = "Space Welcome";
+      instructionText = "Greetings, Earthlings! Today we will take a short tour of the incredible solar system. The Universe is a vast place beyond imagining, and what we will try to do is help you understand a little more about it. Ready for lift off? Click anywhere on the map to start!";
+      document.getElementById('instructionContent').style.fontFamily = "letter gothic std";
     }
     document.getElementById('instructionContent').innerHTML = instructionText;
+    document.getElementById('instructionContent').style.fontSize = "large";
     $('#instructionModal').modal('show');
 
     // finished game text
