@@ -209,13 +209,13 @@ function dequeChat() {
 }
 
 function updateChatState(name, state) {
-	refreshFields();
+	// refreshFields();
 	chatIsOpen[name] = state;
 	updateChatInfo();
 }
 
 function addMsgToChatLog(boxName, sender, msg) {
-	refreshFields();
+	// refreshFields();
 	chatLogs[boxName].push([sender, msg]);
 	updateChatInfo();
 	// console.log(chatLogs);
@@ -237,13 +237,13 @@ function addQueuedChat() {
 }
 
 function updateChatSimCount(name) {
-	refreshFields();
+	// refreshFields();
 	chatSimCount[name] = parseInt(chatSimCount[name]) + 1;
 	setStorageItem("chatSimCount", chatSimCount);
 }
 
 function updateChatInfo() {
-	refreshFields();
+	// refreshFields();
 	setStorageItem("chatIsOpen", chatIsOpen);
 	setStorageItem("openChatsOrder", openChatsOrder);
 	setStorageItem("queuedChats", queuedChats);
